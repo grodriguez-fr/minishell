@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 15:55:24 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:06:22 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error(t_mini mini)
 {
+	
 }
 
 void	clear_lst(t_env_p **env, void (*del)(void*))
@@ -26,6 +27,9 @@ void	clear_lst(t_env_p **env, void (*del)(void*))
 	while (next)
 	{
 		next = next->next;
-		del((*env))
+		del((*env)->key);
+		del((*env)->value);
+		free(*env);
+		*env = next;
 	}
 }
