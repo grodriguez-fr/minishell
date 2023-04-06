@@ -6,15 +6,15 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 16:06:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:35:54 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/minishell.h"
 
 void	error(t_mini mini)
 {
-	
+	(void)mini;
 }
 
 void	clear_lst(t_env_p **env, void (*del)(void*))

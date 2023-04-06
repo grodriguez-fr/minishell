@@ -1,5 +1,5 @@
 # SRC AND OBJ 
-SRCS	= src/exec.c
+SRCS	= src/exec.c src/main.c src/error.c
 
 OBJS	= $(addprefix $(OBJ_FOLDER)/, $(notdir $(SRCS:.c=.o)))
 
