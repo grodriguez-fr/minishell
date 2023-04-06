@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 15:50:07 by astachni         ###   ########.fr       */
+/*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
+/*   Updated: 2023/04/06 15:55:24 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
+#include "minishell.h"
 
-# define STRUCT_H
-
-typedef struct s_env_p
+void	error(t_mini mini)
 {
-	char			*key;
-	char			*value;
-	struct s_env_p	*next;
-}	t_env_p;
+}
 
-typedef struct s_mini
+void	clear_lst(t_env_p **env, void (*del)(void*))
 {
-	t_env_p	*env;
-}	t_mini;
+	t_env_p 	*next;
 
-#endif
+	if (!env || ! del)
+		return ;
+	next = *env;
+	while (next)
+	{
+		next = next->next;
+		del((*env))
+	}
+}
