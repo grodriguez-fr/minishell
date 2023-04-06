@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:24:39 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 15:49:21 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:47:59 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 
 # include "../libs/libft/libft.h"
 # include "struct.h"
+# include "proto.h"
 
 #endif

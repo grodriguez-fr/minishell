@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 16:45:45 by astachni         ###   ########.fr       */
+/*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
+/*   Updated: 2023/04/06 16:47:43 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#ifndef PROTO_H
 
-int	main(int ac, char **av, char **envp)
-{
-	t_mini	mini;
+# define PROTO_H
 
-	(void)ac;
-	(void)av;
-	mini.env = NULL;
-	parse_env(envp, &mini.env);
-	while (mini.env)
-	{
-		ft_printf("%s = ", mini.env->key);
-		ft_printf("%s\n", mini.env->value);
-		mini.env = mini.env->next;
-	}
-	return (0);
-}
+void	parse_env(char **envp, t_env_p **env);
+void	add_to_stack(t_env_p **lst, int j, char *value_to_add);
+void	ft_add_back(t_env_p **lst, t_env_p *new);
+t_env_p	*ft_last(t_env_p *lst);
+t_env_p	*ft_new(char *key, char *value);
+
+#endif
