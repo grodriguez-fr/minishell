@@ -23,6 +23,7 @@ typedef struct s_env_p
 
 typedef struct s_exec
 {
+	char			*cmd_name; // le nom de la commande
 	int				fd_out; //redirection de la sortie de la commande
 	int				fd_in; //redirection de l'entree de la commande
 	int				append_mode; //<< ou <, en gros on ajoute ou on remplace
