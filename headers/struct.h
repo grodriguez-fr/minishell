@@ -24,6 +24,15 @@ typedef struct s_env_p
 typedef struct s_mini
 {
 	*t_env_p	env;
+	t_exec		*ex;
 }	t_mini;
 
+typedef struct s_exec
+{
+	int	fd_out; //redirection de la sortie de la commande
+	int	fd_in; //redirection de l'entree de la commande
+	bool	append_mode; //<< ou <, en gros on ajoute ou on remplace
+	s_exec *next; // la prochaine commande a executer
+	char	**args; // les arguments a transmettre a la commande
+}	t_exec;
 #endif
