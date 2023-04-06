@@ -1,18 +1,26 @@
+# SRC AND OBJ 
 SRCS	= src/exec.c
-INCLUDE_FOLDER	= includes
 
-HEADERS	= includes/fdf.h includes/get_next_line.h includes/libft.h
-
-OBJ_FOLDER = obj
 OBJS	= $(addprefix $(OBJ_FOLDER)/, $(notdir $(SRCS:.c=.o)))
 
-NAME	= minishell 
+# FOLDERS
+INCLUDE_FOLDER	= headers
+LIBFT_FOLDER	= libs/libft
+OBJ_FOLDER = obj
 
+HEADERS	= headers/liste.h headers/minishell.h
+
+# LIBRARY
+LIBFT	= libft/libft.a
+
+# COMPILATION
 CC	= cc
 CFLAGS	= -Wall -Wextra -Werror
 
-LIBFT	= libft/libft.a
+# NAME
+NAME	= minishell 
 
+# COMMANDS
 $(OBJ_FOLDER)/%.o: src/%.c
 	${CC} -I$(INCLUDE_FOLDER) $(MLX_INC) -c $< -o $@ $(CFLAGS)
 
