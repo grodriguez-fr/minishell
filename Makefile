@@ -8,7 +8,7 @@ INCLUDE_FOLDER	= headers
 LIBFT_FOLDER	= libs/libft
 OBJ_FOLDER = obj
 
-HEADERS	= headers/liste.h headers/minishell.h
+HEADERS	= $(INCLUDE_FOLDER)/liste.h $(INCLUDE_FOLDER)/minishell.h
 
 # LIBRARY
 LIBFT	= libft/libft.a
