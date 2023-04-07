@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 12:54:01 by astachni         ###   ########.fr       */
+/*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
+/*   Updated: 2023/04/07 12:57:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	prompt(t_mini mini)
 {
-	t_mini	mini;
+	char	*input;
 
-	(void)ac;
-	(void)av;
-	mini.env = NULL;
-	parse_env(envp, &mini.env);
-	launch_minishell_img();
-	prompt(mini);
-	return (0);
+	(void)mini;
+	while (1)
+	{
+		input = readline(">> ");
+		if (!input || *input == '\0')
+			continue ;
+		add_history(input);
+		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
+		{
+			if (input)
+				free(input);
+			exit(0);
+		}
+		if (input)
+			free(input);
+	}
 }
