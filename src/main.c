@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/06 16:45:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:55:56 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,5 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	mini.env = NULL;
 	parse_env(envp, &mini.env);
-	while (mini.env)
-	{
-		ft_printf("%s = ", mini.env->key);
-		ft_printf("%s\n", mini.env->value);
-		mini.env = mini.env->next;
-	}
 	return (0);
 }
