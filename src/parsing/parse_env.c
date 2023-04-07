@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 18:11:09 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 20:24:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 	{
 		j = 0;
 		while (envp && envp[i] && envp[i][j] && envp[i][j] != '=')
-		{
 			j++;
-		}
 		add_to_stack(env, j, envp[i], mini);
 		i++;
 	}
