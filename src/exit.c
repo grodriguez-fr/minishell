@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 14:24:39 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 15:05:40 by astachni         ###   ########.fr       */
+/*   Created: 2023/04/07 13:58:57 by astachni          #+#    #+#             */
+/*   Updated: 2023/04/07 14:25:58 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
+#include "../headers/minishell.h"
 
-# define MINISHELL_H
-
-# include "../libs/libft/libft.h"
-# include "struct.h"
-# include "proto.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-
-#endif
+void	exit_minishell(t_mini *mini)
+{
+	if (mini->env)
+		clear_env(&mini->env, free);
+	exit(0);
+}

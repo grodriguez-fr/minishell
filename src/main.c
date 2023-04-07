@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 12:54:01 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:11:32 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	mini.env = NULL;
-	parse_env(envp, &mini.env);
+	mini.ex = NULL;
+	parse_env(envp, &mini.env, mini);
+	signal(SIGINT, signal_handler);
 	launch_minishell_img();
 	prompt(mini);
 	return (0);
