@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 12:38:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 19:05:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_exec
 	int				append_mode; //<< ou <, en gros on ajoute ou on remplace
 	char			**args; // les arguments a transmettre a la commande
 	char			*cmd_name;
-	char			*entire_cmd;
 	struct s_exec	*next; // la prochaine commande a executer
 }	t_exec;
 

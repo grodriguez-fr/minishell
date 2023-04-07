@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 17:46:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:51:20 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ void	prompt(t_mini mini)
 		while (env && ft_strncmp(env->key, "PWD", 3))
 			env = env->next;
 		input = readline(env->value);
-		if (!input || *input == '\0')
+		if (!input)
+			exit_minishell(&mini);
+		if (*input == '\0')
 			continue ;
 		add_history(input);
-		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
-		{
-			if (input)
-				free(input);
-			exit_minishell(&mini);
-		}
+		parse_and_exec(input, mini);
 		ft_printf("your command: %s\n", input);
 		if (input)
 			free(input);
