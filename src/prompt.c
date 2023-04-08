@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 23:23:42 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:16:47 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	prompt(t_mini mini)
 		if (*input == '\0')
 			continue ;
 		add_history(input);
-		parse_and_exec(input, mini);
+		mini = parse_and_exec(input, mini);
 		ft_printf("your command: %s\n", input);
 		if (input)
 			free(input);

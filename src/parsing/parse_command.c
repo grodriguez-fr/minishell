@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 17:13:34 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:22:22 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec);
 
-void	parse_and_exec(char *input, t_mini mini)
+t_mini	parse_and_exec(char *input, t_mini mini)
 {
 	if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
 	{
@@ -23,6 +23,7 @@ void	parse_and_exec(char *input, t_mini mini)
 		exit_minishell(&mini);
 	}
 	mini.ex = parse_cmd(input, mini.ex);
+	return (mini);
 }
 
 t_exec	*parse_cmd(char *input, t_exec *exec)
@@ -39,6 +40,11 @@ t_exec	*parse_cmd(char *input, t_exec *exec)
 		exec = parse_cmd_args(i, commands, cmd_name, exec);
 		i++;
 	}
+	i = 0;
+	while (commands && commands[i])
+		free(commands[i++]);
+	free(commands);
+	return (exec);
 }
 
 t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
