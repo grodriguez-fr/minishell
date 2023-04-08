@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 21:19:48 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:32:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ void	parse_and_exec(char *input, t_mini mini)
 	}
 	(&mini)->ex = malloc(sizeof(t_exec));
 	parse_cmd(input, &mini.ex);
-	int	i = 0;
-	ft_printf("%s ", mini.ex->cmd_name);
-	while (mini.ex->args[i])
-		ft_printf("%s ", mini.ex->args[i++]);
-	ft_printf("\n");
 }
 
 void	parse_cmd(char *input, t_exec **exec)

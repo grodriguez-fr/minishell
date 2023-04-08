@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 18:37:37 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 22:41:28 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	error(t_mini *mini, char *message);
 void	signal_handler(int sign);
 void	parse_and_exec(char *input, t_mini mini);
 void	parse_cmd(char *input, t_exec **exec);
+void	free_cmd(t_exec **exec, void (*del)(void*));
 
 #endif

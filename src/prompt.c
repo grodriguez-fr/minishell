@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 18:51:20 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/07 23:23:42 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	prompt(t_mini mini)
 		ft_printf("your command: %s\n", input);
 		if (input)
 			free(input);
+		free_cmd(&mini.ex, free);
 	}
 }
 
