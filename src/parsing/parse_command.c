@@ -6,14 +6,13 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 14:32:16 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:28:29 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int		skip_alloc(char *input, t_exec **exec);
-void	fill_tab(char *input, t_exec **exec, int i);
+t_exec	*parse_cmd_args(int i, char **commands, char *cmd_name, t_exec *exec);
 
 void	parse_and_exec(char *input, t_mini mini)
 {
@@ -23,79 +22,50 @@ void	parse_and_exec(char *input, t_mini mini)
 			free(input);
 		exit_minishell(&mini);
 	}
-	(&mini)->ex = malloc(sizeof(t_exec));
-	parse_cmd(input, &mini.ex);
+	mini.ex = parse_cmd(input, mini.ex);
 }
 
-void	parse_cmd(char *input, t_exec **exec)
+t_exec	*parse_cmd(char *input, t_exec *exec)
 {
 	int		i;
-	int		save_i;
-	int		arg_number;
-	int		cmd_size;
+	char	**commands;
+	char	*cmd_name;
 
-	i += skip_alloc(input, exec);
-	arg_number = 0;
-	save_i = i;
-	while (input && input[i] && (input[i] != '|'
-			|| ft_memcmp(&input[i], ">>", 2) == 0))
-	{
-		if (input[i] && input[i] == ' ')
-		{
-			arg_number++;
-			while (input[i] && input[i] == ' ')
-				i++;
-			i--;
-		}
-		i++;
-	}
-	i = save_i;
-	(*exec)->args = malloc(sizeof(char *) * (arg_number + 1));
-	fill_tab(input, exec, i);
-}
-
-int	skip_alloc(char *input, t_exec **exec)
-{
-	int	i;
-	int	cmd_size;
-
+	commands = ft_split(input, '|');
 	i = 0;
-	(*exec)->cmd_name = NULL;
-	while (input && input[i] && input[i] == ' ')
+	exec = NULL;
+	while (commands && commands[i])
+	{
+		exec = parse_cmd_args(i, commands, cmd_name, exec);
 		i++;
-	cmd_size = 0;
-	while (input && input[i + cmd_size] && input[i + cmd_size] != ' ')
-		cmd_size++;
-	(*exec)->cmd_name = malloc(sizeof(char) * (cmd_size + 1));
-	ft_memcpy((*exec)->cmd_name, &input[i], cmd_size);
-	return (i + cmd_size);
+	}
 }
 
-void	fill_tab(char *input, t_exec **exec, int i)
-{
-	int	arg_number;
-	int	save_i;
-	int	cmd_size;
 
-	arg_number = 0;
-	while (input && input[i] && (input[i] != '|'
-			|| ft_memcmp(&input[i], ">>", 2) == 0))
+t_exec	*parse_cmd_args(int i, char **commands, char *cmd_name, t_exec *exec)
+{
+	int		j;
+	int		save_j;
+	char	**args;
+
+	j = 0;
+	while (commands && commands[i] && commands[i][j])
 	{
-		cmd_size = 0;
-		while (input[i] && input[i] == ' ')
-			i++;
-		save_i = i;
-		while (input[i] && input[i] != ' ')
-		{
-			i++;
-			cmd_size++;
-		}
-		(*exec)->args[arg_number] = malloc(sizeof(char) * (cmd_size + 1));
-		i = save_i;
-		ft_memcpy((*exec)->args[arg_number], &input[i], cmd_size);
-		while (input[i] && input[i] != ' ')
-			i++;
-		arg_number++;
+		while (commands[i] && commands[i][j] && commands[i][j] == ' ')
+			j++;
+		save_j = j;
+		while (commands[i] && commands[i][j + save_j] &&
+			commands[i][j + save_j] != ' ')
+			save_j++;
+		cmd_name = ft_calloc(sizeof(char), save_j + 1);
+		ft_memcpy(cmd_name, &commands[i][j], save_j);
+		j += save_j;
+		while (commands[i] && commands[i][j] && commands[i][j] == ' ')
+			j++;
+		args = ft_split(&commands[i][j], ' ');
+		while (commands[i][j])
+			j++;
+		add_cmd(&exec, cmd_name, args);
 	}
-	(*exec)->args[arg_number] = NULL;
+	return (exec);
 }

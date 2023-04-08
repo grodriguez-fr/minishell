@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 17:04:44 by astachni          #+#    #+#             */
-/*   Updated: 2023/02/16 15:19:36 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:05:39 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ size_t	ft_strcpy(char	*s1, char *s2)
 	return (i);
 }
 
-char	*ft_strfjoin(char *s1, char const *buffer, int read_value)
+char	*ft_strfnjoin(char *s1, char const *buffer, int read_value)
 {
 	char	*str;
 	int		i;
