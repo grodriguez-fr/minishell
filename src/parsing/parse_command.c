@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 20:22:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/08 21:34:01 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_mini	parse_and_exec(char *input, t_mini mini)
 		exit_minishell(&mini);
 	}
 	mini.ex = parse_cmd(input, mini.ex);
+	mini.ex->fd_in = STDIN_FILENO;
+	mini.ex->fd_out = STDOUT_FILENO;
 	return (mini);
 }
 
