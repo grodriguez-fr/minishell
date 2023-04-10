@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 20:16:47 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:08:30 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	prompt(t_mini mini)
 {
 	char	*input;
+	int		i;
 	t_env_p	*env;
+	t_exec	*ex;
 
 	env = mini.env;
 	while (1)
@@ -29,7 +31,18 @@ void	prompt(t_mini mini)
 			continue ;
 		add_history(input);
 		mini = parse_and_exec(input, mini);
-		ft_printf("your command: %s\n", input);
+		ex = mini.ex;
+		while (ex)
+		{
+			ft_printf("%s ", ex->cmd_name);
+			i = 0;
+			while (ex->args && ex->args[i])
+				ft_printf("%s ", ex->args[i++]);
+			if (ex->next)
+				ft_printf("| ");
+			ex = ex->next;
+		}
+		ft_printf("\n");
 		if (input)
 			free(input);
 		free_cmd(&mini.ex, free);
