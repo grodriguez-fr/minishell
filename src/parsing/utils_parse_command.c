@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:59:27 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 16:02:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:39:27 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

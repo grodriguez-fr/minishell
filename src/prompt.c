@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/10 15:08:30 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:14:11 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	prompt(t_mini mini)
 
 void	signal_handler(int sign)
 {
-	ft_printf("\n>> ");
+	char	*pwd;
+
+	pwd = getenv("PWD");
+	ft_printf("\n%s: ", pwd);
 }

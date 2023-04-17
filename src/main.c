@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 18:11:32 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:37:06 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **av, char **envp)
 {
 	t_mini	mini;
 
+	dprintf(STDERR_FILENO, "%p\n", envp[0]);
 	(void)ac;
 	(void)av;
 	mini.env = NULL;
