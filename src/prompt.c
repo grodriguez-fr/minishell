@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/11 14:14:11 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/17 14:18:42 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	signal_handler(int sign)
 {
 	char	*pwd;
 
-	pwd = getenv("PWD");
-	ft_printf("\n%s: ", pwd);
+	if (sign == SIGINT)
+	{
+		pwd = getenv("PWD");
+		ft_printf("\n%s: ", pwd);
+	}
 }
