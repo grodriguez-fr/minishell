@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 20:16:39 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:34:56 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTO_H
 
 # define PROTO_H
+
+# include "struct.h"
 
 void	parse_env(char **envp, t_env_p **env, t_mini mini);
 void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini);

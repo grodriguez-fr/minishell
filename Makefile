@@ -1,46 +1,46 @@
-# SRC AND OBJ 
-SRCS	= src/exec.c src/main.c src/error.c src/funny_graph.c src/prompt.c src/exit.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c
+NAME = minishell
 
-OBJS	= $(addprefix $(OBJ_FOLDER)/, $(SRCS:.c=.o))
+SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c
 
-# FOLDERS
-INCLUDE_FOLDER	= headers
-LIBFT_FOLDER	= libs/libft
-OBJ_FOLDER = obj
+OBJS_DIR = obj/
 
-HEADERS	= $(INCLUDE_FOLDER)/struct.h $(INCLUDE_FOLDER)/minishell.h $(INCLUDE_FOLDER)/proto.h
+OBJS = $(SRCS:%.c=$(OBJS_DIR)%.o)
 
-# LIBRARY
-LIBFT	= libs/libft/libft.a
+LIBS = libs/libft/libft.a
 
-# COMPILATION
-CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -lreadline
+HEADER = headers/minishell.h headers/proto.h headers/struct.h
 
-# NAME
-NAME	= minishell 
+RM = rm -f
 
-# COMMANDS
-$(OBJ_FOLDER)/%.o: src/%.c
-	${CC} -c $< -o $@ $(CFLAGS)
+CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+CC = cc
 
-$(NAME): $(OBJS) $(HEADERS) $(LIBFT)
-	${CC} $(CFLAGS) -o $@ $^ $(LIBFT)
+all: libft $(NAME) norm
 
-$(LIBFT):
-	make -sC $(LIBFT_FOLDER)
+$(OBJS_DIR)%.o: %.c $(HEADER) Makefile
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf	"\033[1;33m \r\033[2K Creating -c $< -o $\n \033[0m"
 
-clean :
-	rm -rf $(OBJ_FOLDER)/*.o
-	make clean -sC $(LIBFT_FOLDER)
+libft:
+	@make -sC libs/libft
 
-fclean : clean
-	rm -f $(LIBFT)	
-	rm -f $(NAME)
+$(NAME): $(LIBS) $(OBJS) $(HEADER) Makefile
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -lreadline -o $(NAME)
+	@printf	"\033[1;32m \r\033[2K Compiling $(NAME) : DONE \n \033[0m"
 
+norm:
+	@norminette | grep 'Error' | echo "norm error" || echo "Tu es un geni"
+	
 
-re : fclean all
+clean:
+	@make clean -sC libs/libft
+	@$(RM) $(OBJS)
+	@printf	"\033[1;31mDeleting objects : DONE \033[1;31m\n"
+
+fclean: clean
+	@make fclean -sC libs/libft
+	@$(RM) $(NAME)
+	@printf "\033[1;31mDeleting executable : DONE \033[1;31m\n\n"
 
 .PHONY: all clean fclean re

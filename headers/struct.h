@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 19:05:16 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:32:22 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef STRUCT_H
 
 # define STRUCT_H
+
+# include "minishell.h"
 
 typedef struct s_env_p
 {

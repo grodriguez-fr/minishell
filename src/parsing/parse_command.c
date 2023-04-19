@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/10 15:08:38 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:30:59 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_exec	*parse_cmd(char *input, t_exec *exec)
 	commands = ft_split(input, '|');
 	i = 0;
 	exec = NULL;
+	cmd_name = NULL;
 	while (commands && commands[i])
 	{
 		exec = parse_cmd_args(i, commands, cmd_name, exec);
