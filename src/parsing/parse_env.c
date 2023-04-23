@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/11 16:09:09 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:43:43 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 	t_env_p	*env2;
 
 	i = 0;
+	if (!*envp)
+		create_env();
 	while (envp && envp[i])
 	{
 		j = 0;

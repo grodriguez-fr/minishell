@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c
+SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c src/parsing/create_env.c
 
 OBJS_DIR = obj/
 
@@ -42,5 +42,7 @@ fclean: clean
 	@make fclean -sC libs/libft
 	@$(RM) $(NAME)
 	@printf "\033[1;31mDeleting executable : DONE \033[1;31m\n\n"
+
+re: fclean all
 
 .PHONY: all clean fclean re

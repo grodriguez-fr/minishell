@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/19 14:34:56 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:43:03 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ t_mini	parse_and_exec(char *input, t_mini mini);
 t_exec	*parse_cmd(char *input, t_exec *exec);
 void	free_cmd(t_exec **exec, void (*del)(void*));
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args);
+void	create_env(void);
 
 #endif

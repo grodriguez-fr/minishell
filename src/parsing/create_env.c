@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/21 15:27:36 by astachni         ###   ########.fr       */
+/*   Created: 2023/04/21 16:31:11 by astachni          #+#    #+#             */
+/*   Updated: 2023/04/21 16:57:26 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	create_env(void)
 {
-	t_mini	mini;
+	char	*pwd;
+	char	*path;
 
-	(void)ac;
-	(void)av;
-	mini.env = NULL;
-	mini.ex = NULL;
-	parse_env(envp, &mini.env, mini);
-	signal(SIGINT, signal_handler);
-	launch_minishell_img();
-	prompt(mini);
-	return (0);
+	pwd = malloc(sizeof(char) * 255);
+	pwd = getcwd(pwd, 256);
+	ft_printf("%s, %d", pwd, ft_strlen(pwd));
+	path = ft_strdup \
+	("/home/zorkz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin\
+:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+	ft_printf("%s", path);
+	exit(0);
 }
