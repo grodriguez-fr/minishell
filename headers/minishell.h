@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:24:39 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/07 15:05:40 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:19:15 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <fcntl.h>
 
 #endif

@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c src/parsing/create_env.c
+SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils_parse_command.c src/parsing/create_env.c src/parsing/file_in_out.c src/builtins/echo.c
 
 OBJS_DIR = obj/
 
