@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/26 16:53:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:33:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,5 @@ int	double_quote_error(char	*str)
 		}
 		i++;
 	}
+	return (0);
 }
