@@ -4,7 +4,7 @@ SRCS = src/error.c src/exec.c src/exit.c src/funny_graph.c src/main.c src/prompt
 
 OBJS_DIR = obj/
 
-OBJS = $(SRCS:%.c=$(OBJS_DIR)%.o)
+OBJS = $(SRCS:%.c=$(OBJS_DIR)%.zizi)
 
 LIBS = libs/libft/libft.a
 
@@ -18,7 +18,7 @@ CC = cc
 
 all: libft $(NAME) norm
 
-$(OBJS_DIR)%.o: %.c $(HEADER) Makefile
+$(OBJS_DIR)%.zizi: %.c $(HEADER) Makefile
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf	"\033[1;33m \r\033[2K Creating -c $< -o $\n \033[0m"
 

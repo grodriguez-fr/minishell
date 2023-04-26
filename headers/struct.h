@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/19 14:32:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:48:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ typedef struct s_env_p
 
 typedef struct s_exec
 {
-	int				fd_out; //redirection de la sortie de la commande
-	int				fd_in; //redirection de l'entree de la commande
-	int				append_mode; //<< ou <, en gros on ajoute ou on remplace
+	char			*fd_out; //redirection de la sortie de la commande
+	char			*fd_in; //redirection de l'entree de la commande
+	char			*append_mode; //<< ou <, en gros on ajoute ou on remplace
 	char			**args; // les arguments a transmettre a la commande
 	char			*cmd_name;
 	struct s_exec	*next; // la prochaine commande a executer

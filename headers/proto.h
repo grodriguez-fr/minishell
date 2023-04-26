@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/24 17:03:57 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:08:37 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	add_cmd(t_exec **lst, char	*cmd_name, char **args);
 t_mini	file_in_out(t_mini mini);
 void	create_env(void);
 
-void	echo(t_mini mini);
+void	echo(t_exec *ex, char *str, int fd);
 
 #endif

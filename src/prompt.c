@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/24 17:57:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:32:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	prompt(t_mini mini)
 {
 	char	*input;
 	t_env_p	*env;
-	t_exec	*ex;
 
 	env = mini.env;
 	while (1)
@@ -31,8 +30,6 @@ void	prompt(t_mini mini)
 		add_history(input);
 		mini = parse_and_exec(input, mini);
 		mini = file_in_out(mini);
-		ex = mini.ex;
-		echo(mini);
 		if (input)
 			free(input);
 		free_cmd(&mini.ex, free);
