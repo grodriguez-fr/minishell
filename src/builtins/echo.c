@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:56:47 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/26 15:08:24 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:33:18 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	echo(t_exec *ex, char *str, int fd)
 {
-	size_t	i;
 	size_t	nb_n;
 	size_t	j;
 
@@ -30,7 +29,6 @@ void	echo(t_exec *ex, char *str, int fd)
 			break ;
 		j++;
 	}
-	i = j;
 	ft_putstr_fd(str, fd);
 	if (j == 0)
 		ft_putstr_fd("\n", fd);
