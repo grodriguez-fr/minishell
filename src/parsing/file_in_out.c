@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_in_out.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/26 15:28:30 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:06:40 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_mini	file_in(t_mini mini)
 	mini.ex = exec;
 	return (mini);
 }
-
 
 t_mini	file_out(t_mini mini)
 {
