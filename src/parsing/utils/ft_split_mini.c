@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_pars_NOT_COMPILE.c                            :+:      :+:    :+:   */
+/*   ft_split_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/08 18:06:10 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:27:30 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../headers/minishell.h"
+#include "../../../headers/minishell.h"
 
 int	ft_isspace(char c)
 {
@@ -34,7 +34,7 @@ char	**cpy(char *src, char **dest)
 	c = 0;
 	while (src && src[i])
 	{
-		if (src[i] == '"')
+		if (src[i] == '"' || src[i] == '\'')
 			is_open++;
 		if (is_open % 2 == 0 && src[i] == '|')
 		{
@@ -59,7 +59,7 @@ int	take_count(char *str, char sep, int count, int i)
 	{
 		while (str[i] && str[i] == ' ' && is_open % 2 == 0)
 			i++;
-		while (str[i] && str[i] == '"')
+		while (str[i] && (str[i] == '"' || str[i] == '\''))
 		{
 			is_open++;
 			i++;
@@ -90,11 +90,4 @@ char	**ft_split_pipe(char *str, char sep)
 	if (!to_return)
 		return (NULL);
 	return (cpy(str, to_return));
-}
-
-int	main(void)
-{
-	const char	*str = "\"ec\"\"ho\" bonjour \"|\" abc avc | caca";
-
-	return (0);
 }

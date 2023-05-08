@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/26 15:08:37 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:09:23 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	signal_handler(int sign);
 
 t_mini	parse_and_exec(char *input, t_mini mini);
 t_exec	*parse_cmd(char *input, t_exec *exec);
+char	**ft_split_pipe(char *str, char sep);
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args);
 t_mini	file_in_out(t_mini mini);
 void	create_env(void);
