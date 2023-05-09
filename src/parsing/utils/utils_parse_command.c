@@ -6,11 +6,11 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:59:27 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/13 13:39:27 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:49:37 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../../../headers/minishell.h"
 
 void	ft_add_back_cmd(t_exec **lst, t_exec *new);
 t_exec	*ft_new_cmd(char *value, char **arg);

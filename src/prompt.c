@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/08 18:21:53 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:41:55 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	prompt(t_mini mini)
 			exit_minishell(&mini);
 		add_history(input);
 		mini = parse_and_exec(input, mini);
+		// t_exec	*ex;
+		// int		i = 0;
+		// ex = mini.ex;
+		// while (ex)
+		// {
+		// 	ft_printf("%s\n", ex->cmd_name);
+		// 	i = 0;
+		// 	while (ex->args[i])
+		// 		printf("%s\n", ex->args[i++]);
+		// 	i++;
+		// 	ex = ex->next;
+		// }
 		mini = file_in_out(mini);
 		if (input)
 			free(input);
