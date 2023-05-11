@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/10 16:08:59 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:14:22 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ typedef struct s_exec
 	char			*cmd_name;
 	struct s_exec	*next; // la prochaine commande a executer
 }	t_exec;
-
-typedef struct s_cmd_token
-{
-	int		type; //file out / file out a / file in / here doc / arg
-	char	*content;
-	struct s_cmd_token	*next; // la prochaine commande a executer
-}	t_cmd_token;
 
 typedef struct s_mini
 {
