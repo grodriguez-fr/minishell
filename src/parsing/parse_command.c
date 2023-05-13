@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/09 14:43:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:27:57 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ t_exec	*parse_cmd(char *input, t_exec *exec)
 		exec = parse_cmd_args(i, commands, cmd_name, exec);
 		i++;
 	}
-	i = 0;
-	while (commands && commands[i])
-		free(commands[i++]);
-	free(commands);
 	return (exec);
 }
 
@@ -53,10 +49,11 @@ t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 	int		j;
 	int		save_j;
 	char	**args;
-	int		w;
 
+	j = 0;
 	while (comm && comm[i] && comm[i][j])
 	{
+		j = 0;
 		cmd_name = NULL;
 		while (comm[i] && comm[i][j] && comm[i][j] == ' ')
 			j++;
@@ -72,6 +69,7 @@ t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 		while (comm[i][j])
 			j++;
 		add_cmd(&exec, cmd_name, args);
+		exec->comp_pipe = comm[i];
 	}
 	return (exec);
 }

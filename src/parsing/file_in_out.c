@@ -6,100 +6,111 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/08 18:06:40 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:51:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-t_mini	file_out(t_mini mini);
-t_mini	file_in(t_mini mini);
-t_mini	append(t_mini mini);
+t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep);
+char	**allocate_fd(char **fd, char *str, int nb_fd, char sep);
+char	*take_fd(char *str);
 
 t_mini	file_in_out(t_mini mini)
 {
-	mini = file_out(mini);
-	mini = file_in(mini);
+	t_exec	*exec;
+
+	exec = mini.ex;
+	while (exec)
+	{
+		exec = in_out(exec, exec->files_out, exec->comp_pipe, '>');
+		exec = in_out(exec, exec->files_out, exec->comp_pipe, '<');
+		exec = exec->next;
+	}
 	return (mini);
 }
 
-t_mini	append(t_mini mini)
-{
-	t_exec	*exec;
-	int		i;
 
-	exec = mini.ex;
-	if (exec)
+t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
+{
+	int	nb_fd;
+	int	i;
+	int	is_open;
+
+	nb_fd = 0;
+	i = 0;
+	is_open = 0;
+	sep = '>';
+	if (!str)
+		return (NULL);
+	while (str && str[i])
 	{
-		i = 0;
-		while (exec->args && exec->args[i])
-		{
-			if (ft_strncmp(exec->args[i], ">>",
-					ft_strlen(exec->args[i])) == 0)
-			{
-				if (exec->args[i + 1])
-				{
-					exec->fd_in = exec->args[i + 1];
-					break ;
-				}
-			}
-			i++;
-		}
+		if (str[i] == '"')
+			is_open++;
+		else if (str[i] == sep && is_open % 2 == 0)
+			nb_fd ++;
+		i++;
 	}
-	mini.ex = exec;
-	return (mini);
+	i = 0;
+	is_open = 0;
+	if (nb_fd > 0)
+		fd = allocate_fd(fd, str, nb_fd, sep);
+	if (sep == '>')
+		ex->files_out = fd;
+	else
+		ex->files_in = fd;
+	return (ex);
 }
 
-t_mini	file_in(t_mini mini)
+char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
 {
-	t_exec	*exec;
-	int		i;
+	int	i;
+	int	is_open;
+	int	ct_fd;
 
-	exec = mini.ex;
-	if (exec)
+	is_open = 0;
+	i = 0;
+	fd = malloc(sizeof(char *) * (nb_fd + 1));
+	if (!fd)
+		return (NULL);
+	ct_fd = 0;
+	while (str && str[i] && ct_fd != nb_fd)
 	{
-		i = 0;
-		while (exec->args && exec->args[i])
+		if (str[i] == '"')
+			is_open++;
+		else if (str[i] == sep && is_open % 2 == 0)
 		{
-			if (ft_strncmp(exec->args[i], "<",
-					ft_strlen(exec->args[i])) == 0)
-			{
-				if (exec->args[i + 1])
-				{
-					exec->fd_in = exec->args[i + 1];
-					break ;
-				}
-			}
-			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			fd[ct_fd] = take_fd(&str[i]);
+			ct_fd++;
 		}
+		i++;
 	}
-	mini.ex = exec;
-	return (mini);
+	fd[ct_fd] = NULL;
+	return (fd);
 }
 
-t_mini	file_out(t_mini mini)
+char	*take_fd(char *str)
 {
-	t_exec	*exec;
 	int		i;
+	int		count;
+	char	*fd;
 
-	exec = mini.ex;
-	if (exec)
+	i = 1;
+	while (str && str[i] && str[i] == ' ')
+		i++;
+	count = 0;
+	while (str && str[i] && str[i] != ' ')
 	{
-		i = 0;
-		while (exec->args && exec->args[i])
-		{
-			if (ft_strncmp(exec->args[i], ">",
-					ft_strlen(exec->args[i])) == 0)
-			{
-				if (exec->args[i + 1])
-				{
-					exec->fd_out = exec->args[i + 1];
-					break ;
-				}
-			}
-			i++;
-		}
+		i++;
+		count++;
 	}
-	mini.ex = exec;
-	return (mini);
+	fd = malloc(sizeof(char) * (count + 1));
+	i -= count;
+	count = 0;
+	while (str && str[i] && str[i] != ' ')
+		fd[count++] = str[i++];
+	fd[count] = '\0';
+	return (fd);
 }

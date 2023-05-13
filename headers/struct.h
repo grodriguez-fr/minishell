@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/11 17:14:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:45:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_env_p
 
 typedef struct s_exec
 {
+	char			*comp_pipe;
 	char			**files_out; //redirection de la sortie de la commande
 	char			**files_out_a; //redirection de la sortie de la commande
 	char			**files_in; //redirection de l'entree de la commande

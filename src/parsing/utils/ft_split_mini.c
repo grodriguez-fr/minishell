@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/10 16:15:55 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:24:29 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,21 @@ int	take_count(char *str, char sep, int count, int i)
 		}
 		i++;
 	}
-	if (count > 0 && i > 0)
+	if (count > 0 || i > 0)
 		count ++;
 	return (count);
 }
 
 char	**ft_split_pipe(char *str, char sep)
 {
-	int		i;
 	int		count;
 	char	**to_return;
 
-	i = 0;
 	count = 0;
-	count = take_count(str, sep, count, i);
+	count = take_count(str, sep, count, 0);
 	to_return = malloc(sizeof(char *) + (count + 1));
 	if (!to_return)
 		return (NULL);
-	return (cpy(str, to_return));
+	to_return = cpy(str, to_return);
+	return (to_return);
 }

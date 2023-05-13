@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_pars_NOT_COMPILE.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/11 18:06:20 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:40:18 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <limits.h>
 #include <unistd.h>
 
-char	*take_fd(char	*str)
+char	*take_fd(char *str)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 	char	*fd;
 
 	i = 1;
@@ -40,7 +40,7 @@ char	*take_fd(char	*str)
 	return (fd);
 }
 
-char	*change_cmd(char *str)
+char	*change_cmd(char *str, char sep)
 {
 	char	*new_str;
 	int		i;
@@ -54,12 +54,12 @@ char	*change_cmd(char *str)
 	{
 		if (str[i] == '"')
 			is_open++;
-		if (str[i] == '>' && is_open % 2 == 0)
+		if (str[i] == sep && is_open % 2 == 0)
 		{
 			i++;
-			while (str[i] == ' ')
+			while (str[i] && str[i] == ' ')
 				i++;
-			while (str[i] != ' ')
+			while (str[i] && str[i] != ' ')
 				i++;
 		}
 		count++;
@@ -73,7 +73,7 @@ char	*change_cmd(char *str)
 	{
 		if (str[i] == '"')
 			is_open++;
-		if (str[i] == '>' && is_open % 2 == 0)
+		if (str[i] == sep && is_open % 2 == 0)
 		{
 			i++;
 			while (str[i] == ' ')
@@ -87,65 +87,38 @@ char	*change_cmd(char *str)
 	return (new_str);
 }
 
-int	main(int ac, char **av)
+char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
 {
-	char	*str;
-	int		i;
-	char	**fd_out;
-	int		nb_fd_out;
-	int		ct_fd_out;
-	int		is_passed;
-	int		is_open;
+	int	i;
+	int	is_passed;
+	int	is_open;
+	int	ct_fd;
 
-	nb_fd_out = 0;
-	i = 0;
 	is_open = 0;
-	if (ac > 1)
-		str = strdup(av[1]);
-	if (!str)
-		return(1);
-	while (str && str[i])
+	i = 0;
+	fd = malloc(sizeof(char *) * (nb_fd + 1));
+	if (!fd)
+		return (NULL);
+	is_passed = 0;
+	ct_fd = 0;
+	while (str && str[i] && ct_fd != nb_fd)
 	{
 		if (str[i] == '"')
 			is_open++;
-		else if (str[i] == '>' && is_open % 2 == 0)
-			nb_fd_out ++;
-		i++;
-	}
-	i = 0;
-	is_open = 0;
-	if (nb_fd_out > 0)
-	{
-		fd_out = malloc(sizeof(char *) * (nb_fd_out + 1));
-		if (!fd_out)
-		is_passed = 0;
-		ct_fd_out = 0;
-		while (str && str[i] && ct_fd_out != nb_fd_out)
+		else if (str[i] == sep && is_open % 2 == 0)
 		{
-			if (str[i] == '"')
-				is_open++;
-			else if (str[i] == '>' && is_open % 2 == 0)
-			{
-				while (str[i] == ' ')
-					i++;
-				fd_out[ct_fd_out] = take_fd(&str[i]);
-				ct_fd_out++;
-			}
-			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			fd[ct_fd] = take_fd(&str[i]);
+			ct_fd++;
 		}
-		fd_out[ct_fd_out] = NULL;
-	}
-	i = 0;
-	while (fd_out && fd_out[i])
-	{
-		printf("%s\n", fd_out[i]);
-		free(fd_out[i]);
 		i++;
 	}
-	str = change_cmd(str);
-	printf("%s", str);
-	free(fd_out);
-	if (str)
-		free(str);
+	fd[ct_fd] = NULL;
+	return (fd);
+}
+
+int	main(int ac, char **av)
+{
 	return (0);
 }
