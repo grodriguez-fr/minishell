@@ -14,36 +14,30 @@
 
 // il faut utiliser execve
 
-int exec_all(t_mini *mini)
+int	heredoc(t_mini *mini)
 {
-	t_exec	*current;
-	int	p[2];
-	int	ret;
-	int	previous_fd;
+	unsigned int	i;
+	t_exec		*current;
+	char		*res;
+	int		fd;
 
-	if (!heredoc(mini))
-		return (0);
-	// builtins qui bugent avec le bash
-	current = mini->exec;
-	previous_fd = 0;
+	i = 1;
+	current = mini->ex;
 	while (current)
 	{
-		p = pipe();
-		if (p == -1)
-			return (0);
-		ret = fork();
-		if (ret < 0)
-			return (0);
-		if (ret == 0)
-			exec_cmd(mini, current, p);
-		close (p[0]);
-		if (previous_fd)
-			close (previous_fd);
-		previous_fd = p[1];
-		waitpid(ret, 0, 0);
+		if (current->here_docs)
+		{
+			fd = open("heredoc/h" + i, O_CREAT | O_WRONLY, 0644);
+			if (fd == -1)
+				return (0);
+			res = readline(">");
+			while (ft_strncmp(res, current->here_docs, ft_strlen(res)))
+				write(fd, res, ft_strlen(res));
+			current->here_docs = "heredoc/h" + i;
+		}
 		current = current->next;
+		i++;
 	}
-	close(previous_fd);
 	return (1);
 }
 
@@ -53,10 +47,10 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2])
 		dup2(p[1], 1); // redirection sortie standard
 	if (current->previous)
 		dup2(previous_fd, 0); // redirection entree standard
-	if (current->in)
-		dup2(current->in, 0); // focntion a faire selon le format de current->in
-	if (current->out)
-		dup2(current->out, 1); //fonction a faire selon l eformat de current->out
+	if (current->files_in)
+		dup2(current->files_in, 0); // focntion a faire selon le format de current->in
+	if (current->files_out)
+		dup2(current->files_out, 1); //fonction a faire selon l eformat de current->out
 	handle_cmd(mini, current);
 	close (p[0]);
 	close (p[1]);
@@ -72,29 +66,35 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	execve(pathname, current->args, new_env);
 }
 
-int	heredoc(t_mini *mini)
+int exec_all(t_mini *mini)
 {
-	unsigned int	i;
-	t_exec		*current;
-	char		*res;
-	int		fd;
+	t_exec	*current;
+	int	p[2];
+	int	ret;
+	int	previous_fd;
 
-	i = 1;
-	current = mini->exec;
+	if (!heredoc(mini))
+		return (0);
+	// builtins qui bugent avec le bash
+	current = mini->ex;
+	previous_fd = 0;
 	while (current)
 	{
-		if (heredoc)
-		{
-			fd = open("heredoc/h" + i, O_CREAT | O_WRONLY, 0644);
-			if (fd == -1)
-				return (0);
-			res = readline(">");
-			while (strstr(res, current->heredoc))
-				write(fd, res, ft_strlen(res));
-			current->heredoc = "heredoc/h" + i;
-		}
+		ret = pipe(p);
+		if (ret == -1)
+			return (0);
+		ret = fork();
+		if (ret < 0)
+			return (0);
+		if (ret == 0)
+			exec_cmd(mini, current, p);
+		close (p[0]);
+		if (previous_fd)
+			close (previous_fd);
+		previous_fd = p[1];
+		waitpid(ret, 0, 0);
 		current = current->next;
-		i++;
 	}
+	close(previous_fd);
 	return (1);
 }
