@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/13 16:51:16 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:54:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep);
 char	**allocate_fd(char **fd, char *str, int nb_fd, char sep);
 char	*take_fd(char *str);
 
-t_mini	file_in_out(t_mini mini)
+t_mini	file_in_out(t_mini *mini)
 {
 	t_exec	*exec;
 
-	exec = mini.ex;
+	exec = mini->ex;
 	while (exec)
 	{
 		exec = in_out(exec, exec->files_out, exec->comp_pipe, '>');
-		exec = in_out(exec, exec->files_out, exec->comp_pipe, '<');
-		exec = exec->next;
+		exec = in_out(exec, exec->files_in, exec->comp_pipe, '<');
+		if (exec->next)
+			exec = exec->next;
+		else
+			break ;
 	}
-	return (mini);
+	return (*mini);
 }
 
 
@@ -40,8 +43,7 @@ t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
 	nb_fd = 0;
 	i = 0;
 	is_open = 0;
-	sep = '>';
-	if (!str)
+	if (!str || !ex)
 		return (NULL);
 	while (str && str[i])
 	{
@@ -51,8 +53,6 @@ t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
 			nb_fd ++;
 		i++;
 	}
-	i = 0;
-	is_open = 0;
 	if (nb_fd > 0)
 		fd = allocate_fd(fd, str, nb_fd, sep);
 	if (sep == '>')

@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/13 18:24:29 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:54:14 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	**cpy(char *src, char **dest)
 			is_open++;
 		if (is_open % 2 == 0 && src[i] == '|')
 		{
+			while (src[i] && ft_isspace(src[i]))
+				i++;
 			dest[c++] = ft_substr(&src[j], j, i - j);
 			i++;
 			j = i;

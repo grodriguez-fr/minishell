@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/13 18:27:57 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:50:15 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ t_exec	*parse_cmd(char *input, t_exec *exec)
 	while (commands && commands[i])
 	{
 		exec = parse_cmd_args(i, commands, cmd_name, exec);
+		free(commands[i]);
 		i++;
 	}
+	free(commands);
 	return (exec);
 }
 
@@ -68,8 +70,7 @@ t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 		args = ft_split(&comm[i][j], ' ');
 		while (comm[i][j])
 			j++;
-		add_cmd(&exec, cmd_name, args);
-		exec->comp_pipe = comm[i];
+		add_cmd(&exec, cmd_name, args, ft_strdup(comm[i]));
 	}
 	return (exec);
 }
