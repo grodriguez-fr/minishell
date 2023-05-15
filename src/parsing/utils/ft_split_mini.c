@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/14 18:54:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:17:57 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-char	**cpy(char *src, char **dest)
+char	**cpy(char *src, char **dest, int count)
 {
 	int	i;
 	int	is_open;
@@ -30,7 +30,7 @@ char	**cpy(char *src, char **dest)
 	i = 0;
 	j = 0;
 	c = 0;
-	while (src && src[i])
+	while (src && src[i] && count > c)
 	{
 		if (src[i] == '"' || src[i] == '\'')
 			is_open++;
@@ -45,8 +45,8 @@ char	**cpy(char *src, char **dest)
 		i++;
 	}
 	if (src[i] == 0)
-		dest[c++] = ft_strdup(&src[j]);
-	dest[c] = NULL;
+		dest[c] = ft_strdup(&src[j]);
+	dest[count] = NULL;
 	return (dest);
 }
 
@@ -84,9 +84,9 @@ char	**ft_split_pipe(char *str, char sep)
 
 	count = 0;
 	count = take_count(str, sep, count, 0);
-	to_return = malloc(sizeof(char *) + (count + 1));
+	to_return = malloc(sizeof(char *) * (count + 1));
 	if (!to_return)
 		return (NULL);
-	to_return = cpy(str, to_return);
+	to_return = cpy(str, to_return, count);
 	return (to_return);
 }

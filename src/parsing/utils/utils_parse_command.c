@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:59:27 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/14 18:48:00 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:10:47 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_add_back_cmd(t_exec **lst, t_exec *new);
 t_exec	*ft_new_cmd(char *value, char **arg, char *all_pipe);
-t_exec	*ft_last_cmd(t_exec *lst);
 
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args, char *all_pipe)
 {

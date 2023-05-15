@@ -3,38 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   file_in_out.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/14 18:54:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:17:30 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep);
 char	**allocate_fd(char **fd, char *str, int nb_fd, char sep);
 char	*take_fd(char *str);
 
-t_mini	file_in_out(t_mini *mini)
-{
-	t_exec	*exec;
-
-	exec = mini->ex;
-	while (exec)
-	{
-		exec = in_out(exec, exec->files_out, exec->comp_pipe, '>');
-		exec = in_out(exec, exec->files_in, exec->comp_pipe, '<');
-		if (exec->next)
-			exec = exec->next;
-		else
-			break ;
-	}
-	return (*mini);
-}
-
-
-t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
+char	**in_out(char **fd, char *str, char sep)
 {
 	int	nb_fd;
 	int	i;
@@ -43,7 +24,7 @@ t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
 	nb_fd = 0;
 	i = 0;
 	is_open = 0;
-	if (!str || !ex)
+	if (!str)
 		return (NULL);
 	while (str && str[i])
 	{
@@ -53,13 +34,10 @@ t_exec	*in_out(t_exec *ex, char **fd, char *str, char sep)
 			nb_fd ++;
 		i++;
 	}
-	if (nb_fd > 0)
-		fd = allocate_fd(fd, str, nb_fd, sep);
-	if (sep == '>')
-		ex->files_out = fd;
-	else
-		ex->files_in = fd;
-	return (ex);
+	if (nb_fd == 0)
+		return (NULL);
+	fd = allocate_fd(fd, str, nb_fd, sep);
+	return (fd);
 }
 
 char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
