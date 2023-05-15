@@ -41,7 +41,17 @@ int	heredoc(t_mini *mini)
 	return (1);
 }
 
-void	exec_cmd(t_mini *mini, t_exec *current, int p[2])
+void	handle_cmd(t_mini *mini, t_exec *current)
+{
+	char	*pathname;
+	char	**new_env;
+
+	// manipulations ou pas sur le pathname
+	new_env = convert_env(mini->env);
+	execve(pathname, current->args, new_env);
+}
+
+void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 {
 	if (current->next)
 		dup2(p[1], 1); // redirection sortie standard
@@ -55,18 +65,17 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2])
 	close (p[0]);
 	close (p[1]);
 }
-
-void	handle_cmd(t_mini *mini, t_exec *current)
+/*
+int	find_exec(t_mini *mini)
 {
-	char	*pathname;
-	char	**new_env;
+	t_exec	*current;
 
-	// manipulations ou pas sur le pathname
-	new_env = convert_env(mini->env);
-	execve(pathname, current->args, new_env);
-}
+	// pas de slash alors locate
+	// charche dans builtin
+	// cherche dans PATH	
+}*/
 
-int exec_all(t_mini *mini)
+int	exec_all(t_mini *mini)
 {
 	t_exec	*current;
 	int	p[2];
@@ -87,7 +96,7 @@ int exec_all(t_mini *mini)
 		if (ret < 0)
 			return (0);
 		if (ret == 0)
-			exec_cmd(mini, current, p);
+			exec_cmd(mini, current, p, previous_fd);
 		close (p[0]);
 		if (previous_fd)
 			close (previous_fd);

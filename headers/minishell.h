@@ -23,5 +23,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 #endif
