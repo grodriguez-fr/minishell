@@ -6,18 +6,19 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 17:02:59 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:41:45 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	error(t_mini *mini, char *message)
+void	error(t_mini *mini, char *message, char **strs)
 {
 	if (mini->ex)
 		free_cmd(&mini->ex, free);
 	if (mini->env)
 		clear_env(&mini->env, free);
+	free_strs(strs);
 	ft_putstr_fd(message, 2);
 	exit(1);
 }
@@ -77,4 +78,15 @@ void	clear_env(t_env_p **env, void (*del)(void*))
 		free(*env);
 		*env = next;
 	}
+}
+
+void	free_strs(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs && strs[i])
+		free(strs[i++]);
+	if (strs)
+		free(strs);
 }

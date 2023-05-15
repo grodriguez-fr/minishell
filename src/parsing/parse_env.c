@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/21 16:43:43 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:28:32 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini)
 	new_node = ft_new(key, value);
 	ft_add_back(lst, new_node);
 	if (!(*lst) || !(*lst)->key || !(*lst)->value)
-		error(&mini, "MALLOC ERROR\n");
+		error(&mini, "MALLOC ERROR\n", NULL);
 }
 
 void	ft_add_back(t_env_p **lst, t_env_p *new)

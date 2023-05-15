@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 16:53:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:50:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_mini	parse_and_exec(char *input, t_mini mini)
 			free(input);
 		exit_minishell(&mini);
 	}
-	mini.ex = parse_cmd(input, mini.ex);
+	mini.ex = parse_cmd(input, mini.ex, mini);
 	return (mini);
 }
 
-t_exec	*parse_cmd(char *input, t_exec *exec)
+t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 {
 	int		i;
 	char	**commands;
@@ -46,6 +46,8 @@ t_exec	*parse_cmd(char *input, t_exec *exec)
 		files_in = in_out(files_in, commands[i], '<');
 		commands[i] = change_cmdf(commands[i], '>');
 		commands[i] = change_cmdf(commands[i], '<');
+		if (!commands[i])
+			error(&mini, "MALLOC ERROR\n", commands);
 		exec = parse_cmd_args(i, commands, cmd_name, exec);
 		ft_last_cmd(exec)->files_out = files_out;
 		ft_last_cmd(exec)->files_in = files_in;
@@ -94,6 +96,8 @@ char	*change_cmdf(char *str, char sep)
 
 	count = count_sep(str, sep);
 	new_str = malloc(sizeof(char) * (count + 1));
+	if (!new_str)
+		return (NULL);
 	i = 0;
 	count = 0;
 	is_open = 0;
