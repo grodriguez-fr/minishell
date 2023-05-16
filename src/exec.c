@@ -12,35 +12,6 @@
 
 #include "../headers/minishell.h"
 
-// il faut utiliser execve
-
-int	heredoc(t_mini *mini)
-{
-	unsigned int	i;
-	t_exec		*current;
-	char		*res;
-	int		fd;
-
-	i = 1;
-	current = mini->ex;
-	while (current)
-	{
-		if (current->here_docs)
-		{
-			fd = open("heredoc/h" + i, O_CREAT | O_WRONLY, 0644);
-			if (fd == -1)
-				return (0);
-			res = readline(">");
-			while (ft_strncmp(res, current->here_docs, ft_strlen(res)))
-				write(fd, res, ft_strlen(res));
-			current->here_docs = "heredoc/h" + i;
-		}
-		current = current->next;
-		i++;
-	}
-	return (1);
-}
-
 void	handle_cmd(t_mini *mini, t_exec *current)
 {
 	char	*pathname;
