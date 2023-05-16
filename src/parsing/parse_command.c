@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 17:42:28 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:51:34 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	cmd_name = NULL;
 	while (commands && commands[i])
 	{
-		// heardoc = hear_append(heardoc, commands[i], "<<");
-		// append = hear_append(append, commands[i], ">>");
-		// commands[i] = change_cmdf_here_append(commands[i], ">>");
-		// commands[i] = change_cmdf_here_append(commands[i], "<<");
+		heardoc = hear_append(heardoc, commands[i], "<<");
+		append = hear_append(append, commands[i], ">>");
+		commands[i] = change_cmdf_here_append(commands[i], ">>");
+		commands[i] = change_cmdf_here_append(commands[i], "<<");
+		ft_printf("%p\n", commands[i]);
 		files_out = in_out(files_out, commands[i], '>');
 		files_in = in_out(files_in, commands[i], '<');
 		commands[i] = change_cmdf(commands[i], '>');
@@ -90,8 +91,11 @@ t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 		args = ft_split(&comm[i][j], ' ');
 		while (comm[i][j])
 			j++;
-		add_cmd(&exec, cmd_name, args, ft_strdup(comm[i]));
 	}
+	if (cmd_name)
+		add_cmd(&exec, cmd_name, args, ft_strdup(comm[i]));
+	else
+		add_cmd(&exec, NULL, NULL, NULL);
 	return (exec);
 }
 

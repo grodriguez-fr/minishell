@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 16:07:36 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:48:18 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	prompt(t_mini mini)
 			ft_printf("\ncomp pipe : %s\n", ex->comp_pipe);
 			ft_printf("\ncmd name : %s\n", ex->cmd_name);
 			i = 0;
-			while (ex->args[i])
+			while (ex->args && ex->args[i])
 				ft_printf("args : %s\n", ex->args[i++]);
 			i = 0;
 			while (ex->files_in && ex->files_in[i])
