@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 15:16:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:07:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	prompt(t_mini mini)
 			i = 0;
 			while (ex->files_out && ex->files_out[i])
 				printf("file out :> %s\n", ex->files_out[i++]);
+			i = 0;
+			while (ex->here_docs && ex->here_docs[i])
+				printf("file heredocs :< %s\n", ex->files_in[i++]);
+			i = 0;
+			while (ex->files_out_a && ex->files_out_a[i])
+				printf("file out append :>> %s\n", ex->files_out_a[i++]);
 			ex = ex->next;
 		}
 		if (input)

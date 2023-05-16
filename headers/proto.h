@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 17:27:00 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:55:35 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**ft_split_pipe(char *str, char sep);
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args, char *all_pipe);
 void	create_env(void);
 char	**in_out(char **fd, char *str, char sep);
+char	*change_cmdf_here_append(char *str, char *sep);
+char	**hear_append(char **fd, char *str, char *sep);
 
 void	echo(t_exec *ex, char *str, int fd);
 

@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRCS = src/error.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils/utils_parse_command.c src/parsing/create_env.c src/parsing/file_in_out.c src/builtins/echo.c src/parsing/utils/ft_split_mini.c
+SRCS = src/error.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils/utils_parse_command.c src/parsing/create_env.c src/parsing/file_in_out.c src/builtins/echo.c src/parsing/utils/ft_split_mini.c src/parsing/clean_cmd_redirect.c src/parsing/hear_append.c
 
 OBJS_DIR = obj/
 
@@ -12,7 +12,7 @@ HEADER = headers/minishell.h headers/proto.h headers/struct.h
 
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 CC = cc
 
