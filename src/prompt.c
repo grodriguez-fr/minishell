@@ -32,17 +32,17 @@ void	prompt(t_mini mini)
 		ex = mini.ex;
 		while (ex)
 		{
-			ft_printf("\n%s\n", ex->comp_pipe);
-			ft_printf("\n%s\n", ex->cmd_name);
+			ft_printf("\ncomp pipe : %s\n", ex->comp_pipe);
+			ft_printf("\ncmd name : %s\n", ex->cmd_name);
 			i = 0;
 			while (ex->args[i])
-				ft_printf("%s", ex->args[i++]);
+				ft_printf("args : %s\n", ex->args[i++]);
 			i = 0;
 			while (ex->files_in && ex->files_in[i])
-				printf("< %s\n", ex->files_in[i++]);
+				printf("file in :< %s\n", ex->files_in[i++]);
 			i = 0;
 			while (ex->files_out && ex->files_out[i])
-				printf("> %s\n", ex->files_out[i++]);
+				printf("file out :> %s\n", ex->files_out[i++]);
 			ex = ex->next;
 		}
 		if (input)

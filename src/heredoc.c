@@ -23,7 +23,7 @@ int heredoc(t_mini *mini)
 	{
 		if (current->here_docs)
 		{
-			fd = open("heredoc/h" + i, O_CREAT | O_WRONLY, 0643);
+			fd = open_heredoc(i);
 			if (fd == -1)
 				return (-1);
 			res = readline(">");
@@ -43,7 +43,7 @@ char    *heredoc_file_name(unsigned int i)
     unsigned int    len;
     unsigned int    nb;
 
-    len = 1;
+    len = 0;
     while (nb > 0)
     {
         nb /= 10;
@@ -51,6 +51,7 @@ char    *heredoc_file_name(unsigned int i)
     }
     res = malloc((sizeof(len) + 5) * char);
     str[len + 4] = 0;
+	len--;
     while (i >= 10)
     {
         str[len + 4] = n % 10 + '0';
@@ -63,4 +64,12 @@ char    *heredoc_file_name(unsigned int i)
 	str[2] = '/';
 	str[3] = 'h';
     return (str);
+}
+
+int	open_heredoc(unsigned int i)
+{
+	char	*filename;
+
+	filename = heredoc_file_name(i);
+	return (open(filename, O_CREAT | O_WRONLY, 0643));
 }

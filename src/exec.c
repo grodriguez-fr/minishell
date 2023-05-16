@@ -53,8 +53,8 @@ int	exec_all(t_mini *mini)
 	int	ret;
 	int	previous_fd;
 
-	if (!heredoc(mini))
-		return (0);
+	//if (!heredoc(mini))
+	//	return (0);
 	// builtins qui bugent avec le bash
 	current = mini->ex;
 	previous_fd = 0;
