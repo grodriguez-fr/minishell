@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 17:51:34 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:54:29 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	char	*cmd_name;
 	char	**files_out;
 	char	**files_in;
-	char	**heardoc;
-	char	**append;
+	char	**heardoc = NULL;
+	char	**append = NULL;
 
 	commands = ft_split_pipe(input, '|');
 	i = 0;
@@ -45,10 +45,10 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	while (commands && commands[i])
 	{
 		heardoc = hear_append(heardoc, commands[i], "<<");
-		append = hear_append(append, commands[i], ">>");
-		commands[i] = change_cmdf_here_append(commands[i], ">>");
-		commands[i] = change_cmdf_here_append(commands[i], "<<");
-		ft_printf("%p\n", commands[i]);
+		//append = hear_append(append, commands[i], ">>");
+		//commands[i] = change_cmdf_here_append(commands[i], ">>");
+		//commands[i] = change_cmdf_here_append(commands[i], "<<");
+		//ft_printf("%p\n", commands[i]);
 		files_out = in_out(files_out, commands[i], '>');
 		files_in = in_out(files_in, commands[i], '<');
 		commands[i] = change_cmdf(commands[i], '>');
