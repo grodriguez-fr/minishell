@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 17:48:18 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:02:18 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	prompt(t_mini mini)
 				printf("file out :> %s\n", ex->files_out[i++]);
 			i = 0;
 			while (ex->here_docs && ex->here_docs[i])
-				printf("file heredocs :< %s\n", ex->files_in[i++]);
+				printf("file heredocs :<< %s\n", ex->here_docs[i++]);
 			i = 0;
 			while (ex->files_out_a && ex->files_out_a[i])
 				printf("file out append :>> %s\n", ex->files_out_a[i++]);

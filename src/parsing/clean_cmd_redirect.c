@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd_redirect.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 17:54:20 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:19:14 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*change_cmdf_here_append(char *str, char *sep)
 	ssize_t	count;
 
 	count = count_sep_here_append(str, sep);
-	ft_printf("%d, %s\n", count, str);
 	new_str = NULL;
 	if (count > 0)
 	{
@@ -32,13 +31,15 @@ char	*change_cmdf_here_append(char *str, char *sep)
 		i = 0;
 		count = 0;
 		is_open = 0;
-		while (str && i + 1 < ft_strlen(str))
+		while (str && i < ft_strlen(str))
 		{
 			if (str[i] == '"')
 				is_open++;
-			if (str[i] == sep[0] && str[i + 1] == sep[1] && is_open % 2 == 0)
+			else if (str[i] == sep[0] && str[i + 1] == sep[1]
+				&& is_open % 2 == 0)
 			{
-				i++;
+				while (str[i] == sep[0])
+					i++;
 				while (str[i] && str[i] == ' ')
 					i++;
 				while (str[i] && str[i] != ' ')
@@ -61,11 +62,12 @@ ssize_t	count_sep_here_append(char *str, char *sep)
 	is_open = 0;
 	i = 0;
 	count = 0;
-	while (str && i + 1 < ft_strlen(str))
+	while (str && i < ft_strlen(str))
 	{
 		if (str[i] == '"')
 			is_open++;
-		if (str[i] == sep[0] && str[i + 1] == sep[1] && is_open % 2 == 0)
+		if (str[i + 1] && str[i] == sep[0] && str[i + 1] == sep[1]
+			&& str[i + 2] && is_open % 2 == 0)
 		{
 			i += 2;
 			while (str[i] && str[i] == ' ')

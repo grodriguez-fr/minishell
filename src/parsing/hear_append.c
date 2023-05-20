@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hear_append.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 16:04:19 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:00:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ char	**allocate_fd_here_append(char **fd, char *str, int nb_fd, char *sep)
 	{
 		if (str[i] == '"')
 			is_open++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1] && is_open % 2 == 0)
+		else if (str[i] == sep[0] && str[i + 1] == sep[1] && str[i + 2] && is_open % 2 == 0)
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
-			fd[ct_fd] = take_fd_here_append(&str[i]);
+			fd[ct_fd] = take_fd_here_append(&str[i + 2]);
 			ct_fd++;
 		}
 		i++;
@@ -75,7 +75,7 @@ char	*take_fd_here_append(char *str)
 	int		count;
 	char	*fd;
 
-	i = 2;
+	i = 0;
 	while (str && str[i] && str[i] == ' ')
 		i++;
 	count = 0;

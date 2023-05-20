@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 17:41:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:53:37 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ void	free_cmd(t_exec **exec, void (*del)(void*))
 			free((*exec)->files_out[i++]);
 		if ((*exec)->files_out)
 			free((*exec)->files_out);
+		i = 0;
+		while ((*exec)->here_docs && (*exec)->here_docs[i])
+			free((*exec)->here_docs[i++]);
+		if ((*exec)->here_docs)
+			free((*exec)->here_docs);
+		i = 0;
+		while ((*exec)->files_out_a && (*exec)->files_out_a[i])
+			free((*exec)->files_out_a[i++]);
+		if ((*exec)->files_out_a)
+			free((*exec)->files_out_a);
 		free((*exec));
 		*exec = next;
 	}
