@@ -53,8 +53,8 @@ void	prompt(t_mini mini)
 		}
 		if (input)
 			free(input);
+		exec_all(&mini);
 		free_cmd(&mini.ex, free);
-		//exec_all(&mini);
 	}
 }
 

@@ -12,20 +12,23 @@
 
 #include "../headers/minishell.h"
 
-void	handle_cmd(t_mini *mini, t_exec *current)
+void	handle_cmd(t_mini *mini, t_exec *current, int p[2])
 {
 	char	*pathname;
 	char	**new_env;
+	int	ret;
 
 	// manipulations ou pas sur le pathname
 	pathname = current->cmd_name;
 	new_env = convert_env(mini);
-	execve(pathname, current->args, new_env);
-	printf("execve (%s, %s, new_env)\n)", pathname, current->args[0]);
+	ret = execve(pathname, current->args, new_env);
+	printf("execve (%s, %s, new_env))\n", pathname, current->args[0]);
+	exit (ret);
 }
 
 void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 {
+	printf("exec cmd child %s\n", current->cmd_name);
 	if (current->next)
 		dup2(p[1], 1); // redirection sortie standard
 	dup2(previous_fd, 0); // redirection entree standard
@@ -33,7 +36,7 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 //		dup2(current->files_in, 0); // focntion a faire selon le format de current->in
 //	if (current->files_out)
 //		dup2(current->files_out, 1); //fonction a faire selon l eformat de current->out
-	handle_cmd(mini, current);
+	handle_cmd(mini, current, p);
 	close (p[0]);
 	close (p[1]);
 }
@@ -57,11 +60,12 @@ int	exec_all(t_mini *mini)
 	//if (!heredoc(mini))
 	//	return (0);
 	// builtins qui bugent avec le bash
-	ft_printf("ici\n");
+	printf("\n---------exec----------\n");
 	current = mini->ex;
 	previous_fd = 0;
 	while (current)
 	{
+		printf("en train de gerer : %s\n", current->cmd_name);
 		ret = pipe(p);
 		if (ret == -1)
 			return (0);
@@ -77,6 +81,7 @@ int	exec_all(t_mini *mini)
 		waitpid(ret, 0, 0);
 		current = current->next;
 	}
-	close(previous_fd);
+	if (previous_fd)
+		close(previous_fd);
 	return (1);
 }
