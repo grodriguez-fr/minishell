@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	mini.env = NULL;
 	mini.ex = NULL;
+	mini.env_start = envp;
 	parse_env(envp, &mini.env, mini);
 	signal(SIGINT, signal_handler);
 	launch_minishell_img();

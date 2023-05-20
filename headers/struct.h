@@ -29,8 +29,10 @@ typedef struct s_exec
 	char			*comp_pipe;
 	char			**files_out; //redirection de la sortie de la commande
 	char			**files_out_a; //redirection de la sortie de la commande
+	int			is_append;
 	char			**files_in; //redirection de l'entree de la commande
 	char			**here_docs; //redirection de l'entree de la commande
+	int			is_heredoc;
 	char			**args; // les arguments a transmettre a la commande
 	char			*cmd_name;
 	struct s_exec	*next; // la prochaine commande a executer
@@ -40,6 +42,7 @@ typedef struct s_mini
 {
 	t_env_p		*env;
 	t_exec		*ex;
+	char		**env_start; //temporaire car je vais implementer l'env dans l'exec plus tard
 }	t_mini;
 
 #endif
