@@ -11,3 +11,4 @@ void	free_env(char **envp)
 	//pour le moment fait rien, mais va free le truc plus tard
 	ft_printf("on free le truc %s", envp[1]);
 }
+

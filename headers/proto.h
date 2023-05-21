@@ -46,4 +46,6 @@ void	echo(t_exec *ex, char *str, int fd);
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
 int	exec_all(t_mini *mini);
+void	free_split(char **splited);
+char	*find_path(t_mini *mini, char *cmd_name);
 #endif

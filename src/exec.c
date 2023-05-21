@@ -12,17 +12,18 @@
 
 #include "../headers/minishell.h"
 
-void	handle_cmd(t_mini *mini, t_exec *current, int p[2])
+
+void	handle_cmd(t_mini *mini, t_exec *current)
 {
 	char	*pathname;
 	char	**new_env;
 	int	ret;
 
 	// manipulations ou pas sur le pathname
-	pathname = current->cmd_name;
+	pathname = find_path(mini, current->cmd_name);
 	new_env = convert_env(mini);
 	ret = execve(pathname, current->args, new_env);
-	printf("execve (%s, %s, new_env))\n", pathname, current->args[0]);
+	ft_printf("execve (%s, %s, new_env))\n", pathname, current->args[0]);
 	exit (ret);
 }
 
@@ -36,7 +37,7 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 //		dup2(current->files_in, 0); // focntion a faire selon le format de current->in
 //	if (current->files_out)
 //		dup2(current->files_out, 1); //fonction a faire selon l eformat de current->out
-	handle_cmd(mini, current, p);
+	handle_cmd(mini, current);
 	close (p[0]);
 	close (p[1]);
 }
