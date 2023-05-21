@@ -20,10 +20,11 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	int	ret;
 
 	// manipulations ou pas sur le pathname
+	ft_printf("ici caillou putain\n");
 	pathname = find_path(mini, current->cmd_name);
 	new_env = convert_env(mini);
-	ret = execve(pathname, current->args, new_env);
 	ft_printf("execve (%s, %s, new_env))\n", pathname, current->args[0]);
+	ret = execve(pathname, current->args, new_env);
 	exit (ret);
 }
 

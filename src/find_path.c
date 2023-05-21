@@ -48,7 +48,6 @@ char	*find_in_path(char *path, char *cmd_name)
 			return (closedir(dir), path);
 		entry = readdir(dir);
 	}
-
 	closedir(dir);
 	return (NULL);
 }
