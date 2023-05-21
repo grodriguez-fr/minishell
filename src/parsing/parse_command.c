@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/20 18:19:19 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:49:04 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 			save_j++;
 		cmd_name = malloc(sizeof(char) * (save_j + 1));
 		ft_memcpy(cmd_name, &comm[i][j], save_j);
-		j += save_j;
+		j = 0;
 		while (comm[i] && comm[i][j] && comm[i][j] == ' ')
 			j++;
 		args = ft_split(&comm[i][j], ' ');
