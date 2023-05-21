@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/21 14:37:01 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:08:04 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*change_cmdf_here_append(char *str, char *sep);
 char	**hear_append(char **fd, char *str, char *sep);
 
 void	echo(t_exec *ex, char *str, int fd);
+void	export(t_mini mini, t_exec *ex);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
