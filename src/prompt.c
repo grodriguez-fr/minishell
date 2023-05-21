@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/20 18:02:18 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:55:57 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 void	prompt(t_mini mini)
 {
 	char	*input;
-	t_env_p	*env;
 	t_exec	*ex;
 	int		i;
 
-	env = mini.env;
 	while (1)
 	{
-		while (env && ft_strncmp(env->key, "PWD", 3))
-			env = env->next;
-		input = readline(env->value);
+		mini = get_to_display(mini);
+		input = readline(mini.to_display);
 		if (!input)
 			exit_minishell(&mini);
 		add_history(input);
@@ -54,6 +51,8 @@ void	prompt(t_mini mini)
 		if (input)
 			free(input);
 		exec_all(&mini);
+		if (mini.to_display)
+			free(mini.to_display);
 		free_cmd(&mini.ex, free);
 	}
 }
@@ -61,10 +60,22 @@ void	prompt(t_mini mini)
 void	signal_handler(int sign)
 {
 	char	*pwd;
+	char	*to_display;
+	int		i;
 
 	if (sign == SIGINT)
 	{
 		pwd = getenv("PWD");
-		ft_printf("\n%s: ", pwd);
+		i = 0;
+		while (pwd && pwd[i])
+			i++;
+		while (pwd && pwd[i] != '/' && i >= 0)
+			i--;
+		i++;
+		to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
+		to_display = ft_strfjoin(to_display, &pwd[i]);
+		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
+		ft_printf("%s", to_display);
+		free(to_display);
 	}
 }

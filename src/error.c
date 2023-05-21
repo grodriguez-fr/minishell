@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/20 17:53:37 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:47:47 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	error(t_mini *mini, char *message, char **strs)
 		free_cmd(&mini->ex, free);
 	if (mini->env)
 		clear_env(&mini->env, free);
+	if (mini->to_display)
+		free(mini->to_display);
 	free_strs(strs);
 	ft_putstr_fd(message, 2);
 	exit(1);

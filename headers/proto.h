@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 15:55:35 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:37:01 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_exec	*ft_last_cmd(t_exec *lst);
 void	free_strs(char **strs);
 
 void	launch_minishell_img(void);
+t_mini	get_to_display(t_mini mini);
 void	prompt(t_mini mini);
 void	clear_env(t_env_p **env, void (*del)(void*));
 void	exit_minishell(t_mini *mini);
@@ -45,7 +46,7 @@ void	echo(t_exec *ex, char *str, int fd);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
-int	exec_all(t_mini *mini);
+int		exec_all(t_mini *mini);
 void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
 #endif

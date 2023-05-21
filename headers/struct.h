@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/13 16:45:17 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:22:16 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mini
 	t_env_p		*env;
 	t_exec		*ex;
 	char		**env_start; //temporaire car je vais implementer l'env dans l'exec plus tard
+	char		*to_display;
 }	t_mini;
 
 #endif

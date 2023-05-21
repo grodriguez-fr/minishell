@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 17:28:32 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:04:23 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 {
 	int		i;
 	int		j;
-	t_env_p	*env2;
 
 	i = 0;
 	if (!*envp)
@@ -28,13 +27,6 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 			j++;
 		add_to_stack(env, j, envp[i], mini);
 		i++;
-	}
-	if (envp && envp[0])
-	{
-		env2 = *env;
-		while (env2 && ft_strncmp(env2->key, "PWD", 3))
-			env2 = env2->next;
-		env2->value = ft_strfjoin(env2->value, ": ");
 	}
 }
 
