@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/21 15:13:03 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:14:14 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	signal_handler(int sign)
 		to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
 		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-		ft_printf("%s", to_display);
+		ft_printf("\n%s", to_display);
 		free(to_display);
 	}
 }
