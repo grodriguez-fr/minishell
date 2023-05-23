@@ -38,8 +38,6 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 		dup2(p[1], 1); // redirection sortie standard
 	}
 	close(p[1]);
-	if (previous_fd != 0)
-		close(previous_fd);
 	handle_cmd(mini, current);
 }
 
