@@ -36,7 +36,8 @@ char	*find_in_path(char *path, char *cmd_name)
 
 	if (dir == NULL)
 	{
-		perror("Erreur lors de l'ouverture du repertoire");
+		//printf("%s\n", path);
+		//perror("Erreur lors de l'ouverture du repertoire");
 		return (NULL);
 	}
 
