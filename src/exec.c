@@ -54,10 +54,7 @@ int	exec_all(t_mini *mini)
 	while (current)
 	{
 		if (current->next)
-		{
 			ret = pipe(p);
-			close(p[1]);
-		}
 		if (ret == -1)
 			return (0);
 		ret = fork();
@@ -65,6 +62,8 @@ int	exec_all(t_mini *mini)
 			return (0);
 		if (ret == 0)
 			exec_cmd(mini, current, p, previous_fd);
+		if (current->next)
+			close(p[1]);
 		if (previous_fd != 0)
 			close(previous_fd);
 		previous_fd = p[0];
