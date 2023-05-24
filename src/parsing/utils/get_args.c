@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:59:55 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:21:21 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*cpy_args(char *str)
 		i++;
 	j = i;
 	size = 0;
-	while (str && str[j] && j < (int)ft_strlen(str))
+	while (str && j < (int)ft_strlen(str))
 	{
 		if (str[j] == '"' && is_open_s % 2 == 0)
 		{
@@ -79,7 +79,7 @@ char	*cpy_args(char *str)
 		}
 		size++;
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && ft_isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str = malloc(sizeof(char) * ((size) + 1));
@@ -89,7 +89,7 @@ char	*cpy_args(char *str)
 	i = 0;
 	is_open_d = 0;
 	is_open_s = 0;
-	while (str && str[j])
+	while (str && j < (int)ft_strlen(str))
 	{
 		if (str[j] == '"' && is_open_s % 2 == 0)
 		{
@@ -103,7 +103,7 @@ char	*cpy_args(char *str)
 		}
 		new_str[i++] = str[j];
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && ft_isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str[i] = 0;
@@ -128,7 +128,7 @@ char	**get_args(char *cmd)
 		is_open_s = 0;
 		is_open_d = 0;
 		args[j++] = cpy_args(&cmd[run]);
-		while (cmd[run])
+		while (run < (int)ft_strlen(cmd))
 		{
 			if (cmd[run] == '"' && is_open_s % 2 == 0)
 			{
@@ -140,7 +140,7 @@ char	**get_args(char *cmd)
 				run++;
 				is_open_s++;
 			}
-			if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && ft_isspace(cmd[run]))
+			if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && run < (int)ft_strlen(cmd) && ft_isspace(cmd[run]))
 				break ;
 			run++;
 		}
