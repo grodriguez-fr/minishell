@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/22 18:14:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:31:03 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	prompt(t_mini mini)
 {
-	char	*input;
 	t_exec	*ex;
 	int		i;
 
 	while (1)
 	{
 		mini = get_to_display(mini);
-		input = readline(mini.to_display);
-		if (!input)
+		mini.input = readline(mini.to_display);
+		if (!mini.input)
 			exit_minishell(&mini);
-		add_history(input);
-		mini = parse_and_exec(input, mini);
+		add_history(mini.input);
+		mini = parse_and_exec(mini.input, mini);
 		ex = mini.ex;
 		while (ex)
 		{
@@ -48,8 +47,8 @@ void	prompt(t_mini mini)
 				printf("file out append :>> %s\n", ex->files_out_a[i++]);
 			ex = ex->next;
 		}
-		if (input)
-			free(input);
+		if (mini.input)
+			free(mini.input);
 		exec_all(&mini);
 		if (mini.to_display)
 			free(mini.to_display);
@@ -57,12 +56,15 @@ void	prompt(t_mini mini)
 	}
 }
 
-void	signal_handler(int sign)
+void	signal_handler(int sign, siginfo_t *info, void	*context)
 {
 	char	*pwd;
 	char	*to_display;
+	t_env_p	*env;
 	int		i;
 
+	(void)info;
+	env = (t_env_p *)context;
 	if (sign == SIGINT)
 	{
 		pwd = getenv("PWD");
@@ -75,7 +77,7 @@ void	signal_handler(int sign)
 		to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
 		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-		ft_printf("\n%s", to_display);
+		ft_printf("\n%s, %p\n", to_display, env->value);
 		free(to_display);
 	}
 }

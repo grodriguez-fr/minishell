@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/21 13:49:04 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:42:05 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,35 +68,12 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 
 t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
 {
-	int		j;
-	int		save_j;
 	char	**args;
 
-	j = 0;
-	while (comm && comm[i] && comm[i][j])
-	{
-		j = 0;
-		cmd_name = NULL;
-		while (comm[i] && comm[i][j] && comm[i][j] == ' ')
-			j++;
-		if (!comm[i][j])
-		{
-			add_cmd(&exec, NULL, NULL, NULL);
-			return (exec);
-		}
-		save_j = j;
-		while (comm[i] && comm[i][j + save_j] && comm[i][j + save_j] != ' ')
-			save_j++;
-		cmd_name = malloc(sizeof(char) * (save_j + 1));
-		ft_memcpy(cmd_name, &comm[i][j], save_j);
-		j = 0;
-		while (comm[i] && comm[i][j] && comm[i][j] == ' ')
-			j++;
-		args = ft_split(&comm[i][j], ' ');
-		while (comm[i][j])
-			j++;
-	}
-	if (cmd_name)
+	args = get_args(comm[i]);
+	if (args && args[0])
+		cmd_name = args[0];
+	if (args && cmd_name)
 		add_cmd(&exec, cmd_name, args, ft_strdup(comm[i]));
 	else
 		add_cmd(&exec, NULL, NULL, NULL);

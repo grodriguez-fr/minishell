@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_pars_NOT_COMPILE.c                            :+:      :+:    :+:   */
+/*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:56:27 by astachni         ###   ########.fr       */
+/*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
+/*   Updated: 2023/05/24 17:21:21 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <unistd.h>
+#include "../../../headers/minishell.h"
 
 int	count_word(char *cmd)
 {
@@ -28,33 +23,33 @@ int	count_word(char *cmd)
 	count = 0;
 	is_open_d = 0;
 	is_open_s = 0;
-	while (cmd && i < (int)strlen(cmd))
+	while (cmd && i < (int)ft_strlen(cmd))
 	{
-		if (!isspace(cmd[0]) && i == 0)
+		if (!ft_isspace(cmd[0]) && i == 0)
 			count++;
-		while (i < (int)strlen(cmd) && isspace(cmd[i]))
+		while (i < (int)ft_strlen(cmd) && ft_isspace(cmd[i]))
 		{
 			i++;
-			if (cmd[i] && !isspace(cmd[i]) && is_open_d % 2 == 0 && is_open_s % 2 == 0)
+			if (cmd[i] && !ft_isspace(cmd[i]) && is_open_d % 2 == 0 && is_open_s % 2 == 0)
 				count ++;
-			if (i < (int)strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
+			if (i < (int)ft_strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
 			{
 				i++;
 				is_open_d++;
 			}
-			else if (i < (int)strlen(cmd) && cmd[i] == '\'' && is_open_d % 2 == 0)
+			else if (i < (int)ft_strlen(cmd) && cmd[i] == '\'' && is_open_d % 2 == 0)
 			{
 				i++;
 				is_open_s++;
 			}
 		}
-		while (i < (int)strlen(cmd) && !isspace(cmd[i]))
+		while (i < (int)ft_strlen(cmd) && !ft_isspace(cmd[i]))
 			i++;
 	}
 	return (count);
 }
 
-char	*cpy(char *str)
+char	*cpy_args(char *str)
 {
 	int		i;
 	int		j;
@@ -66,11 +61,11 @@ char	*cpy(char *str)
 	i = 0;
 	is_open_d = 0;
 	is_open_s = 0;
-	while (str && str[i] && isspace(str[i]))
+	while (str && str[i] && ft_isspace(str[i]))
 		i++;
 	j = i;
 	size = 0;
-	while (str && str[j] && j < strlen(str))
+	while (str && j < (int)ft_strlen(str))
 	{
 		if (str[j] == '"' && is_open_s % 2 == 0)
 		{
@@ -84,7 +79,7 @@ char	*cpy(char *str)
 		}
 		size++;
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str = malloc(sizeof(char) * ((size) + 1));
@@ -94,7 +89,7 @@ char	*cpy(char *str)
 	i = 0;
 	is_open_d = 0;
 	is_open_s = 0;
-	while (str && str[j])
+	while (str && j < (int)ft_strlen(str))
 	{
 		if (str[j] == '"' && is_open_s % 2 == 0)
 		{
@@ -108,14 +103,14 @@ char	*cpy(char *str)
 		}
 		new_str[i++] = str[j];
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str[i] = 0;
 	return (new_str);
 }
 
-char **get_args(char *cmd)
+char	**get_args(char *cmd)
 {
 	char	**args;
 	int		i;
@@ -132,8 +127,8 @@ char **get_args(char *cmd)
 	{
 		is_open_s = 0;
 		is_open_d = 0;
-		args[j++] = cpy(&cmd[run]);
-		while (cmd[run])
+		args[j++] = cpy_args(&cmd[run]);
+		while (run < (int)ft_strlen(cmd))
 		{
 			if (cmd[run] == '"' && is_open_s % 2 == 0)
 			{
@@ -145,7 +140,7 @@ char **get_args(char *cmd)
 				run++;
 				is_open_s++;
 			}
-			if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && isspace(cmd[run]))
+			if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && run < (int)ft_strlen(cmd) && ft_isspace(cmd[run]))
 				break ;
 			run++;
 		}
@@ -153,18 +148,4 @@ char **get_args(char *cmd)
 	}
 	args[j] = NULL;
 	return (args);
-}
-
-int	main(void)
-{
-	char	*cmd;
-	char	**args;
-	int		i;
-
-	i = 0;
-	cmd = strdup("e\"c' \"ho la' 'bi\"      \"te");
-	args = get_args(cmd);
-	while (args[i])
-		printf("%s\n", args[i++]);
-	return (0);
 }

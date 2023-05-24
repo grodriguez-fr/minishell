@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/21 15:08:04 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:40:20 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 # define PROTO_H
 
-# include "struct.h"
+# include "minishell.h"
+# include <signal.h>
 
 void	parse_env(char **envp, t_env_p **env, t_mini mini);
 void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini);
@@ -24,6 +25,7 @@ t_env_p	*ft_new(char *key, char *value);
 void	free_cmd(t_exec **exec, void (*del)(void*));
 t_exec	*ft_last_cmd(t_exec *lst);
 void	free_strs(char **strs);
+int		ft_isspace(char c);
 
 void	launch_minishell_img(void);
 t_mini	get_to_display(t_mini mini);
@@ -31,8 +33,9 @@ void	prompt(t_mini mini);
 void	clear_env(t_env_p **env, void (*del)(void*));
 void	exit_minishell(t_mini *mini);
 void	error(t_mini *mini, char *message, char **strs);
-void	signal_handler(int sign);
+void	signal_handler(int sign, siginfo_t *info, void	*context);
 
+char	**get_args(char *cmd);
 t_mini	parse_and_exec(char *input, t_mini mini);
 t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini);
 char	**ft_split_pipe(char *str, char sep);
