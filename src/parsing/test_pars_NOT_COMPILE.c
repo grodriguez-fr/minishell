@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:56:27 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:10:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,56 @@ char **get_args(char *cmd)
 	return (args);
 }
 
-int	main(void)
-{
-	char	*cmd;
-	char	**args;
-	int		i;
+// int	main(void)
+// {
+// 	char	*cmd;
+// 	char	**args;
+// 	int		i;
 
-	i = 0;
-	cmd = strdup("e\"c' \"ho la' 'bi\"      \"te");
-	args = get_args(cmd);
-	while (args[i])
-		printf("%s\n", args[i++]);
+// 	i = 0;
+// 	cmd = strdup("e\"c' \"ho la' 'bi\"      \"te");
+// 	args = get_args(cmd);
+// 	while (args[i])
+// 		printf("%s\n", args[i++]);
+// 	return (0);
+// }
+
+int	main(int ac, char **av)
+{
+	unsigned int	seconde;
+	unsigned int	minutes;
+
+	if (ac == 2)
+	{
+		seconde = 0;
+		minutes = 0;
+		seconde = atoi(av[1]);
+		while (seconde >= 60 && seconde != 0)
+		{
+			if (seconde == 60)
+			{
+				seconde = 0;
+				minutes++;
+			}
+			else
+			{
+				seconde -= 60;
+				minutes++;
+			}
+		}
+		while ((seconde != 0 && minutes != 0) || (seconde == 0 && minutes != 0) || (seconde != 0 && minutes == 0))
+		{
+			usleep(1000000);
+			if (seconde != 0)
+				seconde--;
+			printf("%d min %d s\n", minutes, seconde);
+			if (seconde == 0 && minutes != 0)
+			{
+				seconde = 60;
+				minutes--;
+			}
+		}
+		printf("C'est fini\n");
+	}
 	return (0);
 }
