@@ -22,6 +22,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	pathname = find_path(mini, current->cmd_name);
 	new_env = convert_env(mini);
 	ret = execve(pathname, current->args, new_env);
+    free_env(new_env);
 	exit (ret);
 }
 
