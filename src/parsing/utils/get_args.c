@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 17:41:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:43:49 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**get_args(char *cmd)
 	run = 0;
 	while (cmd && cmd[run] && ft_isspace(cmd[run]))
 			run++;
-	i = count_word(cmd);
+	i = count_word(&cmd[run]);
 	args = malloc(sizeof(char *) * (i + 1));
 	j = 0;
 	while (j < i)
