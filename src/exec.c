@@ -20,6 +20,8 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	int     ret;
     int     is_path;
 
+//    if (is_builtin(current->cmd_name))
+ //       return (execute_builtin(mini, current, current->cmd_name));
     pathname = current->cmd_name;
     if (!strchr(current->cmd_name, '/'))
     {
@@ -31,7 +33,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
     if (!is_path)
         free(pathname);
     free_env(new_env);
-	exit (ret);
+	exit(ret);
 }
 
 void    exec_redirection_in(t_exec *current)
