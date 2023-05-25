@@ -17,11 +17,19 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 {
 	char	*pathname;
 	char	**new_env;
-	int	ret;
+	int     ret;
+    int     is_path;
 
-	pathname = find_path(mini, current->cmd_name);
+    pathname = current->cmd_name;
+    if (!strchr(current->cmd_name, '/'))
+    {
+    	pathname = find_path(mini, current->cmd_name);
+        is_path = 1;
+    }
 	new_env = convert_env(mini);
 	ret = execve(pathname, current->args, new_env);
+    if (!is_path)
+        free(pathname);
     free_env(new_env);
 	exit (ret);
 }
@@ -35,9 +43,7 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 	}
 	close(p[0]);
 	if (current->next)
-	{
 		dup2(p[1], 1); // redirection sortie standard
-	}
 	close(p[1]);
 	handle_cmd(mini, current);
 }
@@ -45,9 +51,9 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 int	exec_all(t_mini *mini)
 {
 	t_exec	*current;
-	int	p[2];
-	int	ret;
-	int	previous_fd;
+	int 	p[2];
+	int 	ret;
+	int 	previous_fd;
 
 	printf("\n---------exec----------\n");
 	current = mini->ex;
