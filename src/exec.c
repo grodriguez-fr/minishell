@@ -67,7 +67,7 @@ void    exec_redirection_out(t_exec *current)
         i = 0;
         while (current->files_out_a[i + 1])
             i++;
-        fd = open(current->files_out_a[i], O_WRONLY, O_APPEND);
+        fd = open(current->files_out_a[i], O_WRONLY | O_APPEND);
         dup2(fd, 1);
     }
     else if (current->files_out)
