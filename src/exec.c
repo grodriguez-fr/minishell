@@ -20,8 +20,8 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	int     ret;
     int     is_path;
 
-//    if (is_builtin(current->cmd_name))
- //       return (execute_builtin(mini, current, current->cmd_name));
+    if (is_builtin(current->cmd_name))
+        exit(execute_builtin(mini, current, current->cmd_name));
     pathname = current->cmd_name;
     if (!strchr(current->cmd_name, '/'))
     {
@@ -109,6 +109,10 @@ int	exec_all(t_mini *mini)
     heredoc(mini);
 	current = mini->ex;
 	previous_fd = 0;
+    if (builtin_env_modifier(current->cmd_name) && !current->next)
+    {
+        return (execute_builtin(mini, current, current->cmd_name));
+    }
 	while (current)
 	{
         if (!check_redirection(current))

@@ -48,6 +48,11 @@ int		take_last_redirect(char *cmd);
 
 void	echo(t_exec *ex, char *str, int fd);
 void	export(t_mini mini, t_exec *ex);
+int    cd(t_mini *mini, t_exec *ex);
+int    pwd(t_mini *mini);
+int    unset(t_mini *mini, t_exec *ex);
+int    env(t_mini *mini);
+int    exit_builtin(t_mini *mini, t_exec *ex);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
@@ -56,4 +61,7 @@ void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
 int     check_redirection(t_exec *current);
 int     heredoc(t_mini *mini);
+int     is_builtin(char *cmd_name);
+int     execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name);
+int     builtin_env_modifier(char *cmd_name);
 #endif
