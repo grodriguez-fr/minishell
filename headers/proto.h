@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:40:20 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:24:40 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	create_env(void);
 char	**in_out(char **fd, char *str, char sep);
 char	*change_cmdf_here_append(char *str, char *sep);
 char	**hear_append(char **fd, char *str, char *sep);
+int		take_last_redirect(char *cmd);
 
 void	echo(t_exec *ex, char *str, int fd);
 void	export(t_mini mini, t_exec *ex);
