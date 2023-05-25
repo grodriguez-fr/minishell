@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:42:05 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:44:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ t_mini	parse_and_exec(char *input, t_mini mini)
 t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 {
 	int		i;
+	int		redirect;
 	char	**commands;
 	char	*cmd_name;
 	char	**files_out;
 	char	**files_in;
-	char	**heardoc = NULL;
-	char	**append = NULL;
+	char	**heardoc;
+	char	**append;
 
 	commands = ft_split_pipe(input, '|');
 	i = 0;
@@ -44,6 +45,7 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	cmd_name = NULL;
 	while (commands && commands[i])
 	{
+		redirect = take_last_redirect(commands[i]);
 		heardoc = hear_append(heardoc, commands[i], "<<");
 		append = hear_append(append, commands[i], ">>");
 		commands[i] = change_cmdf_here_append(commands[i], ">>");
@@ -59,6 +61,12 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 		ft_last_cmd(exec)->files_in = files_in;
 		ft_last_cmd(exec)->here_docs = heardoc;
 		ft_last_cmd(exec)->files_out_a = append;
+		ft_last_cmd(exec)->is_append = 0;
+		ft_last_cmd(exec)->is_heredoc = 0;
+		if (redirect == 1)
+			ft_last_cmd(exec)->is_append = 1;
+		else if (redirect == 2)
+			ft_last_cmd(exec)->is_heredoc = 1;
 		free(commands[i]);
 		i++;
 	}

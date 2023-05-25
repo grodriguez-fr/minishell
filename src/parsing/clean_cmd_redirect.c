@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/20 18:19:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:55:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,25 @@ ssize_t	count_sep_here_append(char *str, char *sep)
 		i++;
 	}
 	return (count);
+}
+
+int	take_last_redirect(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd && cmd[i])
+		i++;
+	i--;
+	while (i > 0)
+	{
+		if (cmd[i] == '>')
+			if (i != 0 && cmd[i - 1] == '>')
+				return (1);
+		if (cmd[i] == '<')
+			if (i != 0 && cmd[i - 1] == '<')
+				return (2);
+		i--;
+	}
+	return (0);
 }
