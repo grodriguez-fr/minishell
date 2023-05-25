@@ -53,4 +53,6 @@ void	free_env(char **envp);
 int		exec_all(t_mini *mini);
 void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
+int     check_redirection(t_exec *current);
+int     heredoc(t_mini *mini);
 #endif

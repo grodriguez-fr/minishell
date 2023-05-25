@@ -3,4 +3,5 @@
 *.a
 *.zizi
 .nfs*
+hd/*
 minishell
