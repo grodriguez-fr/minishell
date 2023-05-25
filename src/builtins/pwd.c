@@ -2,6 +2,7 @@
 
 int pwd(t_mini *mini)
 {
-    printf("pwd : %s\n", mini->env->value);
+    if (ft_printf("%s\n", get_env_value(mini, "PWD")) == -1)
+        return (0);
     return (1);
 } 

@@ -64,4 +64,5 @@ int     heredoc(t_mini *mini);
 int     is_builtin(char *cmd_name);
 int     execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name);
 int     builtin_env_modifier(char *cmd_name);
+char	*get_env_value(t_mini *mini, char *key);
 #endif

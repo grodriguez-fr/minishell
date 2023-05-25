@@ -13,14 +13,15 @@ void	free_split(char **splited)
 	}
 }
 
-char	*get_paths(t_mini *mini)
+char	*get_env_value(t_mini *mini, char *key)
 {
 	t_env_p *current;
 
 	current = mini->env;
 	while (current)
 	{
-		if (!ft_memcmp(current->key, "PATH", 5))
+		if (!ft_memcmp(current->key, key, ft_strlen(key)) && \
+            !ft_memcmp(current->key, key, ft_strlen(current->key)))
 			return (current->value);	
 		current = current->next;
 	}
@@ -33,13 +34,8 @@ char	*find_in_path(char *path, char *cmd_name)
 	struct dirent	*entry;
 
 	dir = opendir(path);
-
 	if (dir == NULL)
-	{
-		//printf("%s\n", path);
-		//perror("Erreur lors de l'ouverture du repertoire");
 		return (NULL);
-	}
 
 	entry = readdir(dir);
 	while (entry)
@@ -71,9 +67,9 @@ char	*find_path(t_mini *mini, char *cmd_name)
 	char	**splited_env;
 	char	*paths;
 	char	*res;
-	int	i;
+	int 	i;
 
-	paths = get_paths(mini);
+	paths = get_env_value(mini, "PATH");
 	splited_env = ft_split(paths, ':');
 	i = 0;
 	while(splited_env[i])

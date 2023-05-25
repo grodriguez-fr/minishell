@@ -2,6 +2,17 @@
 
 int env(t_mini *mini)
 {
+    char    **envp;
+    int     i;
+
     printf("env : %s\n", mini->env->value);
-    return (1);
+    envp = convert_env(mini);
+    i = 0;
+    while (envp[i])
+    {
+        if (ft_printf("%s\n", envp[i]) == -1)
+            return (free_env(envp), 0);
+        i++;
+    }
+    return (free_env(envp), 1);
 } 
