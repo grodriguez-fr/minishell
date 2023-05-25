@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 14:38:44 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:55:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,15 @@ int	take_last_redirect(char *cmd)
 	while (cmd && cmd[i])
 		i++;
 	i--;
-	ft_printf("%s\n", &cmd[i]);
 	while (i > 0)
 	{
 		if (cmd[i] == '>')
-		{
 			if (i != 0 && cmd[i - 1] == '>')
-			{
-				ft_printf("%d\n", 1);
 				return (1);
-			}
-		}
 		if (cmd[i] == '<')
 			if (i != 0 && cmd[i - 1] == '<')
 				return (2);
 		i--;
 	}
-	ft_printf("%d-\n", 0);
 	return (0);
 }
