@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:31:53 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:20:47 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	main(int ac, char **av, char **envp)
 	// sa.sa_mask = mask;
 	// sa.sa_sigaction = signal_handler;
 	parse_env(envp, &mini.env, mini);
+	t_env_p	*env = mini.env;
+	while (env)
+	{
+		ft_printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
 	// sigaction(SIGINT, &sa, (void *)mini.env);
 	launch_minishell_img();
 	prompt(mini);

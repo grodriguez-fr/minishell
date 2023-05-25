@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_in_out.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/16 15:45:05 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:54:26 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
-			fd[ct_fd] = take_fd(&str[i]);
-			ct_fd++;
+			fd[ct_fd++] = take_fd(&str[i]);
 		}
 		i++;
 	}
@@ -85,6 +84,8 @@ char	*take_fd(char *str)
 		count++;
 	}
 	fd = malloc(sizeof(char) * (count + 1));
+	if (!fd)
+		return (NULL);
 	i -= count;
 	count = 0;
 	while (str && str[i] && str[i] != ' ')

@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/20 17:49:47 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:52:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-char	**cpy(char *src, char **dest, int count)
+int	count_space(char *src, int i)
+{
+	while (src[i] && ft_isspace(src[i]))
+		i++;
+	return (i);
+}
+
+char	**cpy(char *src, char **dest, int count, int j)
 {
 	int	i;
 	int	is_open;
-	int	j;
 	int	c;
 
 	is_open = 0;
 	i = 0;
-	j = 0;
 	c = 0;
 	while (src && src[i] && count > c)
 	{
@@ -36,8 +41,7 @@ char	**cpy(char *src, char **dest, int count)
 			is_open++;
 		if (is_open % 2 == 0 && src[i] == '|')
 		{
-			while (src[i] && ft_isspace(src[i]))
-				i++;
+			i = count_space(src, i);
 			dest[c++] = ft_substr(src, j, i - j);
 			i++;
 			j = i;
@@ -88,6 +92,6 @@ char	**ft_split_pipe(char *str, char sep)
 	to_return = malloc(sizeof(char *) * (count + 1));
 	if (!to_return)
 		return (NULL);
-	to_return = cpy(str, to_return, count);
+	to_return = cpy(str, to_return, count, 0);
 	return (to_return);
 }

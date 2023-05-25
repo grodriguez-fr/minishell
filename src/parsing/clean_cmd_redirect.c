@@ -6,19 +6,18 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 14:55:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:19:41 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
 ssize_t	count_sep_here_append(char *str, char *sep);
+char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open);
 
 char	*change_cmdf_here_append(char *str, char *sep)
 {
 	char	*new_str;
-	size_t	i;
-	size_t	is_open;
 	ssize_t	count;
 
 	count = count_sep_here_append(str, sep);
@@ -28,28 +27,38 @@ char	*change_cmdf_here_append(char *str, char *sep)
 		new_str = malloc(sizeof(char) * (count + 1));
 		if (!new_str)
 			return (NULL);
-		i = 0;
-		count = 0;
-		is_open = 0;
-		while (str && i < ft_strlen(str))
-		{
-			if (str[i] == '"')
-				is_open++;
-			else if (str[i] == sep[0] && str[i + 1] == sep[1]
-				&& is_open % 2 == 0)
-			{
-				while (str[i] == sep[0])
-					i++;
-				while (str[i] && str[i] == ' ')
-					i++;
-				while (str[i] && str[i] != ' ')
-					i++;
-			}
-			new_str[count++] = str[i++];
-		}
-		new_str[count] = 0;
+		cpy_cmd(new_str, str, sep, 0);
 	}
 	free(str);
+	return (new_str);
+}
+
+char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open)
+{
+	int		count;
+	size_t	i;
+
+	if (!str || ! new_str)
+		return (NULL);
+	count = 0;
+	i = 0;
+	while (str && i < ft_strlen(str))
+	{
+		if (str[i] == '"')
+			is_open++;
+		else if (str[i] == sep[0] && str[i + 1] == sep[1]
+			&& is_open % 2 == 0)
+		{
+			while (str[i] == sep[0])
+				i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			while (str[i] && str[i] != ' ')
+				i++;
+		}
+		new_str[count++] = str[i++];
+	}
+	new_str[count] = 0;
 	return (new_str);
 }
 
