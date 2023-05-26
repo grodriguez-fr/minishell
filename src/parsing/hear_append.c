@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/26 17:52:26 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:55:03 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,6 @@ char	*take_fd_here_append(char *str)
 	count = 0;
 	while (str && str[i] && str[i] != ' ')
 	{
-		if (str[j] == '"' && is_open_s % 2 == 0)
-		{
-			j++;
-			is_open_d++;
-		}
-		else if (str[j] == '\'' && is_open_d % 2 == 0)
-		{
-			j++;
-			is_open_s++;
-		}
 		i++;
 		count++;
 	}
