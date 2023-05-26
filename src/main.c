@@ -22,7 +22,6 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	mini.env = NULL;
 	mini.ex = NULL;
-	mini.env_start = envp;
 	// sigemptyset(&mask);
 	// sigaddset(&mask, SIGINT);
 	// sigaddset(&mask, SIGQUIT);

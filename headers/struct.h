@@ -42,7 +42,6 @@ typedef struct s_mini
 {
 	t_env_p		*env;
 	t_exec		*ex;
-	char		**env_start; //temporaire car je vais implementer l'env dans l'exec plus tard
 	char		*to_display;
 	char		*input;
 }	t_mini;
