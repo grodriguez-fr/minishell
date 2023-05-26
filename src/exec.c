@@ -18,21 +18,27 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	char	*pathname;
 	char	**new_env;
 	int     ret;
-    int     is_path;
 
-    is_path = 0;
     if (is_builtin(current->cmd_name))
+    {
         exit(execute_builtin(mini, current, current->cmd_name));
-    pathname = current->cmd_name;
+    }
+	new_env = convert_env(mini);
     if (!strchr(current->cmd_name, '/'))
     {
     	pathname = find_path(mini, current->cmd_name);
-        is_path = 1;
-    }
-	new_env = convert_env(mini);
-	ret = execve(pathname, current->args, new_env);
-    if (!is_path)
+	    ret = execve(pathname, current->args, new_env);
         free(pathname);
+        if (!pathname)
+            ft_putstr_fd("minishell: command not found\n", 2);
+    }
+    else
+    {
+        pathname = current->cmd_name;
+	    ret = execve(pathname, current->args, new_env);
+        if (ret == -1)
+            perror("Erreur lors de l'execution");
+    }
     free_env(new_env);
 	exit(ret);
 }
