@@ -4,7 +4,7 @@ SRC = src/error.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/exec.
 
 PARSING = src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils/utils_parse_command.c src/parsing/create_env.c src/parsing/file_in_out.c src/parsing/utils/ft_split_mini.c src/parsing/clean_cmd_redirect.c src/parsing/hear_append.c src/parsing/utils/get_args.c  src/parsing/clean_cmd_redirect_s.c
 
-BUILTINS = src/builtins/echo.c src/builtins/export.c src/builtin.c src/builtins/cd.c src/builtins/env.c src/builtins/exit_builtin.c src/builtins/pwd.c src/builtins/unset.c
+BUILTINS = src/builtins/echo.c src/builtins/export.c src/builtin.c src/builtins/cd.c src/builtins/env.c src/builtins/exit_builtin.c src/builtins/pwd.c src/builtins/unset.c src/builtins/clean_path.c
 
 SRCS = $(SRC) $(PARSING) $(BUILTINS)
 

@@ -20,10 +20,14 @@ int set_pwd(t_mini *mini, char *new_pwd)
 
 int change_wd(t_mini *mini, char *new_pwd)
 {
-    //verifie si c'est bien un directory valide
-    if (access(new_pwd, F_OK))
-        return (perror("cd"), 0);
-    return (set_pwd(mini, new_pwd));
+    char    *clean;
+    int     ret;
+
+    clean = get_clean_path(new_pwd);
+    if (chdir(clean) == -1)
+        return (free(clean), perror("minishell : cd"), 0);
+    ret = set_pwd(mini, clean);
+    return (free(clean), ret);
 }
 
 int change_relative(t_mini *mini, char *arg)
@@ -32,24 +36,10 @@ int change_relative(t_mini *mini, char *arg)
     char    *buffer;
     char    *new_wd;
 
-    printf("chemin relatif\n");
     buffer = ft_strjoin(get_env_value(mini, "PWD"), "/");
     new_wd = ft_strjoin(buffer, arg);
-    free(buffer);
     ret = change_wd(mini, new_wd);
-    free(new_wd);
-    return (ret);
-}
-
-int change_absolute(t_mini *mini, char *newpwd)
-{
-    int i;
-
-    while (newpwd[i])
-        i++;
-    if (i >= 0 && newpwd[i - 1] == '/')
-        newpwd[i - 1] = 0;
-    return (change_wd(mini, newpwd));
+    return (free(buffer), free(new_wd), ret);
 }
 
 int cd(t_mini *mini, t_exec *ex)
@@ -61,9 +51,8 @@ int cd(t_mini *mini, t_exec *ex)
     else if (!ft_strncmp(ex->args[1], "-", 1))
         ret = change_wd(mini, get_env_value(mini, "OLDPWD"));
     else if (ex->args[1][0] == '/')
-        ret = change_absolute(mini, ex->args[1]);
+        ret = change_wd(mini, ex->args[1]);
     else
         ret = change_relative(mini, ex->args[1]);
-    //printf("cd from %s to %s\n", mini->env->value, ex->args[0]);
     return (ret);
 } 
