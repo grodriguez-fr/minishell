@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 14:44:36 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:23:37 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,51 @@ t_mini	parse_and_exec(char *input, t_mini mini)
 	return (mini);
 }
 
+static char	*get_command(char *cmd, t_exec *ex)
+{
+	int	redirect;
+
+	redirect = take_last_redirect(cmd);
+	ex->here_docs = hear_append(ex->here_docs, cmd, "<<");
+	ex->files_out_a = hear_append(ex->files_out_a, cmd, ">>");
+	cmd = change_cmdf_here_append(cmd, ">>");
+	cmd = change_cmdf_here_append(cmd, "<<");
+	ex->files_out = in_out(ex->files_out, cmd, '>');
+	ex->files_in = in_out(ex->files_in, cmd, '<');
+	cmd = change_cmdf(cmd, '>');
+	cmd = change_cmdf(cmd, '<');
+	ex->is_append = 0;
+	ex->is_heredoc = 0;
+	if (redirect == 1)
+		ex->is_append = 1;
+	else if (redirect == 2)
+		ex->is_heredoc = 1;
+	return (cmd);
+}
+
 t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 {
 	int		i;
-	int		redirect;
 	char	**commands;
-	char	*cmd_name;
-	char	**files_out;
-	char	**files_in;
-	char	**heardoc;
-	char	**append;
+	t_exec	*ex;
 
 	commands = ft_split_pipe(input, '|');
-	i = 0;
-	exec = NULL;
-	cmd_name = NULL;
-	while (commands && commands[i])
+	i = -1;
+	while (commands && commands[++i])
 	{
-		redirect = take_last_redirect(commands[i]);
-		heardoc = hear_append(heardoc, commands[i], "<<");
-		append = hear_append(append, commands[i], ">>");
-		commands[i] = change_cmdf_here_append(commands[i], ">>");
-		commands[i] = change_cmdf_here_append(commands[i], "<<");
-		files_out = in_out(files_out, commands[i], '>');
-		files_in = in_out(files_in, commands[i], '<');
-		commands[i] = change_cmdf(commands[i], '>');
-		commands[i] = change_cmdf(commands[i], '<');
+		ex = malloc(sizeof(t_exec));
+		commands[i] = get_command(commands[i], ex);
 		if (!commands[i])
 			error(&mini, "MALLOC ERROR\n", commands);
-		exec = parse_cmd_args(i, commands, cmd_name, exec);
-		ft_last_cmd(exec)->files_out = files_out;
-		ft_last_cmd(exec)->files_in = files_in;
-		ft_last_cmd(exec)->here_docs = heardoc;
-		ft_last_cmd(exec)->files_out_a = append;
-		ft_last_cmd(exec)->is_append = 0;
-		ft_last_cmd(exec)->is_heredoc = 0;
-		if (redirect == 1)
-			ft_last_cmd(exec)->is_append = 1;
-		else if (redirect == 2)
-			ft_last_cmd(exec)->is_heredoc = 1;
+		exec = parse_cmd_args(i, commands, NULL, exec);
+		ft_last_cmd(exec)->files_out = ex->files_out;
+		ft_last_cmd(exec)->files_in = ex->files_in;
+		ft_last_cmd(exec)->here_docs = ex->here_docs;
+		ft_last_cmd(exec)->files_out_a = ex->files_out_a;
+		ft_last_cmd(exec)->is_append = ex->is_append;
+		ft_last_cmd(exec)->is_heredoc = ex->is_heredoc;
 		free(commands[i]);
-		i++;
+		free(ex);
 	}
 	free(commands);
 	return (exec);

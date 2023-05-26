@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:07 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 16:45:16 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:09:27 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	int     ret;
     int     is_path;
 
+    is_path = 0;
     if (is_builtin(current->cmd_name))
         exit(execute_builtin(mini, current, current->cmd_name));
     pathname = current->cmd_name;
