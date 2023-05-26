@@ -22,7 +22,7 @@ void	prompt(t_mini mini)
 		mini = get_to_display(mini);
 		mini.input = readline(mini.to_display);
 		if (!mini.input)
-			exit_minishell(&mini);
+			exit_minishell(&mini, 0);
 		add_history(mini.input);
 		mini = parse_and_exec(mini.input, mini);
 		ex = mini.ex;

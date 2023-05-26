@@ -20,7 +20,7 @@ t_mini	parse_and_exec(char *input, t_mini mini)
 	{
 		if (input)
 			free(input);
-		exit_minishell(&mini);
+		exit_minishell(&mini, 0);
 	}
 	mini.ex = parse_cmd(input, mini.ex, mini);
 	return (mini);

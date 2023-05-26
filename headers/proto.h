@@ -31,7 +31,7 @@ void	launch_minishell_img(void);
 t_mini	get_to_display(t_mini mini);
 void	prompt(t_mini mini);
 void	clear_env(t_env_p **env, void (*del)(void*));
-void	exit_minishell(t_mini *mini);
+void	exit_minishell(t_mini *mini, int code);
 void	error(t_mini *mini, char *message, char **strs);
 void	signal_handler(int sign, siginfo_t *info, void	*context);
 

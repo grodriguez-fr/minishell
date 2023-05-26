@@ -12,9 +12,9 @@
 
 #include "../headers/minishell.h"
 
-void	exit_minishell(t_mini *mini)
+void	exit_minishell(t_mini *mini, int code)
 {
 	if (mini->env)
 		clear_env(&mini->env, free);
-	exit(0);
+	exit(code);
 }
