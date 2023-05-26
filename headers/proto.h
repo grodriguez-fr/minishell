@@ -48,7 +48,7 @@ int		take_last_redirect(char *cmd);
 size_t	count_sep(char *str, char sep);
 char	*change_cmdf(char *str, char sep);
 
-void	echo(t_exec *ex, char *str, int fd);
+int 	echo(t_exec *ex);
 int		export(t_mini *mini, t_exec *ex);
 int		cd(t_mini *mini, t_exec *ex);
 int		pwd(t_mini *mini);

@@ -23,7 +23,7 @@ int execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name)
 {
     ft_printf("execute une builtin\n");
     if (!ft_memcmp(cmd_name, "echo", 4))
-        return (echo(ex, "test", 0), 1);
+        return (echo(ex));
     if (!ft_memcmp(cmd_name, "cd", 2))
         return (cd(mini,  ex));
     if (!ft_memcmp(cmd_name, "pwd", 3))

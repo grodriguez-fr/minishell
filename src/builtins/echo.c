@@ -12,24 +12,45 @@
 
 #include "../../headers/minishell.h"
 
-void	echo(t_exec *ex, char *str, int fd)
+int check_options(t_exec *ex, size_t *j)
 {
 	size_t	nb_n;
-	size_t	j;
+    int     have_endline;
 
-	if (!ex || strcmp(ex->cmd_name, "echo") != 0)
-		return ;
-	j = 0;
-	while (ex->args && ex->args[j] && ex->args[j][0] == '-')
+	*j = 1;
+    have_endline = 1;
+	while (ex->args && ex->args[*j] && ex->args[*j][0] == '-')
 	{
-		nb_n = 1;
-		while (ex->args[j][nb_n] == 'n')
+		nb_n = 0;
+		while (ex->args[*j][nb_n + 1] == 'n')
 			nb_n++;
-		if (nb_n != ft_strlen(ex->args[j]))
+		if (nb_n + 1!= ft_strlen(ex->args[*j]))
 			break ;
-		j++;
+        if (nb_n > 0)
+            have_endline = 0;
+		*j = *j + 1;
 	}
-	ft_putstr_fd(str, fd);
-	if (j == 0)
-		ft_putstr_fd("\n", fd);
+    return (have_endline);
+}
+
+int	echo(t_exec *ex)
+{
+	size_t	j;
+    int     have_endline;
+    
+	if (!ex || strcmp(ex->cmd_name, "echo") != 0)
+		return (0);
+    if (write(1, "", 0) == -1)
+        return (perror("minishell: cd"), 0);
+    have_endline = check_options(ex, &j);
+    while (ex->args[j])
+    {
+	    ft_putstr_fd(ex->args[j], 1);
+        if (ex->args[j + 1])
+            ft_putstr_fd(" ", 1);
+        j++;
+    }
+	if (have_endline)
+		ft_putstr_fd("\n", 1);
+    return (1);
 }
