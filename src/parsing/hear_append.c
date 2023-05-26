@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hear_append.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 16:55:09 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:52:26 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,47 @@ char	**hear_append(char **fd, char *str, char *sep)
 {
 	int	nb_fd;
 	int	i;
-	int	is_open;
+	int	is_open_s;
+	int	is_open_d;
 
 	nb_fd = 0;
 	i = 0;
-	is_open = 0;
+	is_open_s = 0;
+	is_open_d = 0;
 	if (!str)
 		return (NULL);
 	while (str && str[i] && str[i + 1])
 	{
-		if (str[i] == '"')
-			is_open++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1] && is_open % 2 == 0)
+		if (i < (int)ft_strlen(str) && str[i] == '"' && is_open_s % 2 == 0)
+		{
+			i++;
+			is_open_d++;
+		}
+		if (i < (int)ft_strlen(str) && str[i] == '"' && is_open_d % 2 == 0)
+		{
+			i++;
+			is_open_s++;
+		}
+		else if (str[i] == sep[0] && str[i + 1] == sep[1] && is_open_s % 2 == 0 && is_open_d == 0)
 			nb_fd ++;
 		i++;
 	}
 	if (nb_fd == 0)
 		return (NULL);
 	fd = allocate_fd_here_append(fd, str, nb_fd, sep);
+	fd[nb_fd] = NULL;
 	return (fd);
 }
 
 char	**allocate_fd_here_append(char **fd, char *str, int nb_fd, char *sep)
 {
 	int	i;
-	int	is_open;
+	int	is_open_s;
+	int	is_open_d;
 	int	ct_fd;
 
-	is_open = 0;
+	is_open_s = 0;
+	is_open_d = 0;
 	i = 0;
 	fd = malloc(sizeof(char *) * (nb_fd + 1));
 	if (!fd)
@@ -54,9 +67,18 @@ char	**allocate_fd_here_append(char **fd, char *str, int nb_fd, char *sep)
 	ct_fd = 0;
 	while (str && str[i] && str[i + 1] && ct_fd != nb_fd)
 	{
-		if (str[i] == '"')
-			is_open++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1] && str[i + 2] && is_open % 2 == 0)
+		if (i < (int)ft_strlen(str) && str[i] == '"' && is_open_s % 2 == 0)
+		{
+			i++;
+			is_open_d++;
+		}
+		if (i < (int)ft_strlen(str) && str[i] == '"' && is_open_d % 2 == 0)
+		{
+			i++;
+			is_open_s++;
+		}
+		else if (str[i] == sep[0] && str[i + 1] == sep[1]
+			&& str[i + 2] && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
@@ -65,7 +87,6 @@ char	**allocate_fd_here_append(char **fd, char *str, int nb_fd, char *sep)
 		}
 		i++;
 	}
-	fd[ct_fd] = NULL;
 	return (fd);
 }
 
@@ -81,6 +102,16 @@ char	*take_fd_here_append(char *str)
 	count = 0;
 	while (str && str[i] && str[i] != ' ')
 	{
+		if (str[j] == '"' && is_open_s % 2 == 0)
+		{
+			j++;
+			is_open_d++;
+		}
+		else if (str[j] == '\'' && is_open_d % 2 == 0)
+		{
+			j++;
+			is_open_s++;
+		}
 		i++;
 		count++;
 	}

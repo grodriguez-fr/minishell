@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 14:24:40 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:35:46 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,26 @@ char	**in_out(char **fd, char *str, char sep);
 char	*change_cmdf_here_append(char *str, char *sep);
 char	**hear_append(char **fd, char *str, char *sep);
 int		take_last_redirect(char *cmd);
+size_t	count_sep(char *str, char sep);
+char	*change_cmdf(char *str, char sep);
 
 void	echo(t_exec *ex, char *str, int fd);
-int     export(t_mini *mini, t_exec *ex);
-int     cd(t_mini *mini, t_exec *ex);
-int     pwd(t_mini *mini);
-int     unset(t_mini *mini, t_exec *ex);
-int     env(t_mini *mini);
-int     exit_builtin(t_mini *mini, t_exec *ex);
+int		export(t_mini *mini, t_exec *ex);
+int		cd(t_mini *mini, t_exec *ex);
+int		pwd(t_mini *mini);
+int		unset(t_mini *mini, t_exec *ex);
+int		env(t_mini *mini);
+int		exit_builtin(t_mini *mini, t_exec *ex);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
 int		exec_all(t_mini *mini);
 void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
-int     check_redirection(t_exec *current);
-int     heredoc(t_mini *mini);
-int     is_builtin(char *cmd_name);
-int     execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name);
-int     builtin_env_modifier(char *cmd_name);
+int		check_redirection(t_exec *current);
+int		heredoc(t_mini *mini);
+int		is_builtin(char *cmd_name);
+int		execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name);
+int		builtin_env_modifier(char *cmd_name);
 char	*get_env_value(t_mini *mini, char *key);
 #endif
