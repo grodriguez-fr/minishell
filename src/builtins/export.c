@@ -23,10 +23,11 @@ int replace_or_add(t_mini *mini, char *var)
     splited = ft_split(var, '=');
     while (current)
     {
-        if (!ft_strncmp(var, splited[0], ft_strlen(var) + ft_strlen(splited[0])))
+        if (!ft_strncmp(current->key, splited[0], \
+            ft_strlen(current->key) + ft_strlen(splited[0])))
         {
             free(current->value);
-            current->value = splited[1];
+            current->value = ft_strdup(splited[1]);
             return (free_split(splited), 1);
         }
         previous = current;
