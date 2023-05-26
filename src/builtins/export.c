@@ -12,14 +12,32 @@
 
 #include "../../headers/minishell.h"
 
+int add_to_env(t_mini *mini, char *key, char *value)
+{
+	t_env_p	*current;
+	t_env_p	*new_var;
+
+    current = mini->env;
+    while (current->next)
+        current = current->next;
+
+    new_var = malloc(sizeof(t_env_p));
+    if (!new_var)
+        return (0);
+    current->next = new_var;
+    new_var->next = NULL;
+    new_var->key = ft_strdup(key);
+    new_var->value = ft_strdup(value);
+    return (1);
+}
+
 int replace_or_add(t_mini *mini, char *var)
 {
 	t_env_p	*current;
-	t_env_p	*previous;
     char    **splited;
+    int     ret;
     
     current = mini->env;
-    previous = current;
     splited = ft_split(var, '=');
     while (current)
     {
@@ -30,17 +48,10 @@ int replace_or_add(t_mini *mini, char *var)
             current->value = ft_strdup(splited[1]);
             return (free_split(splited), 1);
         }
-        previous = current;
         current = current->next;
     }
-    current = malloc(sizeof(t_env_p));
-    if (!current)
-        return (0);
-    previous->next = current;
-    current->next = NULL;
-    current->key = ft_strdup(splited[0]);
-    current->value = ft_strdup(splited[1]);
-    return (free_split(splited), 1);
+    ret = add_to_env(mini, splited[0], splited[1]);
+    return (free_split(splited), ret);
 }
 
 int	export(t_mini *mini, t_exec *ex)
