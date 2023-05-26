@@ -23,7 +23,9 @@ int change_wd(t_mini *mini, char *new_pwd)
     char    *clean;
     int     ret;
 
+    ft_printf("avant clean : %s\n", new_pwd);
     clean = get_clean_path(new_pwd);
+    ft_printf("apres clean : %s\n", clean);
     if (chdir(clean) == -1)
         return (free(clean), perror("minishell : cd"), 0);
     ret = set_pwd(mini, clean);
