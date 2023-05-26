@@ -29,7 +29,7 @@ int execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name)
     if (!ft_memcmp(cmd_name, "pwd", 3))
         return (pwd(mini));
     if (!ft_memcmp(cmd_name, "export", 6))
-        return (export(*mini, ex), 1);
+        return (export(mini, ex));
     if (!ft_memcmp(cmd_name, "unset", 5))
         return (unset(mini, ex));
     if (!ft_memcmp(cmd_name, "env", 3))

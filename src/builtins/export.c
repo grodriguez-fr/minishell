@@ -12,17 +12,53 @@
 
 #include "../../headers/minishell.h"
 
-void	export(t_mini mini, t_exec *ex)
+int replace_or_add(t_mini *mini, char *var)
 {
-	t_env_p	*env;
+	t_env_p	*current;
+	t_env_p	*previous;
+    char    **splited;
+    
+    current = mini->env;
+    previous = current;
+    splited = ft_split(var, '=');
+    while (current)
+    {
+        if (!ft_strncmp(var, splited[0], ft_strlen(var) + ft_strlen(splited[0])))
+        {
+            free(current->value);
+            current->value = splited[1];
+            return (free_split(splited), 1);
+        }
+        previous = current;
+        current = current->next;
+    }
+    current = malloc(sizeof(t_env_p));
+    if (!current)
+        return (0);
+    previous->next = current;
+    current->next = NULL;
+    current->key = ft_strdup(splited[0]);
+    current->value = ft_strdup(splited[1]);
+    return (free_split(splited), 1);
+}
 
-	if (ft_strncmp(ex->cmd_name, "export", ft_strlen("export")) == 0)
+int	export(t_mini *mini, t_exec *ex)
+{
+	t_env_p	*current;
+    int     i;
+
+	if (ex->args[1] == NULL)
 	{
-		env = mini.env;
-		while (env)
+		current = mini->env;
+		while (current)
 		{
-			ft_printf("declare -x %s=\"%s\"\n", env->key, env->value);
-			env = env->next;
+			ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
+		    current = current->next;
 		}
 	}
+    i = 1;
+    while (ex->args[i])
+        if (!replace_or_add(mini, ex->args[i++]))
+            return (0);
+    return (1);
 }

@@ -47,12 +47,12 @@ char	**hear_append(char **fd, char *str, char *sep);
 int		take_last_redirect(char *cmd);
 
 void	echo(t_exec *ex, char *str, int fd);
-void	export(t_mini mini, t_exec *ex);
-int    cd(t_mini *mini, t_exec *ex);
-int    pwd(t_mini *mini);
-int    unset(t_mini *mini, t_exec *ex);
-int    env(t_mini *mini);
-int    exit_builtin(t_mini *mini, t_exec *ex);
+int     export(t_mini *mini, t_exec *ex);
+int     cd(t_mini *mini, t_exec *ex);
+int     pwd(t_mini *mini);
+int     unset(t_mini *mini, t_exec *ex);
+int     env(t_mini *mini);
+int     exit_builtin(t_mini *mini, t_exec *ex);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
