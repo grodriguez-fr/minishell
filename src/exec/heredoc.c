@@ -9,7 +9,7 @@
 /*   Updated: 2023/05/16 11:09:23 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
 char    *heredoc_file_name(unsigned int nb)
 {
