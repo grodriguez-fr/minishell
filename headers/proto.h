@@ -26,6 +26,7 @@ void	free_cmd(t_exec **exec, void (*del)(void*));
 t_exec	*ft_last_cmd(t_exec *lst);
 void	free_strs(char **strs);
 int		ft_isspace(char c);
+int    increment_shell_level(t_env_p *env);
 
 void	launch_minishell_img(void);
 t_mini	get_to_display(t_mini mini);

@@ -26,3 +26,27 @@ void	create_env(void)
 	ft_printf("%s", path);
 	exit(0);
 }
+
+int    increment_shell_level(t_env_p *env)
+{
+    t_env_p *current;
+    int     current_level;
+
+    current = env;
+    while (current)
+    {
+        if (!ft_strncmp(current->key, "SHLVL", 5))
+        {
+            current_level = ft_atoi(current->value);
+            free(current->value);
+            current_level++;
+            current->value = ft_itoa(current_level);
+            if (!current->value)
+                return (0);
+            return (1);
+        }
+        current = current->next;
+    }
+    ft_putstr_fd("minishell: no SHLVL variable\n", 2);
+    return (0);
+} 

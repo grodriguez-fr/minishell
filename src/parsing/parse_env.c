@@ -28,6 +28,7 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 		add_to_stack(env, j, envp[i], mini);
 		i++;
 	}
+    increment_shell_level(*env);
 }
 
 void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini)
