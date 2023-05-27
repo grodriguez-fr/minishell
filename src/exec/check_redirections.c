@@ -42,8 +42,5 @@ int check_redirection(t_exec *current)
         return (0);
     if (!file_out(current->files_out_a))
         return (0);
-    //file_in
-    //file_out_append
-    //heredoc
     return (1);
 }

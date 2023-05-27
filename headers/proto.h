@@ -70,4 +70,5 @@ int		builtin_env_modifier(char *cmd_name);
 char	*get_env_value(t_mini *mini, char *key);
 int     replace_or_add(t_mini *mini, char *var);
 char    *get_clean_path(char *path);
+void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd);
 #endif

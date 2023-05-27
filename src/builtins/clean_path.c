@@ -1,10 +1,26 @@
 #include "../../headers/minishell.h"
 
+void    clean_path_loop(char *path, char *new_path, char **tokens, int i)
+{
+    char    *last_slash;
+
+    if (ft_strncmp(tokens[i], "..", 2) == 0 && ft_strncmp(tokens[i], "...", 3))
+    {
+        last_slash = ft_strrchr(new_path, '/');
+        if (last_slash)
+            *last_slash = 0;
+    }
+    else if (ft_strncmp(tokens[i], ".", 1) || !ft_strncmp(tokens[i], "...", 3))
+    {
+        ft_strlcat(new_path, "/", ft_strlen(path) + 1);
+        ft_strlcat(new_path, tokens[i], ft_strlen(path) + 1);
+    }
+}
+
 char*   get_clean_path(char* path)
 {
     char    ** tokens;
     char    *new_path;
-    char    *last_slash;
     int     i;
 
 
@@ -13,21 +29,7 @@ char*   get_clean_path(char* path)
     new_path[0] = 0;
     i = 0;
     while (tokens[i])
-    {
-        if (ft_strncmp(tokens[i], "..", 2) == 0 && ft_strncmp(tokens[i], "...", 3))
-        {
-            last_slash = ft_strrchr(new_path, '/');
-            if (last_slash)
-                *last_slash = 0;
-        }
-        else if (ft_strncmp(tokens[i], ".", 1) || !ft_strncmp(tokens[i], "...", 3))
-//            ft_strncmp(tokens[i], ".", ft_strlen(tokens[i])) == 0)
-        {
-            ft_strlcat(new_path, "/", ft_strlen(path) + 1);
-            ft_strlcat(new_path, tokens[i], ft_strlen(path) + 1);
-        }
-        i++;
-    }
+        clean_path_loop(path, new_path, tokens, i++);
     free_split(tokens);
     return (new_path);
 }
