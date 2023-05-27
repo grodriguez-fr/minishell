@@ -43,12 +43,15 @@ int	exec_all(t_mini *mini)
 	int 	previous_fd;
 
 	printf("\n---------exec----------\n");
-    heredoc(mini);
 	current = mini->ex;
 	previous_fd = 0;
+    if (!heredoc(mini))
+        return (ft_printf("heredoc failed\n"), 0);
     if (builtin_env_modifier(current->cmd_name) && !current->next)
     {
-        return (execute_builtin(mini, current, current->cmd_name));
+        ret = execute_builtin(mini, current, current->cmd_name);
+        mini->command_return = ret;
+        return (ret);
     }
 	while (current)
 	{

@@ -7,6 +7,10 @@ static char	*env_part(char *key, char *value)
 	int		k;
 	char	*res;
 
+    if (!value)
+    {
+        return (ft_strdup(key));
+    }
 	len = ft_strlen(key) + ft_strlen(value) + 2;
 	res = malloc(sizeof(char) *len);
 	if (!res)
@@ -53,7 +57,7 @@ char	**convert_env(t_mini *mini)
 	{
 		res[i++] = env_part(current->key, current->value);
         if (!res[i - 1])
-            free_env(res);
+            return (free_env(res), NULL);
 		current = current->next;
 	}
 	res[i] = NULL;

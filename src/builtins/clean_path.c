@@ -25,11 +25,14 @@ char*   get_clean_path(char* path)
 
 
     tokens = ft_split(path, '/');
+    if (!tokens)
+        return (NULL);
     new_path = (char*)malloc(ft_strlen(path) + 1);
+    if (!new_path)
+        return (free_split(tokens), NULL);
     new_path[0] = 0;
     i = 0;
     while (tokens[i])
         clean_path_loop(path, new_path, tokens, i++);
-    free_split(tokens);
-    return (new_path);
+    return (free_split(tokens),new_path);
 }

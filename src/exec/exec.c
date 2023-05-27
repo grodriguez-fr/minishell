@@ -21,7 +21,8 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 
     if (is_builtin(current->cmd_name))
     {
-        exit(execute_builtin(mini, current, current->cmd_name));
+        ret = execute_builtin(mini, current, current->cmd_name);
+        exit(ret);
     }
 	new_env = convert_env(mini);
     if (!strchr(current->cmd_name, '/'))
@@ -43,7 +44,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	exit(ret);
 }
 
-void    exec_redirection_in(t_exec *current)
+int exec_redirection_in(t_exec *current)
 {
     int i;
     int fd;
@@ -54,6 +55,8 @@ void    exec_redirection_in(t_exec *current)
         while (current->here_docs[i + 1])
             i++;
         fd = open(current->here_docs[i], O_RDONLY);
+        if (fd == -1)
+            return (0);
         dup2(fd, 0);
     }
     else if (current->files_in)
@@ -62,8 +65,11 @@ void    exec_redirection_in(t_exec *current)
         while (current->files_in[i + 1])
             i++;
         fd = open(current->files_in[i], O_RDONLY);
+        if (fd == -1)
+            return (0);
         dup2(fd, 0);
     }
+    return (1);
 }
 
 void    exec_redirection_out(t_exec *current)

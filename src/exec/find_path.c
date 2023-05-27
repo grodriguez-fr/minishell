@@ -58,8 +58,7 @@ char	*path_name(char *path, char *cmd_name)
 	if (!inter)
 		return (NULL);
 	res = ft_strjoin(inter, cmd_name);
-	free(inter);
-	return (res);
+	return (free(inter), res);
 }
 
 char	*find_path(t_mini *mini, char *cmd_name)
@@ -70,9 +69,13 @@ char	*find_path(t_mini *mini, char *cmd_name)
 	int 	i;
 
 	paths = get_env_value(mini, "PATH");
+    if (!paths)
+    {
+        return (NULL);
+    }
 	splited_env = ft_split(paths, ':');
 	i = 0;
-	while(splited_env[i])
+	while(splited_env && splited_env[i])
 	{
 		if (find_in_path(splited_env[i], cmd_name))
 		{

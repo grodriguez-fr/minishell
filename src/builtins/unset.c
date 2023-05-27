@@ -24,7 +24,9 @@ int unset(t_mini *mini, t_exec *ex)
     int i;
 
     i = 1;
+    if (!ex->args)
+        return (1);
     while (ex->args[i])
         remove_if_key(&mini->env, ex->args[i++]);
-    return (1);
+    return (0);
 } 

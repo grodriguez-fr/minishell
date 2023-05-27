@@ -39,9 +39,9 @@ int	echo(t_exec *ex)
     int     have_endline;
     
 	if (!ex || strcmp(ex->cmd_name, "echo") != 0)
-		return (0);
+		return (1);
     if (write(1, "", 0) == -1)
-        return (perror("minishell: cd"), 0);
+        return (perror("minishell: cd"), 1);
     have_endline = check_options(ex, &j);
     while (ex->args[j])
     {
@@ -52,5 +52,5 @@ int	echo(t_exec *ex)
     }
 	if (have_endline)
 		ft_putstr_fd("\n", 1);
-    return (1);
+    return (0);
 }

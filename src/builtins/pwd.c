@@ -2,7 +2,12 @@
 
 int pwd(t_mini *mini)
 {
-    if (ft_printf("%s\n", get_env_value(mini, "PWD")) == -1)
-        return (0);
-    return (1);
+    char    *res;
+
+    res = get_env_value(mini, "PWD");
+    if (!res)
+        return (1);
+    if (ft_printf("%s\n", res) == -1)
+        return (1);
+    return (0);
 } 
