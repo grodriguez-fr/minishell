@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 16:31:03 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:07:45 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ void	prompt(t_mini mini)
 	{
 		mini = get_to_display(mini);
 		mini.input = readline(mini.to_display);
+		if (mini.to_display)
+			free(mini.to_display);
 		if (!mini.input)
 			exit_minishell(&mini, 0);
+		else if (*(mini.input) == 0)
+			continue ;
 		add_history(mini.input);
 		mini = parse_and_exec(mini.input, mini);
 		ex = mini.ex;
@@ -50,8 +54,6 @@ void	prompt(t_mini mini)
 		if (mini.input)
 			free(mini.input);
 		exec_all(&mini);
-		if (mini.to_display)
-			free(mini.to_display);
 		free_cmd(&mini.ex, free);
 	}
 }
@@ -77,7 +79,7 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 		to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
 		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-		ft_printf("\n%s, %p\n", to_display, env->value);
+		ft_printf("\n%s", to_display, env->value);
 		free(to_display);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/26 16:09:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:05:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	// struct sigaction	sa;
-	// sigset_t			mask;
+	struct sigaction	sa;
+	sigset_t			mask;
 	t_mini				mini;
 
 	(void)ac;
@@ -23,15 +23,14 @@ int	main(int ac, char **av, char **envp)
 	mini.env = NULL;
 	mini.ex = NULL;
     mini.command_return = 0;
-	// sigemptyset(&mask);
-	// sigaddset(&mask, SIGINT);
-	// sigaddset(&mask, SIGQUIT);
-	// sa.sa_handler = 0;
-	// sa.sa_flags = SA_SIGINFO;
-	// sa.sa_mask = mask;
-	// sa.sa_sigaction = signal_handler;
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGINT);
+	sa.sa_handler = 0;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_mask = mask;
+	sa.sa_sigaction = signal_handler;
+	sigaction(SIGINT, &sa, (void *)mini.env);
 	parse_env(envp, &mini.env, mini);
-	// sigaction(SIGINT, &sa, (void *)mini.env);
 	launch_minishell_img();
 	prompt(mini);
 	return (0);
