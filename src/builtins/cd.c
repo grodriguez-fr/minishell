@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int set_pwd(t_mini *mini, char *new_pwd)
 {

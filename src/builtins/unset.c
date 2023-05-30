@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void remove_if_key(t_env_p **start, char *key)
 {

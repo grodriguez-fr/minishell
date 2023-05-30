@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	parse_env(char **envp, t_env_p **env, t_mini mini)
 {

@@ -27,14 +27,14 @@ CC = cc
 all: libft $(NAME) norm funny_graph
 
 $(OBJS_DIR)%.zizi: %.c $(HEADER) Makefile
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ -Iheaders
 	@printf	"\033[1;33m \r\033[2KCreating -c $< -o $\n \033[0m"
 
 libft:
 	@make -sC libs/libft
 
 $(NAME): $(LIBS) $(OBJS) $(HEADER) Makefile
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -lreadline -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -Iheaders -lreadline -o $(NAME)
 	@printf	"\033[1;32m \r\033[2KCompiling $(NAME) : DONE \n \033[0m"
 
 norm:

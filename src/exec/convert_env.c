@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 static char	*env_part(char *key, char *value)
 {

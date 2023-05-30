@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec);
 

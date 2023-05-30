@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../headers/minishell.h"
+#include "minishell.h"
 
 void	ft_add_back_cmd(t_exec **lst, t_exec *new);
 t_exec	*ft_new_cmd(char *value, char **arg, char *all_pipe);

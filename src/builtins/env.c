@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int env(t_mini *mini)
 {

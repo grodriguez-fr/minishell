@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int exec_all_loop(t_mini *mini, t_exec *ex, int p[2], int *previous_fd)
 {

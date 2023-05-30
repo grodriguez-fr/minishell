@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 char	**allocate_fd_here_append(char **fd, char *str, int nb_fd, char *sep);
 char	*take_fd_here_append(char *str);

@@ -1,4 +1,4 @@
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void    clean_path_loop(char *path, char *new_path, char **tokens, int i)
 {
@@ -34,5 +34,7 @@ char*   get_clean_path(char* path)
     i = 0;
     while (tokens[i])
         clean_path_loop(path, new_path, tokens, i++);
+    if (!new_path[0])
+        ft_strlcpy(new_path, "/", 2);
     return (free_split(tokens),new_path);
 }

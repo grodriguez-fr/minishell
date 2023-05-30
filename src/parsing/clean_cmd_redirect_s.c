@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 #include <stddef.h>
 
 char	*cpy_cmdf(char *new_str, char *str, char sep)

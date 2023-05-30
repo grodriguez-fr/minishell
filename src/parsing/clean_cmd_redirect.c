@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 ssize_t	count_sep_here_append(char *str, char *sep);
 char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open);

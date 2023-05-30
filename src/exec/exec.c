@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 
 void	handle_cmd(t_mini *mini, t_exec *current)
@@ -28,6 +28,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
     if (!strchr(current->cmd_name, '/'))
     {
     	pathname = find_path(mini, current->cmd_name);
+        ft_printf("%s\n", pathname);
 	    ret = execve(pathname, current->args, new_env);
         free(pathname);
         if (!pathname)
