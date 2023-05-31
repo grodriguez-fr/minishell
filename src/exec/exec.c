@@ -21,14 +21,12 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 
     if (is_builtin(current->cmd_name))
     {
-        ret = execute_builtin(mini, current, current->cmd_name);
-        exit(ret);
+        exit(execute_builtin(mini, current, current->cmd_name));
     }
 	new_env = convert_env(mini);
     if (!strchr(current->cmd_name, '/'))
     {
     	pathname = find_path(mini, current->cmd_name);
-        ft_printf("%s\n", pathname);
 	    ret = execve(pathname, current->args, new_env);
         free(pathname);
         if (!pathname)
@@ -36,8 +34,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
     }
     else
     {
-        pathname = current->cmd_name;
-	    ret = execve(pathname, current->args, new_env);
+	    ret = execve(current->cmd_name, current->args, new_env);
         if (ret == -1)
             perror("Erreur lors de l'execution");
     }

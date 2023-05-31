@@ -47,6 +47,8 @@ int	exec_all(t_mini *mini)
 	previous_fd = 0;
     if (!heredoc(mini))
         return (ft_printf("heredoc failed\n"), 0);
+    if (!current->cmd_name)
+        return (1);
     if (builtin_env_modifier(current->cmd_name) && !current->next)
     {
         ret = execute_builtin(mini, current, current->cmd_name);
