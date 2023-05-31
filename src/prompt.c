@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/31 18:04:01 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:52:12 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 			while (pwd[i] != '/' && i >= 0)
 				i--;
 			i++;
-			to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
+			to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
 			to_display = ft_strfjoin(to_display, &pwd[i]);
 			to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
 			ft_printf("\n%s", to_display, env->value);
 			free(to_display);
+			ft_bzero(pwd, 256);
 		}
 	}
 }

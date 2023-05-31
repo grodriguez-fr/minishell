@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hear_append.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/26 17:55:03 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:43:34 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	*take_fd_here_append(char *str)
 {
 	int		i;
 	int		count;
+	size_t	is_open_d;
+	size_t	is_open_s;
 	char	*fd;
 
 	i = 0;
@@ -110,8 +112,24 @@ char	*take_fd_here_append(char *str)
 		return (NULL);
 	i -= count;
 	count = 0;
-	while (str && str[i] && str[i] != ' ')
+	is_open_d = 0;
+	is_open_s = 0;
+	while (str && i < (int)ft_strlen(str))
+	{ 
+		if (str[i] == '"' && is_open_s % 2 == 0)
+		{
+			i++;
+			is_open_d++;
+		}
+		else if (str[i] == '\'' && is_open_d % 2 == 0)
+		{
+			i++;
+			is_open_s++;
+		}
 		fd[count++] = str[i++];
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && i < (int)ft_strlen(str) && ft_isspace(str[i]))
+			break ;
+	}
 	fd[count] = '\0';
 	return (fd);
 }

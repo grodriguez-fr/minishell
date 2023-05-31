@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 16:54:26 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:44:24 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,24 @@ char	*take_fd(char *str);
 
 char	**in_out(char **fd, char *str, char sep)
 {
-	int	nb_fd;
-	int	i;
-	int	is_open;
+	size_t	nb_fd;
+	size_t	i;
+	size_t	is_open_d;
+	size_t	is_open_s;
 
 	nb_fd = 0;
 	i = 0;
-	is_open = 0;
+	is_open_s = 0;
+	is_open_d = 0;
 	if (!str)
 		return (NULL);
 	while (str && str[i])
 	{
-		if (str[i] == '"')
-			is_open++;
-		else if (str[i] == sep && is_open % 2 == 0)
+		if (str[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		else if (str[i] == '\'' && is_open_d % 2 == 0)
+			is_open_s++;
+		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 			nb_fd ++;
 		i++;
 	}
@@ -42,11 +46,13 @@ char	**in_out(char **fd, char *str, char sep)
 
 char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
 {
-	int	i;
-	int	is_open;
-	int	ct_fd;
+	size_t	i;
+	size_t	is_open_d;
+	size_t	is_open_s;
+	size_t	ct_fd;
 
-	is_open = 0;
+	is_open_d = 0;
+	is_open_s = 0;
 	i = 0;
 	fd = malloc(sizeof(char *) * (nb_fd + 1));
 	if (!fd)
@@ -54,9 +60,11 @@ char	**allocate_fd(char **fd, char *str, int nb_fd, char sep)
 	ct_fd = 0;
 	while (str && str[i] && ct_fd != nb_fd)
 	{
-		if (str[i] == '"')
-			is_open++;
-		else if (str[i] == sep && is_open % 2 == 0)
+		if (str[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		else if (str[i] == '\'' && is_open_d % 2 == 0)
+			is_open_s++;
+		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
@@ -73,6 +81,8 @@ char	*take_fd(char *str)
 	int		i;
 	int		count;
 	char	*fd;
+	size_t	is_open_s;
+	size_t	is_open_d;
 
 	i = 1;
 	while (str && str[i] && str[i] == ' ')
@@ -88,8 +98,24 @@ char	*take_fd(char *str)
 		return (NULL);
 	i -= count;
 	count = 0;
-	while (str && str[i] && str[i] != ' ')
+	is_open_d = 0;
+	is_open_s = 0;
+	while (str && i < (int)ft_strlen(str))
+	{
+		if (str[i] == '"' && is_open_s % 2 == 0)
+		{
+			i++;
+			is_open_d++;
+		}
+		else if (str[i] == '\'' && is_open_d % 2 == 0)
+		{
+			i++;
+			is_open_s++;
+		}
 		fd[count++] = str[i++];
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && i < (int)ft_strlen(str) && ft_isspace(str[i]))
+			break ;
+	}
 	fd[count] = '\0';
 	return (fd);
 }
