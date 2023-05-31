@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/28 19:05:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:56:41 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ int	main(int ac, char **av, char **envp)
     mini.command_return = 0;
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
+	sigaddset(&mask, SIGQUIT);
 	sa.sa_handler = 0;
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_mask = mask;
 	sa.sa_sigaction = signal_handler;
 	sigaction(SIGINT, &sa, (void *)mini.env);
+	sigaction(SIGQUIT, &sa, (void *)mini.env);
 	parse_env(envp, &mini.env, mini);
 	launch_minishell_img();
 	prompt(mini);

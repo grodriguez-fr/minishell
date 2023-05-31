@@ -6,14 +6,14 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 16:19:41 by astachni         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:47:47 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 ssize_t	count_sep_here_append(char *str, char *sep);
-char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open);
+char	*cpy_cmd(char *new_str, char *str, char *sep);
 
 char	*change_cmdf_here_append(char *str, char *sep)
 {
@@ -27,27 +27,33 @@ char	*change_cmdf_here_append(char *str, char *sep)
 		new_str = malloc(sizeof(char) * (count + 1));
 		if (!new_str)
 			return (NULL);
-		cpy_cmd(new_str, str, sep, 0);
+		cpy_cmd(new_str, str, sep);
 	}
 	free(str);
 	return (new_str);
 }
 
-char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open)
+char	*cpy_cmd(char *new_str, char *str, char *sep)
 {
 	int		count;
 	size_t	i;
+	size_t	is_open_d;
+	size_t	is_open_s;
 
+	is_open_d = 0;
+	is_open_s = 0;
 	if (!str || ! new_str)
 		return (NULL);
 	count = 0;
 	i = 0;
 	while (str && i < ft_strlen(str))
 	{
-		if (str[i] == '"')
-			is_open++;
+		if (str[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		else if (str[i] == '"' && is_open_d % 2 == 0)
+			is_open_s++;
 		else if (str[i] == sep[0] && str[i + 1] == sep[1]
-			&& is_open % 2 == 0)
+			&& is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			while (str[i] == sep[0])
 				i++;
@@ -64,19 +70,23 @@ char	*cpy_cmd(char *new_str, char *str, char *sep, size_t is_open)
 
 ssize_t	count_sep_here_append(char *str, char *sep)
 {
-	size_t	is_open;
+	size_t	is_open_s;
+	size_t	is_open_d;
 	size_t	i;
 	size_t	count;
 
-	is_open = 0;
+	is_open_s = 0;
+	is_open_d = 0;
 	i = 0;
 	count = 0;
 	while (str && i < ft_strlen(str))
 	{
-		if (str[i] == '"')
-			is_open++;
+		if (str[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		else if (str[i] == '\'' && is_open_d % 2 == 0)
+			is_open_s++;
 		if (str[i + 1] && str[i] == sep[0] && str[i + 1] == sep[1]
-			&& str[i + 2] && is_open % 2 == 0)
+			&& str[i + 2] && is_open_d % 2 == 0 && is_open_s % 2 == 0)
 		{
 			i += 2;
 			while (str[i] && str[i] == ' ')
