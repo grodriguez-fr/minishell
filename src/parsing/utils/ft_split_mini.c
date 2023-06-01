@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 16:52:36 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:43:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,20 @@ char	**cpy(char *src, char **dest, int count, int j)
 
 int	take_count(char *str, char sep, int count, int i)
 {
-	int	is_open;
+	size_t	is_open_d;
+	size_t	is_open_s;
 
-	is_open = 0;
+	is_open_d = 0;
+	is_open_s = 0;
 	while (str && str[i])
 	{
-		while (str[i] && str[i] == ' ' && is_open % 2 == 0)
+		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0 && is_open_s % 2 == 0)
 			i++;
-		while (str[i] && (str[i] == '"' || str[i] == '\''))
-		{
-			is_open++;
-			i++;
-		}
-		if (str[i] == sep && is_open % 2 == 0)
+		if (str[i] && str[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		else if (str[i] && str[i] == '\'' && is_open_d % 2 == 0)
+			is_open_s++;
+		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			if (str[i + 1] && str[i + 1] == sep)
 				return (count);
