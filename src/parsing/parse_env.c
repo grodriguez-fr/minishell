@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/25 17:28:35 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:19:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 
 	i = 0;
 	if (!*envp)
-		create_env();
+		create_env(env, mini);
 	while (envp && envp[i])
 	{
 		j = 0;
@@ -28,7 +28,7 @@ void	parse_env(char **envp, t_env_p **env, t_mini mini)
 		add_to_stack(env, j, envp[i], mini);
 		i++;
 	}
-    increment_shell_level(*env);
+	increment_shell_level(*env);
 }
 
 void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini)

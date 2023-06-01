@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/26 17:47:33 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:58:09 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ int	count_word(char *cmd)
 		while (i < (int)ft_strlen(cmd) && ft_isspace(cmd[i]))
 		{
 			i++;
-			if (cmd[i] && !ft_isspace(cmd[i]) && is_open_d % 2 == 0 && is_open_s % 2 == 0)
+			if (cmd[i] && !ft_isspace(cmd[i])
+				&& is_open_d % 2 == 0 && is_open_s % 2 == 0)
 				count ++;
 			if (i < (int)ft_strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
 			{
 				i++;
 				is_open_d++;
 			}
-			else if (i < (int)ft_strlen(cmd) && cmd[i] == '\'' && is_open_d % 2 == 0)
+			else if (i < (int)ft_strlen(cmd)
+				&& cmd[i] == '\'' && is_open_d % 2 == 0)
 			{
 				i++;
 				is_open_s++;
@@ -79,7 +81,8 @@ char	*cpy_args(char *str)
 		}
 		size++;
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
+			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str = malloc(sizeof(char) * ((size) + 1));
@@ -103,7 +106,8 @@ char	*cpy_args(char *str)
 		}
 		new_str[i++] = str[j];
 		j++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && j < (int)ft_strlen(str) && ft_isspace(str[j]))
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
+			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
 	}
 	new_str[i] = 0;
@@ -142,7 +146,8 @@ char	**get_args(char *cmd)
 				run++;
 				is_open_s++;
 			}
-			if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && run < (int)ft_strlen(cmd) && ft_isspace(cmd[run]))
+			if (is_open_d % 2 == 0 && is_open_s % 2 == 0
+				&& run < (int)ft_strlen(cmd) && ft_isspace(cmd[run]))
 				break ;
 			run++;
 		}

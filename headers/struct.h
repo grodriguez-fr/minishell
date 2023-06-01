@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 14:07:49 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:57:12 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef STRUCT_H
 
@@ -27,15 +26,15 @@ typedef struct s_env_p
 typedef struct s_exec
 {
 	char			*comp_pipe;
-	char			**files_out; //redirection de la sortie de la commande
-	char			**files_out_a; //redirection de la sortie de la commande
+	char			**files_out;
+	char			**files_out_a;
 	int				is_append;
-	char			**files_in; //redirection de l'entree de la commande
-	char			**here_docs; //redirection de l'entree de la commande
+	char			**files_in;
+	char			**here_docs;
 	int				is_heredoc;
-	char			**args; // les arguments a transmettre a la commande
+	char			**args;
 	char			*cmd_name;
-	struct s_exec	*next; // la prochaine commande a executer
+	struct s_exec	*next;
 }	t_exec;
 
 typedef struct s_mini
@@ -44,7 +43,7 @@ typedef struct s_mini
 	t_exec		*ex;
 	char		*to_display;
 	char		*input;
-    int         command_return;
+	int			command_return;
 }	t_mini;
 
 #endif
