@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/01 17:19:48 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:11:14 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	create_env(t_env_p **env, t_mini mini);
 char	**in_out(char **fd, char *str, char sep);
 char	*change_cmdf_here_append(char *str, char *sep);
 char	**hear_append(char **fd, char *str, char *sep);
+char	*cpy(char *str, char *fd, size_t i);
 int		take_last_redirect(char *cmd);
 size_t	count_sep(char *str, char sep);
 char	*change_cmdf(char *str, char sep);

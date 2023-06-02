@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/01 16:43:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:32:53 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_space(char *src, int i)
 	return (i);
 }
 
-char	**cpy(char *src, char **dest, int count, int j)
+static char	**cpy_cmd(char *src, char **dest, int count, int j)
 {
 	int	i;
 	int	is_open;
@@ -63,7 +63,8 @@ int	take_count(char *str, char sep, int count, int i)
 	is_open_s = 0;
 	while (str && str[i])
 	{
-		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0 && is_open_s % 2 == 0)
+		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0
+			&& is_open_s % 2 == 0)
 			i++;
 		if (str[i] && str[i] == '"' && is_open_s % 2 == 0)
 			is_open_d++;
@@ -93,6 +94,6 @@ char	**ft_split_pipe(char *str, char sep)
 	to_return = malloc(sizeof(char *) * (count + 1));
 	if (!to_return)
 		return (NULL);
-	to_return = cpy(str, to_return, count, 0);
+	to_return = cpy_cmd(str, to_return, count, 0);
 	return (to_return);
 }

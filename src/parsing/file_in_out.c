@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/31 23:16:32 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:31:05 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,16 @@ char	**in_out(char **fd, char *str, char sep)
 	return (fd);
 }
 
-char	**allocate_fd(char **fd, char *str, size_t nb_fd, char sep)
+static char	**condition_to_take(char **fd, char *str, char sep, size_t nb_fd)
 {
 	size_t	i;
-	size_t	is_open_d;
 	size_t	is_open_s;
+	size_t	is_open_d;
 	size_t	ct_fd;
 
-	is_open_d = 0;
-	is_open_s = 0;
 	i = 0;
-	fd = malloc(sizeof(char *) * (nb_fd + 1));
-	if (!fd)
-		return (NULL);
+	is_open_s = 0;
+	is_open_d = 0;
 	ct_fd = 0;
 	while (str && str[i] && ct_fd != nb_fd)
 	{
@@ -76,33 +73,12 @@ char	**allocate_fd(char **fd, char *str, size_t nb_fd, char sep)
 	return (fd);
 }
 
-static char	*cpy(char *str, char *fd, int i)
+char	**allocate_fd(char **fd, char *str, size_t nb_fd, char sep)
 {
-	size_t	count;
-	size_t	is_open_d;
-	size_t	is_open_s;
-
-	is_open_d = 0;
-	is_open_s = 0;
-	count = 0;
-	while (str && i < (int)ft_strlen(str))
-	{
-		if (str[i] == '"' && is_open_s % 2 == 0)
-		{
-			i++;
-			is_open_d++;
-		}
-		else if (str[i] == '\'' && is_open_d % 2 == 0)
-		{
-			i++;
-			is_open_s++;
-		}
-		fd[count++] = str[i++];
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
-			&& i < (int)ft_strlen(str) && ft_isspace(str[i]))
-			break ;
-	}
-	fd[count] = '\0';
+	fd = malloc(sizeof(char *) * (nb_fd + 1));
+	if (!fd)
+		return (NULL);
+	fd = condition_to_take(fd, str, sep, nb_fd);
 	return (fd);
 }
 
