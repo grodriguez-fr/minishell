@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/02 16:31:33 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/04 03:25:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ char	**hear_append(char **fd, char *str, char *sep)
 	size_t	is_open_d;
 
 	nb_fd = 0;
-	i = 0;
+	i = -1;
 	is_open_s = 0;
 	is_open_d = 0;
 	if (!str)
 		return (NULL);
-	while (str && str[i] && str[i + 1])
+	while (str && str[++i] && str[i + 1])
 	{
 		if (i < ft_strlen(str) && str[i] == '"' && is_open_s % 2 == 0)
 			is_open_d++;
@@ -38,7 +38,6 @@ char	**hear_append(char **fd, char *str, char *sep)
 		else if (str[i] == sep[0] && str[i + 1] == sep[1]
 			&& is_open_s % 2 == 0 && is_open_d == 0)
 			nb_fd ++;
-		i++;
 	}
 	if (nb_fd == 0)
 		return (NULL);

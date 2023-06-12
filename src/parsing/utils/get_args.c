@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/01 16:58:09 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:56:07 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ char	*cpy_args(char *str)
 			is_open_s++;
 		}
 		size++;
-		j++;
 		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
 			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
+		j++;
 	}
 	new_str = malloc(sizeof(char) * ((size) + 1));
 	if (!new_str)
@@ -104,13 +104,14 @@ char	*cpy_args(char *str)
 			j++;
 			is_open_s++;
 		}
-		new_str[i++] = str[j];
-		j++;
 		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
 			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
 			break ;
+		new_str[i++] = str[j];
+		j++;
 	}
 	new_str[i] = 0;
+	ft_printf("--%s--\n", new_str);
 	return (new_str);
 }
 

@@ -6,11 +6,13 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/31 18:52:12 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:49:41 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_is_display;
 
 void	prompt(t_mini mini)
 {
@@ -67,7 +69,7 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 
 	(void)info;
 	env = (t_env_p *)context;
-	if (sign == SIGINT || sign == SIGQUIT)
+	if (g_is_display == 1 && (sign == SIGINT || sign == SIGQUIT))
 	{
 		if (getcwd(pwd, 256) != NULL)
 		{
