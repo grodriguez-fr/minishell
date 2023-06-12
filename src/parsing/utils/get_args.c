@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 15:56:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:35:11 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,14 @@ int	count_word(char *cmd)
 	{
 		if (!ft_isspace(cmd[0]) && i == 0)
 			count++;
-		while (i < (int)ft_strlen(cmd) && ft_isspace(cmd[i]))
-		{
-			i++;
-			if (cmd[i] && !ft_isspace(cmd[i])
-				&& is_open_d % 2 == 0 && is_open_s % 2 == 0)
-				count ++;
-			if (i < (int)ft_strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
-			{
-				i++;
-				is_open_d++;
-			}
-			else if (i < (int)ft_strlen(cmd)
-				&& cmd[i] == '\'' && is_open_d % 2 == 0)
-			{
-				i++;
-				is_open_s++;
-			}
-		}
-		while (i < (int)ft_strlen(cmd) && !ft_isspace(cmd[i]))
-			i++;
+		if (cmd[i] && ft_isspace(cmd[i]) == 1
+			&& is_open_d % 2 == 0 && is_open_s % 2 == 0)
+			count ++;
+		if (i < (int)ft_strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
+			is_open_d++;
+		if (i < (int)ft_strlen(cmd) && cmd[i] == '\'' && is_open_d % 2 == 0)
+			is_open_s++;
+		i++;
 	}
 	return (count);
 }
@@ -128,6 +116,7 @@ char	**get_args(char *cmd)
 	while (cmd && cmd[run] && ft_isspace(cmd[run]))
 			run++;
 	i = count_word(&cmd[run]);
+	ft_printf("%d\n", i);
 	args = malloc(sizeof(char *) * (i + 1));
 	j = 0;
 	while (j < i)
@@ -156,5 +145,7 @@ char	**get_args(char *cmd)
 	}
 	args[j] = NULL;
 	i = 0;
+	// while (args[i])
+	// 	ft_printf("%s\n", args[i++]);
 	return (args);
 }
