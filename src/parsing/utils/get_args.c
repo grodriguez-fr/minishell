@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 16:35:11 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:03:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	count_word(char *cmd)
 	{
 		if (!ft_isspace(cmd[0]) && i == 0)
 			count++;
-		if (cmd[i] && ft_isspace(cmd[i]) == 1
-			&& is_open_d % 2 == 0 && is_open_s % 2 == 0)
+		if (cmd[i] && ft_isspace(cmd[i]) == 1 && ft_isspace(cmd[i + 1]) == 0
+			&& cmd[i + 1] && is_open_d % 2 == 0 && is_open_s % 2 == 0)
 			count ++;
 		if (i < (int)ft_strlen(cmd) && cmd[i] == '"' && is_open_s % 2 == 0)
 			is_open_d++;
@@ -99,7 +99,6 @@ char	*cpy_args(char *str)
 		j++;
 	}
 	new_str[i] = 0;
-	ft_printf("--%s--\n", new_str);
 	return (new_str);
 }
 
