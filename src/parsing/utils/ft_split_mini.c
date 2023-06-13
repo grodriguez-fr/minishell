@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/02 16:32:53 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:03:52 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	count_space(char *src, int i)
 
 static char	**cpy_cmd(char *src, char **dest, int count, int j)
 {
-	int	i;
-	int	is_open;
-	int	c;
+	size_t	i;
+	int		is_open;
+	int		c;
 
 	is_open = 0;
 	i = 0;
 	c = 0;
-	while (src && src[i] && count > c)
+	while (src && i < ft_strlen(src) && count > c)
 	{
 		if (src[i] == '"' || src[i] == '\'')
 			is_open++;
@@ -48,7 +48,7 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 		}
 		i++;
 	}
-	if (src[i] == 0)
+	if (src[i] == 0 && count > 0)
 		dest[c] = ft_strdup(&src[j]);
 	dest[count] = NULL;
 	return (dest);
@@ -58,9 +58,11 @@ int	take_count(char *str, char sep, int count, int i)
 {
 	size_t	is_open_d;
 	size_t	is_open_s;
+	int		is_command;
 
 	is_open_d = 0;
 	is_open_s = 0;
+	is_command = 0;
 	while (str && str[i])
 	{
 		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0
@@ -70,11 +72,16 @@ int	take_count(char *str, char sep, int count, int i)
 			is_open_d++;
 		else if (str[i] && str[i] == '\'' && is_open_d % 2 == 0)
 			is_open_s++;
+		else if (str[i] && str[i] != ' ' && str[i] != sep)
+			is_command = 1;
 		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			if (str[i + 1] && str[i + 1] == sep)
-				return (count);
-			count ++;
+				return (0);
+			if (is_command == 1)
+				count ++;
+			else
+				return (0);
 		}
 		if (str[i])
 			i++;
@@ -90,10 +97,15 @@ char	**ft_split_pipe(char *str, char sep)
 	char	**to_return;
 
 	count = 0;
+	to_return = NULL;
 	count = take_count(str, sep, count, 0);
-	to_return = malloc(sizeof(char *) * (count + 1));
-	if (!to_return)
-		return (NULL);
-	to_return = cpy_cmd(str, to_return, count, 0);
+	ft_printf("%d\n", count);
+	if (count > 0)
+	{
+		to_return = malloc(sizeof(char *) * (count + 1));
+		if (!to_return)
+			return (NULL);
+		to_return = cpy_cmd(str, to_return, count, 0);
+	}
 	return (to_return);
 }
