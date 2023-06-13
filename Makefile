@@ -20,7 +20,7 @@ HEADER = headers/minishell.h headers/proto.h headers/struct.h
 
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 CC = cc
 

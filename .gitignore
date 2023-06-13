@@ -5,3 +5,4 @@
 .nfs*
 hd/*
 minishell
+readline.supp
