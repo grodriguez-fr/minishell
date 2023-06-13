@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/02 16:11:14 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:37:21 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	error(t_mini *mini, char *message, char **strs);
 void	signal_handler(int sign, siginfo_t *info, void	*context);
 
 char	**get_args(char *cmd);
+char	*allocate_new_string(int size);
+void	copy_argument(char *str, int start_index, char *new_str);
+char	*cpy_args(char *str);
+int		find_next_argument_index(char *cmd, int current_index);
+int		get_argument_size(char *str, int start_index);
 t_mini	parse_and_exec(char *input, t_mini mini);
 t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini);
 char	**ft_split_pipe(char *str, char sep);
@@ -49,6 +54,7 @@ char	*cpy(char *str, char *fd, size_t i);
 int		take_last_redirect(char *cmd);
 size_t	count_sep(char *str, char sep);
 char	*change_cmdf(char *str, char sep);
+int		is_open(char *str, int i, size_t is_open, char c);
 
 int		echo(t_exec *ex);
 int		export(t_mini *mini, t_exec *ex);

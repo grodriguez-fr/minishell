@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/13 18:03:52 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:27:31 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,25 @@ int	count_space(char *src, int i)
 static char	**cpy_cmd(char *src, char **dest, int count, int j)
 {
 	size_t	i;
-	int		is_open;
+	size_t	is_open_d;
+	size_t	is_open_s;
 	int		c;
 
-	is_open = 0;
+	is_open_d = 0;
+	is_open_s = 0;
 	i = 0;
 	c = 0;
 	while (src && i < ft_strlen(src) && count > c)
 	{
-		if (src[i] == '"' || src[i] == '\'')
-			is_open++;
-		if (is_open % 2 == 0 && src[i] == '|')
+		is_open_d += is_open(src, i, is_open_s, '"');
+		is_open_s += is_open(src, i, is_open_d, '\'');
+		if (is_open_s % 2 == 0 && is_open_d % 2 == 0 && src[i] == '|')
 		{
 			i = count_space(src, i);
-			dest[c++] = ft_substr(src, j, i - j);
+			dest[c] = ft_substr(src, j, i - j);
+			if (!dest[c])
+				return (free_strs(dest), NULL);
+			c++;
 			i++;
 			j = i;
 		}
@@ -68,20 +73,16 @@ int	take_count(char *str, char sep, int count, int i)
 		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0
 			&& is_open_s % 2 == 0)
 			i++;
-		if (str[i] && str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		else if (str[i] && str[i] == '\'' && is_open_d % 2 == 0)
-			is_open_s++;
-		else if (str[i] && str[i] != ' ' && str[i] != sep)
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		if (str[i] && str[i] != ' ' && str[i] != sep)
 			is_command = 1;
 		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
-			if (str[i + 1] && str[i + 1] == sep)
+			if (is_command == 0 || (str[i + 1] && str[i + 1] == sep))
 				return (0);
 			if (is_command == 1)
 				count ++;
-			else
-				return (0);
 		}
 		if (str[i])
 			i++;
@@ -99,7 +100,6 @@ char	**ft_split_pipe(char *str, char sep)
 	count = 0;
 	to_return = NULL;
 	count = take_count(str, sep, count, 0);
-	ft_printf("%d\n", count);
 	if (count > 0)
 	{
 		to_return = malloc(sizeof(char *) * (count + 1));

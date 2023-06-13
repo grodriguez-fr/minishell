@@ -6,11 +6,18 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:09:28 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/04 03:29:53 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:59:06 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../headers/minishell.h"
+
+int	is_open(char *str, int i, size_t is_open, char c)
+{
+	if (str[i] && str[i] == c && is_open % 2 == 0)
+		return (1);
+	return (0);
+}
 
 char	*cpy(char *str, char *fd, size_t i)
 {

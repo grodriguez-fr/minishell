@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 17:31:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:40:38 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,12 @@ char	*cpy_cmd(char *new_str, char *str, char *sep)
 	i = 0;
 	while (str && i < ft_strlen(str))
 	{
-		if (str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		else if (str[i] == '"' && is_open_d % 2 == 0)
-			is_open_s++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1]
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		if (str[i] == sep[0] && str[i + 1] == sep[1]
 			&& is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
-			while (str[i] == sep[0])
-				i++;
+			i += 2;
 			while (str[i] && str[i] == ' ')
 				i++;
 			while (str[i] && str[i] != ' ')
@@ -81,10 +78,8 @@ ssize_t	count_sep_here_append(char *str, char *sep)
 	count = 0;
 	while (str && i < ft_strlen(str))
 	{
-		if (str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		else if (str[i] == '\'' && is_open_d % 2 == 0)
-			is_open_s++;
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
 		if (str[i + 1] && str[i] == sep[0] && str[i + 1] == sep[1]
 			&& str[i + 2] && is_open_d % 2 == 0 && is_open_s % 2 == 0)
 		{

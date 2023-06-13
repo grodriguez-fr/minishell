@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 17:27:28 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:36:54 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,67 +39,26 @@ int	count_word(char *cmd)
 	return (count);
 }
 
-char	*cpy_args(char *str)
+int	find_next_argument_index(char *cmd, int current_index)
 {
-	int		i;
-	int		j;
-	int		size;
-	int		is_open_d;
-	int		is_open_s;
-	char	*new_str;
+	size_t	is_open_s;
+	size_t	is_open_d;
+	size_t	run;
 
-	i = 0;
-	is_open_d = 0;
 	is_open_s = 0;
-	while (str && str[i] && ft_isspace(str[i]))
-		i++;
-	j = i;
-	size = 0;
-	while (str && j < (int)ft_strlen(str))
-	{
-		if (str[j] == '"' && is_open_s % 2 == 0)
-		{
-			j++;
-			is_open_d++;
-		}
-		else if (str[j] == '\'' && is_open_d % 2 == 0)
-		{
-			j++;
-			is_open_s++;
-		}
-		size++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
-			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
-			break ;
-		j++;
-	}
-	new_str = malloc(sizeof(char) * ((size) + 1));
-	if (!new_str)
-		return (NULL);
-	j = i;
-	i = 0;
 	is_open_d = 0;
-	is_open_s = 0;
-	while (str && j < (int)ft_strlen(str))
+	run = current_index;
+	while (run < ft_strlen(cmd))
 	{
-		if (str[j] == '"' && is_open_s % 2 == 0)
-		{
-			j++;
-			is_open_d++;
-		}
-		else if (str[j] == '\'' && is_open_d % 2 == 0)
-		{
-			j++;
-			is_open_s++;
-		}
+		is_open_s = is_open(cmd, run, is_open_d, '\'');
+		is_open_d = is_open(cmd, run, is_open_s, '"');
 		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
-			&& j < (int)ft_strlen(str) && ft_isspace(str[j]))
+			&& run < ft_strlen(cmd) && ft_isspace(cmd[run]))
 			break ;
-		new_str[i++] = str[j];
-		j++;
+		run++;
 	}
-	new_str[i] = 0;
-	return (new_str);
+	run++;
+	return (run);
 }
 
 char	**get_args(char *cmd)
@@ -107,41 +66,49 @@ char	**get_args(char *cmd)
 	char	**args;
 	int		i;
 	int		j;
-	int		is_open_d;
-	int		is_open_s;
 	int		run;
 
 	run = 0;
 	while (cmd && cmd[run] && ft_isspace(cmd[run]))
-			run++;
+		run++;
 	i = count_word(&cmd[run]);
 	args = malloc(sizeof(char *) * (i + 1));
+	if (!args)
+		return (NULL);
 	j = 0;
 	while (j < i)
 	{
-		is_open_s = 0;
-		is_open_d = 0;
-		args[j++] = cpy_args(&cmd[run]);
-		while (run < (int)ft_strlen(cmd))
-		{
-			if (cmd[run] == '"' && is_open_s % 2 == 0)
-			{
-				run++;
-				is_open_d++;
-			}
-			else if (cmd[run] == '\'' && is_open_d % 2 == 0)
-			{
-				run++;
-				is_open_s++;
-			}
-			if (is_open_d % 2 == 0 && is_open_s % 2 == 0
-				&& run < (int)ft_strlen(cmd) && ft_isspace(cmd[run]))
-				break ;
-			run++;
-		}
-		run++;
+		args[j] = cpy_args(&cmd[run]);
+		if (!args[j])
+			return (free_strs(args), NULL);
+		j++;
+		run = find_next_argument_index(cmd, run);
 	}
 	args[j] = NULL;
-	i = 0;
 	return (args);
+}
+
+int	get_argument_size(char *str, int start_index)
+{
+	size_t	j;
+	size_t	size;
+	size_t	is_open_d;
+	size_t	is_open_s;
+
+	j = start_index;
+	size = 0;
+	is_open_d = 0;
+	is_open_s = 0;
+	while (str && j < ft_strlen(str))
+	{
+		is_open_d += is_open(str, j, is_open_s, '"');
+		is_open_s += is_open(str, j, is_open_d, '\'');
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
+			&& j < ft_strlen(str) && ft_isspace(str[j]))
+			break ;
+		if (str[j] != '\'' && str[j] != '"')
+			size++;
+		j++;
+	}
+	return (size);
 }
