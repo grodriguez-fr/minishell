@@ -6,13 +6,13 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 17:32:46 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:02:07 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec);
+t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_env_p *env);
 
 t_mini	parse_and_exec(char *input, t_mini mini)
 {
@@ -62,7 +62,7 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 		commands[i] = get_command(commands[i], ex);
 		if (!commands[i])
 			error(&mini, "MALLOC ERROR\n", commands);
-		exec = parse_cmd_args(i, commands, NULL, exec);
+		exec = parse_cmd_args(commands[i], NULL, exec, mini.env);
 		ft_last_cmd(exec)->files_out = ex->files_out;
 		ft_last_cmd(exec)->files_in = ex->files_in;
 		ft_last_cmd(exec)->here_docs = ex->here_docs;
@@ -76,15 +76,45 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	return (exec);
 }
 
-t_exec	*parse_cmd_args(int i, char **comm, char *cmd_name, t_exec *exec)
+
+char	**take_var(t_env_p *envp, char **args)
+{
+	int		i;
+	t_env_p	*env;
+
+	if (!args || !envp)
+		return (NULL);
+	i = 0;
+	while (args && args[i])
+	{
+		if (ft_strncmp(args[i], "$", 1) == 0)
+		{
+			env = envp;
+			while (env)
+			{
+				if (ft_strncmp(env->key, &args[i][1], ft_strlen(env->key)) == 0)
+				{
+					free(args[i]);
+					args[i] = ft_strdup(env->value);
+				}
+				env = env->next;
+			}
+		}
+		i++;
+	}
+	return (args);
+}
+
+t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_env_p *env)
 {
 	char	**args;
 
-	args = get_args(comm[i]);
+	args = get_args(comm);
+	args = take_var(env, args);
 	if (args && args[0])
 		cmd_name = args[0];
 	if (args && cmd_name)
-		add_cmd(&exec, cmd_name, args, ft_strdup(comm[i]));
+		add_cmd(&exec, cmd_name, args, ft_strdup(comm));
 	else
 		add_cmd(&exec, NULL, NULL, NULL);
 	return (exec);

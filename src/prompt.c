@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/13 23:16:35 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:03:27 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ extern int	g_is_display;
 
 void	prompt(t_mini mini)
 {
-	t_exec	*ex;
-	int		i;
-
 	while (1)
 	{
 		mini = get_to_display(mini);
@@ -31,28 +28,6 @@ void	prompt(t_mini mini)
 			continue ;
 		add_history(mini.input);
 		mini = parse_and_exec(mini.input, mini);
-		ex = mini.ex;
-		while (ex)
-		{
-			ft_printf("\ncomp pipe : %s\n", ex->comp_pipe);
-			ft_printf("\ncmd name : %s\n", ex->cmd_name);
-			i = 0;
-			while (ex->args && ex->args[i])
-				ft_printf("args : %s\n", ex->args[i++]);
-			i = 0;
-			while (ex->files_in && ex->files_in[i])
-				printf("file in :< %s\n", ex->files_in[i++]);
-			i = 0;
-			while (ex->files_out && ex->files_out[i])
-				printf("file out :> %s\n", ex->files_out[i++]);
-			i = 0;
-			while (ex->here_docs && ex->here_docs[i])
-				printf("file heredocs :<< %s\n", ex->here_docs[i++]);
-			i = 0;
-			while (ex->files_out_a && ex->files_out_a[i])
-				printf("file out append :>> %s\n", ex->files_out_a[i++]);
-			ex = ex->next;
-		}
 		if (mini.input)
 			free(mini.input);
 		exec_all(&mini);
