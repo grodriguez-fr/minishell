@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 22:33:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:27:32 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	take_count(char *str, char sep, int count, int i)
 			i++;
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
-		if (str[i] && str[i] != ' ' && str[i] != sep)
+		if (str[i] && str[i] != ' ' && str[i] != sep && str[i] != '<' && str[i] != '>')
 			is_command = 1;
 		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
@@ -87,7 +87,7 @@ int	take_count(char *str, char sep, int count, int i)
 		if (str[i])
 			i++;
 	}
-	if (count > 0 || i > 0)
+	if ((count > 0 || i > 0) && is_command == 1)
 		count ++;
 	return (count);
 }
