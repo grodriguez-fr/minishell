@@ -51,6 +51,8 @@ int cd(t_mini *mini, t_exec *ex)
 {
     int ret;
 
+    if (ex->args[1] && ex->args[2])
+        return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
     if (!ex->args[1])
         ret = change_wd(mini, get_env_value(mini, "HOME"));
     else if (!ft_strncmp(ex->args[1], "-", 1))

@@ -64,24 +64,41 @@ int replace_or_add(t_mini *mini, char *var)
     ret = add_to_env(mini, splited[0], splited[1]);
     return (free_split(splited), ret);
 }
+int replace_or_add_if_valid_p2(t_mini *mini, char *var)
+{
+
+    if (strchr(var, '#'))
+        return (ft_putstr_fd("minishell: export '#': invalid identifier\n", 2), 0);
+    if (strchr(var, '}'))
+        return (ft_putstr_fd("minishell: export '{': invalid identifier\n", 2), 0);
+    if (strchr(var, '{'))
+        return (ft_putstr_fd("minishell: export '}': invalid identifier\n", 2), 0);
+    return (replace_or_add(mini, var));
+}
 
 int replace_or_add_if_valid(t_mini *mini, char *var)
 {
     if (is_str_numeric(var))
         return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
     if (strchr(var, '?'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
+        return (ft_putstr_fd("minishell: export '?': invalid identifier\n", 2), 0);
     if (strchr(var, '*'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
+        return (ft_putstr_fd("minishell: export '*': invalid identifier\n", 2), 0);
     if (strchr(var, '@'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
+        return (ft_putstr_fd("minishell: export '@': invalid identifier\n", 2), 0);
     if (strchr(var, '$'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
+        return (ft_putstr_fd("minishell: export '$': invalid identifier\n", 2), 0);
     if (strchr(var, '!'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
-    if (strchr(var, '_'))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
-    return (replace_or_add(mini, var));
+        return (ft_putstr_fd("minishell: export '!': invalid identifier\n", 2), 0);
+    if (strchr(var, '%'))
+        return (ft_putstr_fd("minishell: export '%': invalid identifier\n", 2), 0);
+    if (strchr(var, '-'))
+        return (ft_putstr_fd("minishell: export '-': invalid identifier\n", 2), 0);
+    if (strchr(var, '.'))
+        return (ft_putstr_fd("minishell: export '.': invalid identifier\n", 2), 0);
+    if (var[0] == '=')
+        return (ft_putstr_fd("minishell: export '=': invalid identifier\n", 2), 0);
+    return (replace_or_add_if_valid_p2(mini, var));
 }
 
 int	export(t_mini *mini, t_exec *ex)
@@ -94,7 +111,10 @@ int	export(t_mini *mini, t_exec *ex)
 		current = sort_env(mini->env);
 		while (current)
 		{
-			ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
+            if (current->value)
+			    ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
+            else
+                ft_printf("declare -x %s\n", current->key);
 		    current = current->next;
 		}
 	}

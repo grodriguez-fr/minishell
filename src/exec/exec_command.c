@@ -49,12 +49,11 @@ int	exec_all(t_mini *mini)
 	int		p[2];
 	int		previous_fd;
 
-	printf("\n---------exec----------\n");
 	current = mini->ex;
 	previous_fd = 0;
 	g_is_display = 0;
 	if (!heredoc(mini))
-		return (ft_printf("heredoc failed\n"), 0);
+		return (ft_putstr_fd("heredoc failed\n", 2), 0);
 	if (!current || !current->cmd_name)
 		return (1);
 	if (builtin_env_modifier(current->cmd_name) && !current->next)
