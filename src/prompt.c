@@ -62,4 +62,6 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 			ft_bzero(pwd, 256);
 		}
 	}
+    else if (g_is_display == 0 && (sign = SIGINT || sign == SIGQUIT))
+        ft_printf("\n");
 }
