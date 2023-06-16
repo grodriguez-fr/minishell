@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/16 14:38:48 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:28:03 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,38 @@ void	prompt(t_mini mini)
 	}
 }
 
+void	write_prompt(char *to_display, t_env_p *env)
+{
+	int		i;
+	char	pwd[256];
+
+	if (getcwd(pwd, 256) != NULL)
+	{
+		i = 0;
+		while (pwd[i])
+			i++;
+		while (pwd[i] != '/' && i >= 0)
+			i--;
+		i++;
+		to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
+		to_display = ft_strfjoin(to_display, &pwd[i]);
+		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
+		ft_printf("\n%s", to_display, env->value);
+		free(to_display);
+		ft_bzero(pwd, 256);
+	}
+}
+
 void	signal_handler(int sign, siginfo_t *info, void	*context)
 {
-	char	pwd[256];
 	char	*to_display;
 	t_env_p	*env;
-	int		i;
 
 	(void)info;
 	env = (t_env_p *)context;
+	to_display = NULL;
 	if (g_is_display == 1 && (sign == SIGINT || sign == SIGQUIT))
-	{
-		if (getcwd(pwd, 256) != NULL)
-		{
-			i = 0;
-			while (pwd[i])
-				i++;
-			while (pwd[i] != '/' && i >= 0)
-				i--;
-			i++;
-			to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
-			to_display = ft_strfjoin(to_display, &pwd[i]);
-			to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-			ft_printf("\n%s", to_display, env->value);
-			free(to_display);
-			ft_bzero(pwd, 256);
-		}
-	}
-    else if (g_is_display == 0 && (sign = SIGINT || sign == SIGQUIT))
-        ft_printf("\n");
+		write_prompt(to_display, env);
+	else if (g_is_display == 0 && (sign == SIGINT || sign == SIGQUIT))
+		ft_printf("\n");
 }
