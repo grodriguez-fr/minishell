@@ -63,6 +63,7 @@ int		pwd(t_mini *mini);
 int		unset(t_mini *mini, t_exec *ex);
 int		env(t_mini *mini);
 int		exit_builtin(t_mini *mini, t_exec *ex);
+t_env_p   *sort_env(t_env_p *env);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
@@ -80,4 +81,5 @@ char	*get_clean_path(char *path);
 void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd);
 int		clean_heredocs(void);
 int		is_str_numeric(const char *str);
+int     same_string(char *a, char *b);
 #endif

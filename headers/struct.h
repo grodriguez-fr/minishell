@@ -34,6 +34,7 @@ typedef struct s_exec
 	int				is_heredoc;
 	char			**args;
 	char			*cmd_name;
+    int             pid;
 	struct s_exec	*next;
 }	t_exec;
 
@@ -43,7 +44,7 @@ typedef struct s_mini
 	t_exec		*ex;
 	char		*to_display;
 	char		*input;
-	int			command_return;
+	int			command_ret;
 }	t_mini;
 
 #endif

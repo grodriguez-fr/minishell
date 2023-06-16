@@ -6,7 +6,7 @@ PARSING = src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils/
 
 EXECUTION = src/exec/use_builtin.c src/exec/exec.c src/exec/convert_env.c src/exec/find_path.c src/exec/check_redirections.c src/exec/heredoc.c src/exec/exec_command.c
 
-BUILTINS = src/builtins/echo.c src/builtins/export.c src/builtins/cd.c src/builtins/env.c src/builtins/exit_builtin.c src/builtins/pwd.c src/builtins/unset.c src/builtins/clean_path.c
+BUILTINS = src/builtins/echo.c src/builtins/export.c src/builtins/cd.c src/builtins/env.c src/builtins/exit_builtin.c src/builtins/pwd.c src/builtins/unset.c src/builtins/clean_path.c src/builtins/sort_env.c
 
 SRCS = $(SRC) $(EXECUTION) $(PARSING) $(BUILTINS)
 

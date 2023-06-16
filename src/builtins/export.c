@@ -31,7 +31,7 @@ int add_to_env(t_mini *mini, char *key, char *value)
         return (0);
     if (value)
         new_var->value = ft_strdup(value);
-    if (!new_var->value)
+    if (!new_var->value && value)
         return (0);
     if (!value)
         new_var->value = NULL;
@@ -50,11 +50,13 @@ int replace_or_add(t_mini *mini, char *var)
         return (0);
     while (current)
     {
-        if (!ft_strncmp(current->key, splited[0], \
-            ft_strlen(current->key) + ft_strlen(splited[0])))
+        if (same_string(current->key, splited[0]))
         {
             free(current->value);
-            current->value = ft_strdup(splited[1]);
+            if (splited[1])
+                current->value = ft_strdup(splited[1]);
+            else
+                current->value = NULL;
             return (free_split(splited), 1);
         }
         current = current->next;
@@ -89,7 +91,7 @@ int	export(t_mini *mini, t_exec *ex)
 
 	if (ex->args[1] == NULL)
 	{
-		current = mini->env;
+		current = sort_env(mini->env);
 		while (current)
 		{
 			ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
