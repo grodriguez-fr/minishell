@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void    write_not_found(char *name)
+{
+    ft_putstr_fd("minishell: ", 2);
+    ft_putstr_fd(name, 2);
+    ft_putstr_fd(": command not found\n", 2);
+}
 
 void	handle_cmd(t_mini *mini, t_exec *current)
 {
@@ -30,7 +36,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	    ret = execve(pathname, current->args, new_env);
         free(pathname);
         if (!pathname)
-            ft_putstr_fd("minishell: command not found\n", 2);
+            write_not_found(current->cmd_name);
     }
     else
     {
