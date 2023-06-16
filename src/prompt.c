@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 23:03:27 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:38:48 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	prompt(t_mini mini)
 			continue ;
 		add_history(mini.input);
 		mini = parse_and_exec(mini.input, mini);
+		if (!mini.ex)
+			ft_printf("ERROR\n");
 		if (mini.input)
 			free(mini.input);
 		exec_all(&mini);

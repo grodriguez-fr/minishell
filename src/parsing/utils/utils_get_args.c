@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:32:26 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 22:40:09 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:53:29 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	copy_argument(char *str, int start_index, char *new_str)
 	size_t	is_open_s;
 
 	i = 0;
+	is_open_d = 0;
+	is_open_s = 0;
 	j = start_index;
 	while (str && j < ft_strlen(str))
 	{

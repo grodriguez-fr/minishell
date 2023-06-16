@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:34:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 22:45:27 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:55:29 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	find_next_argument_index(char *cmd, int current_index)
 	{
 		is_open_s = is_open(cmd, run, is_open_d, '\'');
 		is_open_d = is_open(cmd, run, is_open_s, '"');
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0
+		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && cmd[run + 1] && cmd[run + 1] != ' '
 			&& run < ft_strlen(cmd) && ft_isspace(cmd[run]))
 			break ;
 		run++;
