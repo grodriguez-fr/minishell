@@ -15,8 +15,6 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-# include "struct.h"
-# include "proto.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/history.h>
@@ -26,5 +24,10 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <errno.h>
+# include <termios.h>
+# include <unistd.h>
+# include "struct.h"
+# include "proto.h"
 
 #endif

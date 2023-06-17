@@ -7,7 +7,7 @@ int	exec_all_loop(t_mini *mini, t_exec *ex, int p[2], int *previous_fd)
 	int	ret;
 
 	if (!check_redirection(ex))
-		return (0);
+		return (mini->command_ret = 1, 0);
 	if (ex->next)
 		ret = pipe(p);
 	if (ret == -1)

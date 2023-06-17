@@ -45,6 +45,8 @@ typedef struct s_mini
 	char		*to_display;
 	char		*input;
 	int			command_ret;
+    struct termios  original_term;
+    struct termios  new_term;
 }	t_mini;
 
 #endif
