@@ -37,7 +37,7 @@ void	prompt(t_mini mini)
 	}
 }
 
-void	write_prompt(char *to_display, t_env_p *env)
+void	write_prompt(char *to_display)
 {
 	int		i;
 	char	pwd[256];
@@ -53,7 +53,11 @@ void	write_prompt(char *to_display, t_env_p *env)
 		to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
 		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-		ft_printf("^C\n%s", to_display, env->value);
+        rl_replace_line("", 0);
+        printf("^C\n");
+        rl_set_prompt(to_display);
+        rl_on_new_line();
+        rl_redisplay();
 		free(to_display);
 		ft_bzero(pwd, 256);
 	}
@@ -62,17 +66,18 @@ void	write_prompt(char *to_display, t_env_p *env)
 void	signal_handler(int sign, siginfo_t *info, void	*context)
 {
 	char	*to_display;
-	t_env_p	*env;
 
 	(void)info;
-	env = (t_env_p *)context;
+	(void)context;
 	to_display = NULL;
     if (sign == SIGQUIT)
     {
+        if (g_is_display == 0)
+            ft_printf("Quit\n");
         return ;
     }
 	if (g_is_display == 1 && sign == SIGINT)
-		write_prompt(to_display, env);
+		write_prompt(to_display);
 	else if (g_is_display == 0 && sign == SIGINT)
 		ft_printf("\n");
 }
