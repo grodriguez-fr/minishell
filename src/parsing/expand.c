@@ -7,7 +7,7 @@ void replace_var(t_mini *mini, char **to_replace)
     env = mini->env;
     while (env)
     {
-        if (ft_strncmp(env->key, &(*to_replace)[1], ft_strlen(env->key)) == 0)
+        if (same_string(env->key, &(*to_replace)[1]))
         {
             free(*to_replace);
             *to_replace = ft_strdup(env->value);
