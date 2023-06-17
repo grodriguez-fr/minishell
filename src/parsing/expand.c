@@ -67,7 +67,6 @@ char	**take_var(t_mini *mini, char *comm, char **args)
 	i = 0;
 	while (args && args[i])
 	{
-        ft_printf("arg[%d] : %s\n", i, args[i]);
 		if (ft_strncmp(args[i], "$", 1) == 0 && should_expand(args[i], comm))
             replace_var(mini, &args[i]);
 		i++;

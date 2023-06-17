@@ -16,12 +16,6 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini);
 
 t_mini	parse_and_exec(char *input, t_mini mini)
 {
-	/*if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
-	{
-		if (input)
-			free(input);
-		exit_minishell(&mini, 0);
-	}*/
 	mini.ex = parse_cmd(input, mini.ex, mini);
 	return (mini);
 }
@@ -83,7 +77,6 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 	char	**args;
 
 	args = get_args(comm);
-    printf("comm : %s\n", comm);
 	args = take_var(mini, comm, args);
 	if (args && args[0])
 		cmd_name = args[0];
