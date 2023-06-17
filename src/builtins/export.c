@@ -38,6 +38,21 @@ int add_to_env(t_mini *mini, char *key, char *value)
     return (1);
 }
 
+int is_valid_id(char *var)
+{
+    if (is_str_numeric(var))
+        return (write_ret_export_error(var));
+    if (ft_strchr(var, '?') || ft_strchr(var, '*') || ft_strchr(var, '@'))
+        return (write_ret_export_error(var));
+    if (ft_strchr(var, '$') || ft_strchr(var, '!') || ft_strchr(var, '%'))
+        return (write_ret_export_error(var));
+    if (ft_strchr(var, '_') || ft_strchr(var, '.') || ft_strchr(var, '%'))
+        return (write_ret_export_error(var));
+    if (ft_strchr(var, '#') || ft_strchr(var, '{') || ft_strchr(var, '}'))
+        return (write_ret_export_error(var));
+    return (1);
+}
+
 int replace_or_add(t_mini *mini, char *var)
 {
 	t_env_p	*current;
@@ -45,9 +60,9 @@ int replace_or_add(t_mini *mini, char *var)
     int     ret;
     
     current = mini->env;
-    splited = ft_split(var, '=');
-    if (!splited)
-        return (0);
+    splited = export_split(var);
+    if (!splited || !is_valid_id(splited[0]))
+        return (free_split(splited), 0);
     while (current)
     {
         if (same_string(current->key, splited[0]))
@@ -63,42 +78,6 @@ int replace_or_add(t_mini *mini, char *var)
     }
     ret = add_to_env(mini, splited[0], splited[1]);
     return (free_split(splited), ret);
-}
-int replace_or_add_if_valid_p2(t_mini *mini, char *var)
-{
-
-    if (strchr(var, '#'))
-        return (ft_putstr_fd("minishell: export '#': invalid identifier\n", 2), 0);
-    if (strchr(var, '}'))
-        return (ft_putstr_fd("minishell: export '{': invalid identifier\n", 2), 0);
-    if (strchr(var, '{'))
-        return (ft_putstr_fd("minishell: export '}': invalid identifier\n", 2), 0);
-    return (replace_or_add(mini, var));
-}
-
-int replace_or_add_if_valid(t_mini *mini, char *var)
-{
-    if (is_str_numeric(var))
-        return (ft_putstr_fd("minishell: export: invalid identifier\n", 2), 0);
-    if (strchr(var, '?'))
-        return (ft_putstr_fd("minishell: export '?': invalid identifier\n", 2), 0);
-    if (strchr(var, '*'))
-        return (ft_putstr_fd("minishell: export '*': invalid identifier\n", 2), 0);
-    if (strchr(var, '@'))
-        return (ft_putstr_fd("minishell: export '@': invalid identifier\n", 2), 0);
-    if (strchr(var, '$'))
-        return (ft_putstr_fd("minishell: export '$': invalid identifier\n", 2), 0);
-    if (strchr(var, '!'))
-        return (ft_putstr_fd("minishell: export '!': invalid identifier\n", 2), 0);
-    if (strchr(var, '%'))
-        return (ft_putstr_fd("minishell: export '%': invalid identifier\n", 2), 0);
-    if (strchr(var, '-'))
-        return (ft_putstr_fd("minishell: export '-': invalid identifier\n", 2), 0);
-    if (strchr(var, '.'))
-        return (ft_putstr_fd("minishell: export '.': invalid identifier\n", 2), 0);
-    if (var[0] == '=')
-        return (ft_putstr_fd("minishell: export '=': invalid identifier\n", 2), 0);
-    return (replace_or_add_if_valid_p2(mini, var));
 }
 
 int	export(t_mini *mini, t_exec *ex)
@@ -120,7 +99,7 @@ int	export(t_mini *mini, t_exec *ex)
 	}
     i = 1;
     while (ex->args[i])
-        if (!replace_or_add_if_valid(mini, ex->args[i++]))
+        if (!replace_or_add(mini, ex->args[i++]))
             return (1);
     return (0);
 }

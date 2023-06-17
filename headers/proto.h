@@ -66,6 +66,8 @@ int		unset(t_mini *mini, t_exec *ex);
 int		env(t_mini *mini);
 int		exit_builtin(t_mini *mini, t_exec *ex);
 t_env_p	*sort_env(t_env_p *env);
+char    **export_split(char *input);
+int    write_ret_export_error(char *var);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
