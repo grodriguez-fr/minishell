@@ -83,7 +83,8 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 	char	**args;
 
 	args = get_args(comm);
-	args = take_var(mini, args);
+    printf("comm : %s\n", comm);
+	args = take_var(mini, comm, args);
 	if (args && args[0])
 		cmd_name = args[0];
 	if (args && cmd_name)

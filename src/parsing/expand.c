@@ -26,7 +26,39 @@ void replace_var(t_mini *mini, char **to_replace)
     (*to_replace)[0] = 0;
 }
 
-char	**take_var(t_mini *mini, char **args)
+int ap_before(char *comm, int i)
+{
+    int j;
+
+    j = i;
+    while (j >= 0)
+        if (comm[j--] == '\'')
+            return (1);
+    return (0);
+}
+
+int ap_after(char *comm, int i)
+{
+    int j;
+
+    j = i;
+    while (comm[j])
+        if (comm[j++] == '\'')
+            return (1);
+    return (0); 
+}
+
+int should_expand(char *arg, char *comm)
+{
+    int found;
+
+    found = ft_strstr(comm, arg);
+    if (found == -1)
+        return (0);
+    return (!ap_before(comm, found) || !ap_after(comm, found));
+}
+
+char	**take_var(t_mini *mini, char *comm, char **args)
 {
 	int		i;
 
@@ -35,7 +67,8 @@ char	**take_var(t_mini *mini, char **args)
 	i = 0;
 	while (args && args[i])
 	{
-		if (ft_strncmp(args[i], "$", 1) == 0)
+        ft_printf("arg[%d] : %s\n", i, args[i]);
+		if (ft_strncmp(args[i], "$", 1) == 0 && should_expand(args[i], comm))
             replace_var(mini, &args[i]);
 		i++;
 	}

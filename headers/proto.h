@@ -55,7 +55,8 @@ int		take_last_redirect(char *cmd);
 size_t	count_sep(char *str, char sep);
 char	*change_cmdf(char *str, char sep);
 int		is_open(char *str, int i, size_t is_open, char c);
-char	**take_var(t_mini *mini, char **args);
+char	**take_var(t_mini *mini, char *comm, char **args);
+int     ft_strstr(const char *haystack, const char *needle);
 
 int		echo(t_exec *ex);
 int		export(t_mini *mini, t_exec *ex);
