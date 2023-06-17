@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 	sigaction(SIGINT, &sa, (void *)mini.env);
 	sigaction(SIGQUIT, &sa, (void *)mini.env);
 	parse_env(envp, &mini.env, mini);
-	launch_minishell_img();
+	//launch_minishell_img();
 	prompt(mini);
 	return (0);
 }
