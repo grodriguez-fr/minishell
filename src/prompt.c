@@ -53,7 +53,7 @@ void	write_prompt(char *to_display, t_env_p *env)
 		to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
 		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m");
-		ft_printf("\n%s", to_display, env->value);
+		ft_printf("^C\n%s", to_display, env->value);
 		free(to_display);
 		ft_bzero(pwd, 256);
 	}
@@ -67,11 +67,10 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	env = (t_env_p *)context;
 	to_display = NULL;
-    if (sign == SIGINT)
-        ft_printf("^C");
-    else if (sign == SIGQUIT)
+    if (sign == SIGQUIT)
+    {
         return ;
-    //rl_replace_line("", 0);
+    }
 	if (g_is_display == 1 && sign == SIGINT)
 		write_prompt(to_display, env);
 	else if (g_is_display == 0 && sign == SIGINT)
