@@ -67,7 +67,11 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	env = (t_env_p *)context;
 	to_display = NULL;
-    rl_replace_line("", 0);
+    if (sign == SIGINT)
+        ft_printf("^C");
+    else if (sign == SIGQUIT)
+        return ;
+    //rl_replace_line("", 0);
 	if (g_is_display == 1 && sign == SIGINT)
 		write_prompt(to_display, env);
 	else if (g_is_display == 0 && sign == SIGINT)

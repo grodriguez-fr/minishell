@@ -18,6 +18,5 @@ void	exit_minishell(t_mini *mini, int code)
 		clear_env(&mini->env, free);
 	clean_heredocs();
 	rl_clear_history();
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &mini->new_term);
 	exit(code);
 }

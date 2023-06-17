@@ -27,14 +27,8 @@ void    init_signals(t_mini mini)
 	sa.sa_mask = mask;
 	sa.sa_sigaction = signal_handler;
 	sigaction(SIGINT, &sa, (void *)mini.env);
-}
-
-void    init_term(t_mini *mini)
-{
-    tcgetattr(STDIN_FILENO, &mini->original_term);
-    mini->new_term = mini->original_term;
-    mini->new_term.c_cc[VQUIT] = _POSIX_VDISABLE;
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &mini->new_term);
+	sigaction(SIGQUIT, &sa, (void *)mini.env);
+    rl_catch_signals = 0;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -48,7 +42,7 @@ int	main(int ac, char **av, char **envp)
 	mini.command_ret = 0;
 	g_is_display = 1;
     init_signals(mini);
-    init_term(&mini);
+    //init_term(&mini);
 	parse_env(envp, &mini.env, mini);
 	//launch_minishell_img();
 	prompt(mini);
