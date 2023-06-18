@@ -6,14 +6,14 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/13 19:40:38 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:35:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 ssize_t	count_sep_here_append(char *str, char *sep);
-char	*cpy_cmd(char *new_str, char *str, char *sep);
+char	*cpy_cmd(char *new_str, char *str, char *sep, size_t i);
 
 char	*change_cmdf_here_append(char *str, char *sep)
 {
@@ -27,26 +27,22 @@ char	*change_cmdf_here_append(char *str, char *sep)
 		new_str = malloc(sizeof(char) * (count + 1));
 		if (!new_str)
 			return (NULL);
-		cpy_cmd(new_str, str, sep);
+		cpy_cmd(new_str, str, sep, 0);
 	}
 	free(str);
 	return (new_str);
 }
 
-char	*cpy_cmd(char *new_str, char *str, char *sep)
+char	*cpy_cmd(char *new_str, char *str, char *sep, size_t i)
 {
 	int		count;
-	size_t	i;
 	size_t	is_open_d;
 	size_t	is_open_s;
 
 	is_open_d = 0;
 	is_open_s = 0;
-	if (!str || ! new_str)
-		return (NULL);
 	count = 0;
-	i = 0;
-	while (str && i < ft_strlen(str))
+	while (str && new_str && i < ft_strlen(str))
 	{
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
@@ -74,9 +70,9 @@ ssize_t	count_sep_here_append(char *str, char *sep)
 
 	is_open_s = 0;
 	is_open_d = 0;
-	i = 0;
+	i = -1;
 	count = 0;
-	while (str && i < ft_strlen(str))
+	while (str && ++i < ft_strlen(str))
 	{
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
@@ -90,7 +86,6 @@ ssize_t	count_sep_here_append(char *str, char *sep)
 				i++;
 		}
 		count++;
-		i++;
 	}
 	return (count);
 }

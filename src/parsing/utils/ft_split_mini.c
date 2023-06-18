@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/16 16:33:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:18:19 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 
 	is_open_d = 0;
 	is_open_s = 0;
-	i = 0;
+	i = -1;
 	c = 0;
-	while (src && i < ft_strlen(src) && count > c)
+	while (src && ++i < ft_strlen(src) && count > c)
 	{
 		is_open_d += is_open(src, i, is_open_s, '"');
 		is_open_s += is_open(src, i, is_open_d, '\'');
@@ -45,13 +45,11 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 		{
 			i = count_space(src, i);
 			dest[c] = ft_substr(src, j, i - j);
-			if (!dest[c])
+			if (!dest[c++])
 				return (free_strs(dest), NULL);
-			c++;
 			i++;
 			j = i;
 		}
-		i++;
 	}
 	if (src[i] == 0 && count > 0)
 		dest[c] = ft_strdup(&src[j]);
