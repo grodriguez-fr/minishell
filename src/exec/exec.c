@@ -54,7 +54,6 @@ int exec_redirection_in(t_exec *current)
         fd = open(current->here_docs[i], O_RDONLY);
         if (fd == -1)
             return (0);
-        printf("ici");
         dup2(fd, 0);
     }
     else if (current->files_in)
@@ -65,7 +64,6 @@ int exec_redirection_in(t_exec *current)
         fd = open(current->files_in[i], O_RDONLY);
         if (fd == -1)
             return (0);
-        printf("ici");
         dup2(fd, 0);
     }
     return (1);
