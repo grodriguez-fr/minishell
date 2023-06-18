@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 15:24:50 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:27:23 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ char	**hear_append(char **fd, char *str, char *sep)
 		return (NULL);
 	while (str && str[++i] && str[i + 1])
 	{
-		if (i < ft_strlen(str) && str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		else if (i < ft_strlen(str) && str[i] == '\'' && is_open_d % 2 == 0)
-			is_open_s++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1]
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		if (str[i] == sep[0] && str[i + 1] == sep[1]
 			&& is_open_s % 2 == 0 && is_open_d == 0)
 			nb_fd ++;
 	}
@@ -60,11 +58,9 @@ static char	**condition_to_take(char **fd, char *str,
 	ct_fd = 0;
 	while (str && str[i] && str[i + 1] && ct_fd != nb_fd)
 	{
-		if (i < ft_strlen(str) && str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		if (i < ft_strlen(str) && str[i] == '\'' && is_open_d % 2 == 0)
-			is_open_s++;
-		else if (str[i] == sep[0] && str[i + 1] == sep[1]
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		if (str[i] == sep[0] && str[i + 1] == sep[1]
 			&& str[i + 2] && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			while (str[i] && str[i] == ' ')
