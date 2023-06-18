@@ -54,6 +54,7 @@ int exec_redirection_in(t_exec *current)
         fd = open(current->here_docs[i], O_RDONLY);
         if (fd == -1)
             return (0);
+        printf("ici");
         dup2(fd, 0);
     }
     else if (current->files_in)
@@ -64,6 +65,7 @@ int exec_redirection_in(t_exec *current)
         fd = open(current->files_in[i], O_RDONLY);
         if (fd == -1)
             return (0);
+        printf("ici");
         dup2(fd, 0);
     }
     return (1);
@@ -94,6 +96,8 @@ void    exec_redirection_out(t_exec *current)
 
 void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 {
+	if (!check_redirection(current))
+		exit(1);
 	if (previous_fd != 0)
 	{
 		dup2(previous_fd, 0);

@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+int exit_error(char *file_name)
+{
+    ft_putstr_fd("minishell: ", 2);
+    return (perror(file_name), 0);
+}
+
 int file_in(char **files)
 {
     int fd;
@@ -10,7 +16,7 @@ int file_in(char **files)
     {
         fd = open(files[i], O_RDONLY);
         if (fd == -1) 
-            return (perror("Erreur lors de l'ouverture du fichier"), 0);
+            return (exit_error(files[i]));
         close(fd);
         i++;
     }
@@ -27,7 +33,7 @@ int file_out(char **files)
     {
         fd = open(files[i], O_WRONLY | O_CREAT | O_APPEND);
         if (fd == -1)
-            return (perror("Erreur lors de l'ouverture du fichier"), 0);
+            return (exit_error(files[i]));
         close (fd);
         i++;
     }
