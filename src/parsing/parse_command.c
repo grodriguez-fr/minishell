@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 23:02:07 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:30:21 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 	free(commands);
 	return (exec);
 }
-
-
 
 t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 {
