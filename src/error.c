@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:42:40 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/24 17:15:39 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:19:46 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_cmd(t_exec **exec, void (*del)(void*))
 	t_exec	*next;
 	int		i;
 
-	if (!exec || ! del)
+	if (!exec || !del)
 		return ;
 	next = *exec;
 	while (next)

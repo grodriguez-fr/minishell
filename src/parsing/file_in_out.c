@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 16:26:46 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:21:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char	*take_fd(char *str)
 	char	*fd;
 
 	i = 1;
+	fd = NULL;
 	while (str && str[i] && str[i] == ' ')
 		i++;
 	count = take_count(str, i);
