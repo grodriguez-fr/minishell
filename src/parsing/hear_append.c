@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/04 03:25:17 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:11:10 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,25 @@ char	*take_fd_here_append(char *str)
 {
 	int		i;
 	int		count;
+	size_t	is_open_d;
+	size_t	is_open_s;
 	char	*fd;
 
 	i = 0;
 	while (str && str[i] && str[i] == ' ')
 		i++;
 	count = 0;
-	while (str && str[i] && str[i] != ' ')
+	is_open_d = 0;
+	is_open_s = 0;
+	while (str && str[i])
 	{
+		ft_printf("%d\n", count);
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
 		i++;
 		count++;
+		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0 && str[i] == ' '))
+			break ;
 	}
 	fd = malloc(sizeof(char) * (count + 1));
 	if (!fd)

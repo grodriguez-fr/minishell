@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 15:00:40 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:04:49 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*take_fd(char *str)
 		is_open_s += is_open(str, i, is_open_d, '\'');
 		i++;
 		count++;
-		if (is_open_d % 2 == 0 && is_open_s % 2 == 0 && (!str[i] || str[i] == ' '))
+		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0 && str[i] == ' '))
 			break ;
 	}
 	fd = malloc(sizeof(char) * (count + 1));
