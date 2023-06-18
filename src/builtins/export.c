@@ -50,6 +50,8 @@ int is_valid_id(char *var)
         return (write_ret_export_error(var));
     if (ft_strchr(var, '#') || ft_strchr(var, '{') || ft_strchr(var, '}'))
         return (write_ret_export_error(var));
+    if (ft_strchr(var, '+') || ft_strchr(var, '{') || ft_strchr(var, '}'))
+        return (write_ret_export_error(var));
     return (1);
 }
 
