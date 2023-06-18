@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 15:04:49 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:22:44 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,40 @@ char	**allocate_fd(char **fd, char *str, size_t nb_fd, char sep)
 	return (fd);
 }
 
-char	*take_fd(char *str)
+static int	take_count(char *str, int i)
 {
-	int		i;
-	int		count;
-	size_t	is_open_d;
-	size_t	is_open_s;
-	char	*fd;
+	int	is_open_s;
+	int	is_open_d;
+	int	count;
 
-	i = 1;
-	while (str && str[i] && str[i] == ' ')
-		i++;
-	count = 0;
-	is_open_d = 0;
 	is_open_s = 0;
+	is_open_d = 0;
+	count = 0;
 	while (str && str[i])
 	{
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
 		i++;
 		count++;
-		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0 && str[i] == ' '))
+		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0
+				&& str[i] == ' '))
 			break ;
 	}
-	fd = malloc(sizeof(char) * (count + 1));
+	return (count);
+}
+
+char	*take_fd(char *str)
+{
+	int		i;
+	int		count;
+	char	*fd;
+
+	i = 1;
+	while (str && str[i] && str[i] == ' ')
+		i++;
+	count = take_count(str, i);
+	if (count > 0)
+		fd = malloc(sizeof(char) * (count + 1));
 	if (!fd)
 		return (NULL);
 	i -= count;

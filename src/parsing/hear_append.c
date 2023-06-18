@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 15:11:10 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:24:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,40 @@ char	**allocate_fd_here_append(char **fd, char *str, size_t nb_fd, char *sep)
 	return (fd);
 }
 
+static int	take_count(char *str, int i)
+{
+	int	is_open_s;
+	int	is_open_d;
+	int	count;
+
+	is_open_s = 0;
+	is_open_d = 0;
+	count = 0;
+	while (str && str[i])
+	{
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		i++;
+		count++;
+		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0
+				&& str[i] == ' '))
+			break ;
+	}
+	return (count);
+}
+
 char	*take_fd_here_append(char *str)
 {
 	int		i;
 	int		count;
-	size_t	is_open_d;
-	size_t	is_open_s;
 	char	*fd;
 
 	i = 0;
 	while (str && str[i] && str[i] == ' ')
 		i++;
-	count = 0;
-	is_open_d = 0;
-	is_open_s = 0;
-	while (str && str[i])
-	{
-		ft_printf("%d\n", count);
-		is_open_d += is_open(str, i, is_open_s, '"');
-		is_open_s += is_open(str, i, is_open_d, '\'');
-		i++;
-		count++;
-		if (!str[i] || (is_open_d % 2 == 0 && is_open_s % 2 == 0 && str[i] == ' '))
-			break ;
-	}
-	fd = malloc(sizeof(char) * (count + 1));
+	count = take_count(str, i);
+	if (count > 0)
+		fd = malloc(sizeof(char) * (count + 1));
 	if (!fd)
 		return (NULL);
 	i -= count;
