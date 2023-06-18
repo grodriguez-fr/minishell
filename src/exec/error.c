@@ -2,10 +2,14 @@
 
 void    write_not_found(char **new_env, char *name)
 {
+    char    *to_write;
+    char    *buffer;
+
     free_env(new_env);
-    ft_putstr_fd("minishell: ", 2);
-    ft_putstr_fd(name, 2);
-    ft_putstr_fd(": command not found\n", 2);
+    buffer = ft_strjoin("minishell: ", name);
+    to_write = ft_strjoin(buffer, ": command not found\n");
+    free(buffer);
+    ft_putstr_fd(to_write, 2);
     exit(127);
 }
 
