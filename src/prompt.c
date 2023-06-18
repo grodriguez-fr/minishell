@@ -16,8 +16,8 @@ extern int	g_is_display;
 
 void	prompt(t_mini mini)
 {
-	t_exec *ex;
-	int		i;
+	//t_exec *ex;
+	//int		i;
 
 	while (1)
 	{
@@ -31,7 +31,7 @@ void	prompt(t_mini mini)
 			continue ;
 		add_history(mini.input);
 		mini = parse_and_exec(mini.input, mini);
-		ex = mini.ex;
+		/*ex = mini.ex;
 		while (ex)
 		{
 			ft_printf("\ncomp pipe : %s\n", ex->comp_pipe);
@@ -52,7 +52,7 @@ void	prompt(t_mini mini)
 			while (ex->files_out_a && ex->files_out_a[i])
 				printf("file out append :>> %s\n", ex->files_out_a[i++]);
 			ex = ex->next;
-		}
+		}*/
 		if (!mini.ex)
 			ft_printf("PARSE ERROR\n");
 		if (mini.input)

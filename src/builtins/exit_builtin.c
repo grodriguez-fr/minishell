@@ -34,9 +34,9 @@ int nb_arg(char **args)
 
 int exit_builtin(t_mini *mini, t_exec *ex)
 {
+    ft_putstr_fd("exit\n", 1);
     if (nb_arg(ex->args) == 0)
     {
-        ft_printf("exit\n");
         exit_minishell(mini, 0);
     }
     else
@@ -44,12 +44,10 @@ int exit_builtin(t_mini *mini, t_exec *ex)
         if (is_str_numeric(ex->args[1]))
         {
             if (nb_arg(ex->args) > 1)
-                return (ft_putstr_fd("minishell: exit: too many arugments\n", 1), 1);
-            ft_printf("exit\n");
+                return (ft_putstr_fd("minishell: exit: too many arugments\n", 2), 1);
             exit_minishell(mini, ft_atoi(ex->args[1]));
         }
-        ft_putstr_fd("minishell: exit: numeric argument required\n", 1);
-        ft_printf("exit\n");
+        ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
         exit_minishell(mini, 2);
     }
     return (0);
