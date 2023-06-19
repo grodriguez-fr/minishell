@@ -44,7 +44,7 @@ int	heredoc_loop(t_exec *current, int i, int j)
 	if (fd == -1)
 		return (0);
 	res = readline(">");
-	while (ft_strncmp(res, current->here_docs[j], ft_strlen(res)))
+	while (!same_string(res, current->here_docs[j]))
 	{
 		if (write(fd, res, ft_strlen(res)) == -1)
 			return (0);

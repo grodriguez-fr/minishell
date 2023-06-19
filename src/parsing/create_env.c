@@ -59,7 +59,7 @@ int	increment_shell_level(t_env_p *env)
 	current = env;
 	while (current)
 	{
-		if (!ft_strncmp(current->key, "SHLVL", 5))
+		if (same_string(current->key, "SHLVL"))
 		{
 			current_level = ft_atoi(current->value);
 			free(current->value);
