@@ -72,6 +72,7 @@ char	**get_args(char *cmd)
 	while (cmd && cmd[run] && ft_isspace(cmd[run]))
 		run++;
 	i = count_word(&cmd[run]);
+	args = NULL;
 	if (i > 0)
 		args = malloc(sizeof(char *) * (i + 1));
 	if (!args)
