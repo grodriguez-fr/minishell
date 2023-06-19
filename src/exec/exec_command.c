@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 11:52:02 by gurodrig          #+#    #+#             */
+/*   Updated: 2023/06/19 11:52:35 by gurodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 extern int	g_command_ret;
@@ -27,15 +38,15 @@ int	exec_all_loop(t_mini *mini, t_exec *ex, int p[2], int *previous_fd)
 
 void	wait_exec(t_mini *mini)
 {
-	int     status;
-    t_exec  *current;
+	int		status;
+	t_exec	*current;
 
-    current = mini->ex;
-    while (current)
-    {
-	    waitpid(current->pid, &status, 0);
-        current = current->next;
-    }
+	current = mini->ex;
+	while (current)
+	{
+		waitpid(current->pid, &status, 0);
+		current = current->next;
+	}
 	if (g_command_ret == -1)
 	{
 		if (WIFEXITED(status))

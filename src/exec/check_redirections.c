@@ -1,52 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_redirections.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 11:53:46 by gurodrig          #+#    #+#             */
+/*   Updated: 2023/06/19 11:53:48 by gurodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
-int exit_error(char *file_name)
+int	exit_error(char *file_name)
 {
-    ft_putstr_fd("minishell: ", 2);
-    return (perror(file_name), 0);
+	ft_putstr_fd("minishell: ", 2);
+	return (perror(file_name), 0);
 }
 
-int file_in(char **files)
+int	file_in(char **files)
 {
-    int fd;
-    int i;
+	int	fd;
+	int	i;
 
-    i = 0;
-    while (files && files[i])
-    {
-        fd = open(files[i], O_RDONLY);
-        if (fd == -1) 
-            return (exit_error(files[i]));
-        close(fd);
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (files && files[i])
+	{
+		fd = open(files[i], O_RDONLY);
+		if (fd == -1)
+			return (exit_error(files[i]));
+		close(fd);
+		i++;
+	}
+	return (1);
 }
 
-int file_out(char **files)
+int	file_out(char **files)
 {
-    int fd;
-    int i;
+	int	fd;
+	int	i;
 
-    i = 0;
-    while (files && files[i])
-    {
-        fd = open(files[i], O_WRONLY | O_CREAT | O_APPEND);
-        if (fd == -1)
-            return (exit_error(files[i]));
-        close (fd);
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (files && files[i])
+	{
+		fd = open(files[i], O_WRONLY | O_CREAT | O_APPEND);
+		if (fd == -1)
+			return (exit_error(files[i]));
+		close (fd);
+		i++;
+	}
+	return (1);
 }
 
-int check_redirection(t_exec *current)
+int	check_redirection(t_exec *current)
 {
-    if (!file_out(current->files_out))
-        return (0);
-    if (!file_in(current->files_in))
-        return (0);
-    if (!file_out(current->files_out_a))
-        return (0);
-    return (1);
+	if (!file_out(current->files_out))
+		return (0);
+	if (!file_in(current->files_in))
+		return (0);
+	if (!file_out(current->files_out_a))
+		return (0);
+	return (1);
 }

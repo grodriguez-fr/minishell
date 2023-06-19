@@ -75,7 +75,6 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	(void)context;
 	to_display = NULL;
-	//printf("command ret : %d\n", g_command_ret);
 	if (sign == SIGQUIT)
 	{
 		if (g_command_ret == -1)
