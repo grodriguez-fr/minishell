@@ -13,6 +13,23 @@
 
 extern int	g_command_ret;
 
+void	init_signals(t_mini mini)
+{
+	struct sigaction	sa;
+	sigset_t			mask;
+
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGINT);
+	sigaddset(&mask, SIGQUIT);
+	sa.sa_handler = 0;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_mask = mask;
+	sa.sa_sigaction = signal_handler;
+	sigaction(SIGINT, &sa, (void *)mini.env);
+	sigaction(SIGQUIT, &sa, (void *)mini.env);
+	rl_catch_signals = 0;
+}
+
 void	write_prompt(char *to_display)
 {
 	int		i;
