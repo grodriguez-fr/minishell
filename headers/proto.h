@@ -86,6 +86,6 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd);
 int		clean_heredocs(void);
 int		is_str_numeric(const char *str);
 int		same_string(char *a, char *b);
-void	exit_errno(int ret);
-void	write_not_found(char **new_env, char *name);
+void	exit_errno(t_mini *mini, int ret);
+void	write_not_found(t_mini *mini, char **new_env, char *name);
 #endif

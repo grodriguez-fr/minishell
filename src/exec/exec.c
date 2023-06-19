@@ -17,18 +17,20 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	char	**new_env;
 	int		ret;
 
+	ret = 0;
 	if (is_builtin(current->cmd_name))
 	{
-		exit(execute_builtin(mini, current, current->cmd_name));
+		exit_minishell(mini, execute_builtin(mini, current, current->cmd_name));
 	}
 	new_env = convert_env(mini);
 	if (!strchr(current->cmd_name, '/'))
 	{
 		pathname = find_path(mini, current->cmd_name);
-		ret = execve(pathname, current->args, new_env);
+		if (pathname)
+			ret = execve(pathname, current->args, new_env);
 		free(pathname);
 		if (!pathname)
-			write_not_found(new_env, current->cmd_name);
+			write_not_found(mini, new_env, current->cmd_name);
 	}
 	else
 	{
@@ -37,7 +39,7 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 			perror("Erreur lors de l'execution");
 	}
 	free_env(new_env);
-	exit_errno(ret);
+	exit_errno(mini, ret);
 }
 
 int	exec_redirection_in(t_exec *current)

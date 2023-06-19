@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	write_not_found(char **new_env, char *name)
+void	write_not_found(t_mini *mini, char **new_env, char *name)
 {
 	char	*to_write;
 	char	*buffer;
@@ -21,14 +21,15 @@ void	write_not_found(char **new_env, char *name)
 	to_write = ft_strjoin(buffer, ": command not found\n");
 	free(buffer);
 	ft_putstr_fd(to_write, 2);
-	exit(127);
+	free(to_write);
+	exit_minishell(mini, 127);
 }
 
-void	exit_errno(int ret)
+void	exit_errno(t_mini *mini, int ret)
 {
 	if (ret == -1 && errno == 22)
-		exit(127);
+		exit_minishell(mini, 127);
 	if (ret == -1 && errno == 13)
-		exit(126);
-	exit(ret);
+		exit_minishell(mini, 126);
+	exit_minishell(mini, ret);
 }
