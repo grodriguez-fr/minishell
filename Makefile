@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = src/error.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/get_to_display.c
+SRC = src/error.c src/exit.c src/funny_graph.c src/main.c src/prompt.c src/get_to_display.c src/signal.c
 
 PARSING = src/parsing/parse_command.c src/parsing/parse_env.c src/parsing/utils/utils_parse_command.c src/parsing/create_env.c src/parsing/file_in_out.c src/parsing/utils/ft_split_mini.c src/parsing/clean_cmd_redirect.c src/parsing/hear_append.c src/parsing/utils/get_args.c  src/parsing/clean_cmd_redirect_s.c src/parsing/utils/cpy_fd.c src/parsing/utils/utils_get_args.c src/parsing/expand.c src/parsing/utils/search.c
 
