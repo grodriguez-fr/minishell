@@ -6,13 +6,13 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:33:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 15:33:20 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:22:34 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_command_ret;
+extern int	g_command_ret;
 
 void	replace_var(t_mini *mini, char **to_replace)
 {

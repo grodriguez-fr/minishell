@@ -6,31 +6,31 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:07:48 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/21 14:51:35 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:21:55 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_command_ret;
+extern int	g_command_ret;
 
 t_mini	get_to_display(t_mini mini)
 {
-    char    *pwd;
+	char	*pwd;
 	int		i;
 
-    pwd = get_env_value(&mini, "PWD");
+	pwd = get_env_value(&mini, "PWD");
 	i = 0;
 	while (pwd && pwd[i])
 		i++;
 	while (pwd && pwd[i] != '/' && i >= 0)
 		i--;
-    if (i != 0)
-	    i++;
-    if (g_command_ret == 0)
-	    mini.to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
-    else
-	    mini.to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
+	if (i != 0)
+		i++;
+	if (g_command_ret == 0)
+		mini.to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
+	else
+		mini.to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
 	mini.to_display = ft_strfjoin(mini.to_display, &pwd[i]);
 	mini.to_display = ft_strfjoin(mini.to_display, "\033[33m ✗ \033[0m");
 	return (mini);
