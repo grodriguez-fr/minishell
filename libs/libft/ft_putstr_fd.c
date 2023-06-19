@@ -6,7 +6,7 @@
 /*   By: marvin@42.fr <astachni>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by marvin@42.f       #+#    #+#             */
-/*   Updated: 2022/11/17 19:23:50 by marvin@42.f      ###   ########.fr       */
+/*   Updated: 2023/06/19 13:25:24 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
 		return ;
-    write(fd, s, ft_strlen(s));
+	write(fd, s, ft_strlen(s));
 }

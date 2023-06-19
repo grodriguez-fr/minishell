@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:07 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/19 11:45:20 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:26:07 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -108,5 +108,5 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 	exec_redirection_out(current);
 	if (current->next)
 		close(p[1]);
-	cmd(mini, current);
+	handle_cmd(mini, current);
 }

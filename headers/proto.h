@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/16 15:02:17 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:29:32 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ size_t	count_sep(char *str, char sep);
 char	*change_cmdf(char *str, char sep);
 int		is_open(char *str, int i, size_t is_open, char c);
 char	**take_var(t_mini *mini, char *comm, char **args);
-int     ft_strstr(const char *haystack, const char *needle);
+int		ft_strstr(const char *haystack, const char *needle);
 
 int		echo(t_exec *ex);
 int		export(t_mini *mini, t_exec *ex);
@@ -66,8 +66,8 @@ int		unset(t_mini *mini, t_exec *ex);
 int		env(t_mini *mini);
 int		exit_builtin(t_mini *mini, t_exec *ex);
 t_env_p	*sort_env(t_env_p *env);
-char    **export_split(char *input);
-int    write_ret_export_error(char *var);
+char	**export_split(char *input);
+int		write_ret_export_error(char *var);
 
 char	**convert_env(t_mini *mini);
 void	free_env(char **envp);
@@ -86,6 +86,6 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd);
 int		clean_heredocs(void);
 int		is_str_numeric(const char *str);
 int		same_string(char *a, char *b);
-void    exit_errno(int ret);
-void    write_not_found(char **new_env, char *name);
+void	exit_errno(int ret);
+void	write_not_found(char **new_env, char *name);
 #endif

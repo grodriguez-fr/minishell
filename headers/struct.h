@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:39:05 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/12 15:39:10 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:26:42 by gurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_exec
 	int				is_heredoc;
 	char			**args;
 	char			*cmd_name;
-    int             pid;
+	int				pid;
 	struct s_exec	*next;
 }	t_exec;
 
