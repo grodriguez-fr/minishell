@@ -18,7 +18,7 @@ void	prompt(t_mini mini)
 	while (1)
 	{
 		i = -1;
-		mini = get_to_display(mini);
+		get_to_display(&mini);
 		mini.input = readline(mini.to_display);
 		if (mini.to_display)
 			free(mini.to_display);

@@ -14,12 +14,12 @@
 
 extern int	g_command_ret;
 
-t_mini	get_to_display(t_mini mini)
+void	get_to_display(t_mini *mini)
 {
 	char	*pwd;
 	int		i;
 
-	pwd = get_env_value(&mini, "PWD");
+	pwd = get_env_value(mini, "PWD");
 	i = 0;
 	while (pwd && pwd[i])
 		i++;
@@ -28,10 +28,9 @@ t_mini	get_to_display(t_mini mini)
 	if (i != 0)
 		i++;
 	if (g_command_ret == 0)
-		mini.to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
+		mini->to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
 	else
-		mini.to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
-	mini.to_display = ft_strfjoin(mini.to_display, &pwd[i]);
-	mini.to_display = ft_strfjoin(mini.to_display, "\033[33m ✗ \033[0m");
-	return (mini);
+		mini->to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");
+	mini->to_display = ft_strfjoin(mini->to_display, &pwd[i]);
+	mini->to_display = ft_strfjoin(mini->to_display, "\033[33m ✗ \033[0m");
 }

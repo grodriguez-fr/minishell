@@ -17,7 +17,6 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	char	**new_env;
 	int		ret;
 
-	ret = 0;
 	if (is_builtin(current->cmd_name))
 	{
 		exit_minishell(mini, execute_builtin(mini, current, current->cmd_name));
@@ -26,11 +25,10 @@ void	handle_cmd(t_mini *mini, t_exec *current)
 	if (!strchr(current->cmd_name, '/'))
 	{
 		pathname = find_path(mini, current->cmd_name);
-		if (pathname)
-			ret = execve(pathname, current->args, new_env);
-		free(pathname);
 		if (!pathname)
 			write_not_found(mini, new_env, current->cmd_name);
+		ret = execve(pathname, current->args, new_env);
+		free(pathname);
 	}
 	else
 	{

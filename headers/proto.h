@@ -29,7 +29,7 @@ int		ft_isspace(char c);
 int		increment_shell_level(t_env_p *env);
 
 void	launch_minishell_img(void);
-t_mini	get_to_display(t_mini mini);
+void	get_to_display(t_mini *mini);
 void	prompt(t_mini mini);
 void	clear_env(t_env_p **env, void (*del)(void*));
 void	exit_minishell(t_mini *mini, int code);
