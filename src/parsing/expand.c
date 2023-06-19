@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int g_command_ret;
+
 void	replace_var(t_mini *mini, char **to_replace)
 {
 	t_env_p	*env;
@@ -30,7 +32,7 @@ void	replace_var(t_mini *mini, char **to_replace)
 	if ((*to_replace)[1] == '?' && !(*to_replace)[2])
 	{
 		free(*to_replace);
-		*to_replace = ft_itoa(mini->command_ret);
+		*to_replace = ft_itoa(g_command_ret);
 		return ;
 	}
 	free(*to_replace);

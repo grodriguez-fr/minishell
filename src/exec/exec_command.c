@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-extern int	g_is_display;
+extern int	g_command_ret;
 
 int	exec_all_loop(t_mini *mini, t_exec *ex, int p[2], int *previous_fd)
 {
@@ -16,7 +16,7 @@ int	exec_all_loop(t_mini *mini, t_exec *ex, int p[2], int *previous_fd)
 		return (0);
 	if (ret == 0)
 		exec_cmd(mini, ex, p, *previous_fd);
-    ex->pid = ret;
+	ex->pid = ret;
 	if (ex->next)
 		close(p[1]);
 	if (*previous_fd != 0)
@@ -36,10 +36,13 @@ void	wait_exec(t_mini *mini)
 	    waitpid(current->pid, &status, 0);
         current = current->next;
     }
-	if (WIFEXITED(status))
-		mini->command_ret = WEXITSTATUS(status);
-	else
-		mini->command_ret = 1;
+	if (g_command_ret == -1)
+	{
+		if (WIFEXITED(status))
+			g_command_ret = WEXITSTATUS(status);
+		else
+			g_command_ret = 1;
+	}
 }
 
 int	exec_all(t_mini *mini)
@@ -50,15 +53,15 @@ int	exec_all(t_mini *mini)
 
 	current = mini->ex;
 	previous_fd = 0;
-	g_is_display = 0;
+	g_command_ret = -1;
 	if (!heredoc(mini))
 		return (ft_putstr_fd("heredoc failed\n", 2), 0);
 	if (!current || !current->cmd_name)
 		return (1);
 	if (builtin_env_modifier(current->cmd_name) && !current->next)
 	{
-		mini->command_ret = execute_builtin(mini, current, current->cmd_name);
-		return (mini->command_ret);
+		g_command_ret = execute_builtin(mini, current, current->cmd_name);
+		return (g_command_ret);
 	}
 	while (current)
 	{
@@ -67,6 +70,5 @@ int	exec_all(t_mini *mini)
 		current = current->next;
 	}
 	wait_exec(mini);
-	g_is_display = 1;
 	return (1);
 }

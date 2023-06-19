@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	g_is_display;
+int	g_command_ret;
 
 void    init_signals(t_mini mini)
 {
@@ -39,8 +39,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	mini.env = NULL;
 	mini.ex = NULL;
-	mini.command_ret = 0;
-	g_is_display = 1;
+	g_command_ret = 0;
     init_signals(mini);
     //init_term(&mini);
 	parse_env(envp, &mini.env, mini);

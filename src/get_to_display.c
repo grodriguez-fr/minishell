@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int g_command_ret;
+
 t_mini	get_to_display(t_mini mini)
 {
     char    *pwd;
@@ -25,7 +27,7 @@ t_mini	get_to_display(t_mini mini)
 		i--;
     if (i != 0)
 	    i++;
-    if (mini.command_ret == 0)
+    if (g_command_ret == 0)
 	    mini.to_display = ft_strdup("\033[32m➜  \033[1m\033[35m");
     else
 	    mini.to_display = ft_strdup("\033[31m➜  \033[1m\033[35m");

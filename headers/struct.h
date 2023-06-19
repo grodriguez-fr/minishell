@@ -44,7 +44,6 @@ typedef struct s_mini
 	t_exec		*ex;
 	char		*to_display;
 	char		*input;
-	int			command_ret;
 }	t_mini;
 
 #endif

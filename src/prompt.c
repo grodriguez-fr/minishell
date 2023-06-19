@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern int	g_is_display;
+extern int	g_command_ret;
 
 void	prompt(t_mini mini)
 {
@@ -75,14 +75,19 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	(void)context;
 	to_display = NULL;
+	//printf("command ret : %d\n", g_command_ret);
 	if (sign == SIGQUIT)
 	{
-		if (g_is_display == 0)
+		if (g_command_ret == -1)
+		{
 			ft_printf("Quit\n");
+			g_command_ret = 131;
+		}
 		return ;
 	}
-	if (g_is_display == 1 && sign == SIGINT)
+	if (g_command_ret != -1 && sign == SIGINT)
 		write_prompt(to_display);
-	else if (g_is_display == 0 && sign == SIGINT)
+	else if (g_command_ret == -1 && sign == SIGINT)
 		ft_printf("\n");
+	g_command_ret = 130;
 }
