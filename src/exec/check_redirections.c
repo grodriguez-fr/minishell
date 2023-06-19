@@ -42,7 +42,7 @@ int	file_out(char **files)
 	i = 0;
 	while (files && files[i])
 	{
-		fd = open(files[i], O_WRONLY | O_CREAT | O_APPEND);
+		fd = open(files[i], O_WRONLY | O_CREAT | O_APPEND, 0664);
 		if (fd == -1)
 			return (exit_error(files[i]));
 		close (fd);

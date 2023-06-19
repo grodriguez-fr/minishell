@@ -78,7 +78,7 @@ void	exec_redirection_out(t_exec *current)
 		i = 0;
 		while (current->files_out_a[i + 1])
 			i++;
-		fd = open(current->files_out_a[i], O_WRONLY | O_APPEND);
+		fd = open(current->files_out_a[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		dup2(fd, 1);
 	}
 	else if (current->files_out)
@@ -86,7 +86,10 @@ void	exec_redirection_out(t_exec *current)
 		i = 0;
 		while (current->files_out[i + 1])
 			i++;
-		fd = open(current->files_out[i], O_WRONLY);
+		fd = open(current->files_out[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		printf("fd : %d (%s)\n", fd, current->files_out[i]);
+		if (fd == -1)
+			perror("outfile minishell");
 		dup2(fd, 1);
 	}
 }

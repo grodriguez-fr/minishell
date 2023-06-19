@@ -25,8 +25,8 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <errno.h>
-# include <termios.h>
 # include <unistd.h>
+# include <sys/types.h>
 # include "struct.h"
 # include "proto.h"
 

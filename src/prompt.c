@@ -26,7 +26,10 @@ void	prompt(t_mini mini)
 		if (mini.to_display)
 			free(mini.to_display);
 		if (!mini.input)
+		{
+			ft_printf("exit\n");
 			exit_minishell(&mini, 0);
+		}
 		else if (*(mini.input) == 0)
 			continue ;
 		add_history(mini.input);
@@ -79,7 +82,7 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	{
 		if (g_command_ret == -1)
 		{
-			ft_printf("Quit\n");
+			ft_printf("Quit (core dumped)\n");
 			g_command_ret = 131;
 		}
 		return ;
