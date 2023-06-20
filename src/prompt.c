@@ -6,9 +6,10 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:49:08 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 22:16:28 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:03:51 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	prompt(t_mini mini)

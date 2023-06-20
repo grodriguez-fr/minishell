@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:59:27 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/15 17:26:12 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:46:59 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,18 @@ t_exec	*ft_new_cmd(char *value, char **arg, char *all_pipe);
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args, char *all_pipe)
 {
 	t_exec	*new_node;
+	int		i;
 
+	i = 0;
 	new_node = ft_new_cmd(cmd_name, args, all_pipe);
+	if (!new_node)
+	{
+		while (args && args[i])
+			free(args[i++]);
+		if (args)
+			free(args);
+		return (free(cmd_name), free(all_pipe));
+	}
 	ft_add_back_cmd(lst, new_node);
 }
 
