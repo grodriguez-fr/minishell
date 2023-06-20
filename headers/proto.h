@@ -36,6 +36,7 @@ void	exit_minishell(t_mini *mini, int code);
 void	error(t_mini *mini, char *message, char **strs);
 void	signal_handler(int sign, siginfo_t *info, void	*context);
 void	init_signals(t_mini mini);
+void    exit_minishell_nohd(t_mini *mini, int code);
 
 char	**get_args(char *cmd);
 char	*allocate_new_string(int size);

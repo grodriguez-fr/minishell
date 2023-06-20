@@ -21,3 +21,39 @@ void	exit_minishell(t_mini *mini, int code)
 	free_cmd(&mini->ex, free);
 	exit(code);
 }
+
+void    exit_minishell_nohd(t_mini *mini, int code)
+{
+	if (mini->env)
+		clear_env(&mini->env, free);
+	rl_clear_history();
+	free_cmd(&mini->ex, free);
+	exit(code);
+}
+
+int	clean_heredocs(void)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+	char			*path;
+
+	dir = opendir("/tmp");
+	if (!dir)
+		return (0);
+	entry = readdir(dir);
+	while (entry)
+	{
+		if (!strncmp(entry->d_name, ".heredoc_tmp_file", 17))
+		{
+			path = ft_strjoin("/tmp/", entry->d_name);
+			if (!path)
+				return (0);
+			if (unlink(path))
+				perror("minishell: file suppression");
+			free(path);
+		}
+		entry = readdir(dir);
+	}
+	closedir(dir);
+	return (1);
+}

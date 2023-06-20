@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+extern int  g_command_ret;
+
 char	*heredoc_file_name(unsigned int nb)
 {
 	char	*res;
@@ -31,18 +33,19 @@ int	open_heredoc(unsigned int i)
 	int		fd;
 
 	filename = heredoc_file_name(i);
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC);
+    ft_printf("open %s\n", filename);
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	return (free(filename), fd);
 }
 
-int	heredoc_loop(t_exec *current, int i, int j)
+int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 {
 	int		fd;
 	char	*res;
 
 	fd = open_heredoc(i);
 	if (fd == -1)
-		return (0);
+		return (perror("Heredoc open fail"), 0);
 	res = readline(">");
 	while (!same_string(res, current->here_docs[j]))
 	{
@@ -54,14 +57,11 @@ int	heredoc_loop(t_exec *current, int i, int j)
 		res = readline(">");
 	}
 	free(res);
-	free(current->here_docs[j]);
-	current->here_docs[j] = heredoc_file_name(i);
-	if (!current->here_docs[j])
-		return (0);
+    close(fd);
 	return (1);
 }
 
-int	heredoc(t_mini *mini)
+int heredoc_child(t_mini *mini)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -74,7 +74,7 @@ int	heredoc(t_mini *mini)
 		j = 0;
 		while (current->here_docs && current->here_docs[j])
 		{
-			if (!heredoc_loop(current, i++, j++))
+			if (!heredoc_loop(mini, current, i++, j++))
 				return (0);
 		}
 		current = current->next;
@@ -82,29 +82,36 @@ int	heredoc(t_mini *mini)
 	return (1);
 }
 
-int	clean_heredocs(void)
+void change_heredoc_filenames(t_mini *mini)
 {
-	DIR				*dir;
-	struct dirent	*entry;
-	char			*path;
+    int     i;
+    int     j;
+    t_exec *current;
+    
+    i = 0;
+    current = mini->ex;
+    while (current)
+    {
+        j = 0;
+        while (current->here_docs && current->here_docs[j])
+        {
+            free(current->here_docs[j]);
+            current->here_docs[j++] = heredoc_file_name(i++);
+        }
+        current = current->next;
+    }
+}
 
-	dir = opendir("/tmp");
-	if (!dir)
-		return (0);
-	entry = readdir(dir);
-	while (entry)
-	{
-		if (!strncmp(entry->d_name, ".heredoc_tmp_file", 17))
-		{
-			path = ft_strjoin("/tmp/", entry->d_name);
-			if (!path)
-				return (0);
-			if (unlink(path))
-				perror("minishell: file suppression");
-			free(path);
-		}
-		entry = readdir(dir);
-	}
-	closedir(dir);
-	return (1);
+int	heredoc(t_mini *mini)
+{
+    int pid;
+
+    pid = fork();
+    if (pid == -1)
+        return (ft_putstr_fd("Fork failed for heredoc\n", 2), 0);
+    else if (pid != 0)
+        return (change_heredoc_filenames(mini), waitpid(pid, NULL, 0), 1);
+    else
+        exit_minishell_nohd(mini, heredoc_child(mini));
+    return (1);
 }
