@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 17:18:19 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:37:18 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 		{
 			i = count_space(src, i);
 			dest[c] = ft_substr(src, j, i - j);
-			if (!dest[c++])
+			if (!dest[c])
 				return (free_strs(dest), NULL);
+			c++;
 			i++;
 			j = i;
 		}

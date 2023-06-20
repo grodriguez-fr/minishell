@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 16:30:21 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:53:55 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 		if (!commands[i])
 			error(&mini, "MALLOC ERROR\n", commands);
 		exec = parse_cmd_args(commands[i], NULL, exec, &mini);
+		if (!exec)
+			error(&mini, "MALLOC ERROR\n", commands);
 		ft_last_cmd(exec)->files_out = ex->files_out;
 		ft_last_cmd(exec)->files_in = ex->files_in;
 		ft_last_cmd(exec)->here_docs = ex->here_docs;
@@ -74,13 +76,20 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 {
 	char	**args;
 
+	(void) cmd_name;
 	args = get_args(comm);
+	if (!args)
+		return (NULL);
 	args = take_var(mini, comm, args);
+	if (!args)
+		return (NULL);
 	if (args && args[0])
 		cmd_name = args[0];
 	if (args && cmd_name)
 		add_cmd(&exec, cmd_name, args, ft_strdup(comm));
 	else
-		add_cmd(&exec, NULL, NULL, NULL);
+		return (NULL);
+	if (!exec)
+		return (NULL);
 	return (exec);
 }

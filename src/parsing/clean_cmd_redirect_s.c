@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd_redirect_s.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:33:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/05/26 17:30:45 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:05:34 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
