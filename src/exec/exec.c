@@ -87,7 +87,6 @@ void	exec_redirection_out(t_exec *current)
 		while (current->files_out[i + 1])
 			i++;
 		fd = open(current->files_out[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		printf("fd : %d (%s)\n", fd, current->files_out[i]);
 		if (fd == -1)
 			perror("outfile minishell");
 		dup2(fd, 1);
@@ -112,4 +111,5 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 	if (current->next)
 		close(p[1]);
 	handle_cmd(mini, current);
+    printf("apres handle cmd\n");
 }

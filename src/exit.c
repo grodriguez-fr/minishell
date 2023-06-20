@@ -18,5 +18,6 @@ void	exit_minishell(t_mini *mini, int code)
 		clear_env(&mini->env, free);
 	clean_heredocs();
 	rl_clear_history();
+	free_cmd(&mini->ex, free);
 	exit(code);
 }
