@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:03:19 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 22:21:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:06:56 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ static char	**condition_to_take(char **fd, char *str, char sep, size_t nb_fd)
 	ct_fd = 0;
 	while (str && str[i] && ct_fd != nb_fd)
 	{
-		if (str[i] == '"' && is_open_s % 2 == 0)
-			is_open_d++;
-		else if (str[i] == '\'' && is_open_d % 2 == 0)
-			is_open_s++;
-		else if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
+		is_open_d += is_open(str, i, is_open_s, '"');
+		is_open_s += is_open(str, i, is_open_d, '\'');
+		if (str[i] == sep && is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
 			fd[ct_fd++] = take_fd(&str[i]);
+			if (!fd[ct_fd - 1])
+				return (free_strs(fd), NULL);
 		}
 		i++;
 	}

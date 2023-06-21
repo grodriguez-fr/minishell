@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:09:28 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 16:26:48 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:07:48 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*cpy(char *str, char *fd, size_t i)
 	is_open_d = 0;
 	is_open_s = 0;
 	count = 0;
-	while (str && i < ft_strlen(str))
+	while (fd && str && i < ft_strlen(str))
 	{
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
@@ -42,6 +42,7 @@ char	*cpy(char *str, char *fd, size_t i)
 			&& i < ft_strlen(str) && ft_isspace(str[i]))
 			break ;
 	}
-	fd[count] = '\0';
+	if (fd)
+		fd[count] = '\0';
 	return (fd);
 }

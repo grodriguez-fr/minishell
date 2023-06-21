@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 12:54:16 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:58:21 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 extern int  g_command_ret;
@@ -43,6 +44,7 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 	int		fd;
 	char	*res;
 
+	(void) mini;
 	fd = open_heredoc(i);
 	if (fd == -1)
 		return (perror("Heredoc open fail"), 0);

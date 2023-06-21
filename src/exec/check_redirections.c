@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 11:53:46 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 11:53:48 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:56:35 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 int	exit_error(char *file_name)

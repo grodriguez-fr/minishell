@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/18 22:24:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:07:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ static char	**condition_to_take(char **fd, char *str,
 		{
 			while (str[i] && str[i] == ' ')
 				i++;
-			fd[ct_fd] = take_fd_here_append(&str[i + 2]);
-			ct_fd++;
+			fd[ct_fd++] = take_fd_here_append(&str[i + 2]);
+			if (!fd[ct_fd - 1])
+				return (free_strs(fd), NULL);
 		}
 		i++;
 	}

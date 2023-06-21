@@ -6,13 +6,14 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/20 20:53:55 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:00:50 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini);
+t_exec	*add_file(t_exec *exec, t_exec *ex);
 
 t_mini	parse_and_exec(char *input, t_mini mini)
 {
@@ -58,17 +59,26 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 			error(&mini, "MALLOC ERROR\n", commands);
 		exec = parse_cmd_args(commands[i], NULL, exec, &mini);
 		if (!exec)
+		{
+			free_cmd(&ex, free);
 			error(&mini, "MALLOC ERROR\n", commands);
-		ft_last_cmd(exec)->files_out = ex->files_out;
-		ft_last_cmd(exec)->files_in = ex->files_in;
-		ft_last_cmd(exec)->here_docs = ex->here_docs;
-		ft_last_cmd(exec)->files_out_a = ex->files_out_a;
-		ft_last_cmd(exec)->is_append = ex->is_append;
-		ft_last_cmd(exec)->is_heredoc = ex->is_heredoc;
+		}
+		exec = add_file(exec, ex);
 		free(commands[i]);
 		free(ex);
 	}
 	free(commands);
+	return (exec);
+}
+
+t_exec	*add_file(t_exec *exec, t_exec *ex)
+{
+	ft_last_cmd(exec)->files_out = ex->files_out;
+	ft_last_cmd(exec)->files_in = ex->files_in;
+	ft_last_cmd(exec)->here_docs = ex->here_docs;
+	ft_last_cmd(exec)->files_out_a = ex->files_out_a;
+	ft_last_cmd(exec)->is_append = ex->is_append;
+	ft_last_cmd(exec)->is_heredoc = ex->is_heredoc;
 	return (exec);
 }
 
@@ -88,8 +98,6 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 	if (args && cmd_name)
 		add_cmd(&exec, cmd_name, args, ft_strdup(comm));
 	else
-		return (NULL);
-	if (!exec)
 		return (NULL);
 	return (exec);
 }

@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/20 20:37:18 by astachni         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:09:33 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 		}
 	}
 	if (src[i] == 0 && count > 0)
+	{
 		dest[c] = ft_strdup(&src[j]);
-	dest[count] = NULL;
+		if (!dest[c])
+			return (free_strs(dest), NULL);
+	}
+	if (dest)
+		dest[count] = NULL;
 	return (dest);
 }
 
