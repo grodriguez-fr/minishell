@@ -34,7 +34,6 @@ int	open_heredoc(unsigned int i)
 	int		fd;
 
 	filename = heredoc_file_name(i);
-    ft_printf("open %s\n", filename);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	return (free(filename), fd);
 }
@@ -70,6 +69,7 @@ int heredoc_child(t_mini *mini)
 	t_exec			*current;
 
 	i = 0;
+    g_command_ret = -2;
 	current = mini->ex;
 	while (current)
 	{
@@ -84,12 +84,14 @@ int heredoc_child(t_mini *mini)
 	return (1);
 }
 
-void change_heredoc_filenames(t_mini *mini)
+int change_heredoc_filenames(t_mini *mini, int pid)
 {
     int     i;
     int     j;
+    int     status;
     t_exec *current;
-    
+
+    g_command_ret = -3;
     i = 0;
     current = mini->ex;
     while (current)
@@ -102,6 +104,19 @@ void change_heredoc_filenames(t_mini *mini)
         }
         current = current->next;
     }
+    waitpid(pid, &status, 0);
+    if (WIFEXITED(status))
+    {
+        //printf("fin : %d\n", status);
+        if (status == 0)
+        {
+            g_command_ret = 130;
+            rl_on_new_line();
+            printf("^C\n");
+            return (0);
+        }
+    }
+    return (1);
 }
 
 int	heredoc(t_mini *mini)
@@ -112,7 +127,7 @@ int	heredoc(t_mini *mini)
     if (pid == -1)
         return (ft_putstr_fd("Fork failed for heredoc\n", 2), 0);
     else if (pid != 0)
-        return (change_heredoc_filenames(mini), waitpid(pid, NULL, 0), 1);
+        return (change_heredoc_filenames(mini, pid));
     else
         exit_minishell_nohd(mini, heredoc_child(mini));
     return (1);

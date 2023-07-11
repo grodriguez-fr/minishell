@@ -18,6 +18,7 @@ void	init_signals(t_mini mini)
 	struct sigaction	sa;
 	sigset_t			mask;
 
+    (void)mini;
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
 	sigaddset(&mask, SIGQUIT);
@@ -25,8 +26,8 @@ void	init_signals(t_mini mini)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_mask = mask;
 	sa.sa_sigaction = signal_handler;
-	sigaction(SIGINT, &sa, (void *)mini.env);
-	sigaction(SIGQUIT, &sa, (void *)mini.env);
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 	rl_catch_signals = 0;
 }
 
@@ -63,6 +64,14 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	(void)context;
 	to_display = NULL;
+    if (g_command_ret == -3)
+    {
+        return ;
+    }
+    if (g_command_ret == -2)
+    {
+        exit(1);
+    }
 	if (sign == SIGQUIT)
 	{
 		if (g_command_ret == -1)

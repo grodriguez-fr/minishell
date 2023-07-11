@@ -64,9 +64,9 @@ int	exec_all(t_mini *mini)
 
 	current = mini->ex;
 	previous_fd = 0;
-	g_command_ret = -1;
 	if (!heredoc(mini))
-		return (ft_putstr_fd("heredoc failed\n", 2), 0);
+		return (0);
+	g_command_ret = -1;
 	if (!current || !current->cmd_name)
 		return (g_command_ret = 0, 1);
 	if (builtin_env_modifier(current->cmd_name) && !current->next)
