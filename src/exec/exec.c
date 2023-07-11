@@ -50,9 +50,7 @@ int	exec_redirection_in(t_exec *current)
 		i = 0;
 		while (current->here_docs[i + 1])
 			i++;
-        printf("name : %s \n", current->here_docs[i]);
 		fd = open(current->here_docs[i], O_RDONLY);
-        printf("fd : %d \n", fd);
 		if (fd == -1)
 			return (perror("here doc open fail"), 0);
 		dup2(fd, 0);
