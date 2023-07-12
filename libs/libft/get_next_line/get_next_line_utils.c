@@ -6,23 +6,11 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 17:04:44 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:46:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	ft_bzero(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		str[i] = '\0';
-		i++;
-	}
-}
 
 size_t	ft_strlenn(char const *str)
 {

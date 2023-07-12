@@ -6,11 +6,23 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 17:03:49 by astachni          #+#    #+#             */
-/*   Updated: 2023/04/08 16:06:02 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:46:28 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static void	ft_bzero(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		str[i] = '\0';
+		i++;
+	}
+}
 
 size_t	take_read(char *str, char *buffer, int read_buffer, size_t read_value)
 {

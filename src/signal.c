@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:00:05 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 16:00:13 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:54:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"    
+
+#include "minishell.h"
 
 extern int	g_command_ret;
 
@@ -18,7 +19,7 @@ void	init_signals(t_mini mini)
 	struct sigaction	sa;
 	sigset_t			mask;
 
-    (void)mini;
+	(void)mini;
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
 	sigaddset(&mask, SIGQUIT);
@@ -64,14 +65,10 @@ void	signal_handler(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	(void)context;
 	to_display = NULL;
-    if (g_command_ret == -3)
-    {
-        return ;
-    }
-    if (g_command_ret == -2)
-    {
-        exit(1);
-    }
+	if (g_command_ret == -3)
+		return ;
+	if (g_command_ret == -2)
+		exit(1);
 	if (sign == SIGQUIT)
 	{
 		if (g_command_ret == -1)
