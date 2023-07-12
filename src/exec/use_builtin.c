@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   use_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 11:41:09 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 11:41:39 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:18:02 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 int	same_string(char *a, char *b)
 {
-	return (!ft_memcmp(a, b, ft_strlen(a)) && ft_strlen(a) == ft_strlen(b));
+	if (a && b)
+		return (!ft_memcmp(a, b, ft_strlen(a)) && ft_strlen(a) == ft_strlen(b));
+	else
+		return (1);
 }
 
 int	is_builtin(char *cmd_name)

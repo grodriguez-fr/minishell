@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/12 21:11:12 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:14:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 	if (fd == -1)
 		return (perror("Heredoc open fail"), 0);
 	ft_printf(">");
-	res = get_next_line(STDIN_FILENO);
 	current->here_docs[j] = ft_strfjoin(current->here_docs[j], "\n");
+	res = get_next_line(STDIN_FILENO);
 	while (!same_string(res, current->here_docs[j]))
 	{
 		if (write(fd, res, ft_strlen(res)) == -1)
@@ -59,6 +59,8 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 		free(res);
 		ft_printf(">");
 		res = get_next_line(STDIN_FILENO);
+		if (!res)
+			break ;
 	}
 	free(res);
 	close(fd);
