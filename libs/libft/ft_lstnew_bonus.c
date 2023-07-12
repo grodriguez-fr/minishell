@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni@student.42lyon.fr <astachni>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 20:45:06 by aastachni         #+#    #+#             */
-/*   Updated: 2022/11/24 19:33:26 by astachni@st      ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

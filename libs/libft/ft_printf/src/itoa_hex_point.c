@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   itoa_hex_point.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni@student.42lyon.fr <astachni>      +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:47:26 by astachni@st       #+#    #+#             */
-/*   Updated: 2022/12/01 20:36:46 by astachni@st      ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

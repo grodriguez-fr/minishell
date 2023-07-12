@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astachni <astachni@student.42.fr>          +#+  +:+       +#+         #
+#    By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 15:26:10 by marvin@42.f       #+#    #+#              #
-#    Updated: 2023/05/03 18:00:18 by astachni         ###   ########.fr        #
+#    Updated: 2023/07/12 16:42:59 by astachni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strle
 
 SRCS_BONUS = ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstadd_front_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.zizi)
 
-OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.zizi)
 
 CC = cc
 
@@ -28,8 +28,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEADER = libft.h
 
-%.o: %.c ${HEADER} Makefile
-	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o}
+%.zizi: %.c ${HEADER} Makefile
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.zizi}
 	@printf	"\033[1;33m \r\033[2KCreating -c $< -o $\n \033[0m"
 
 $(NAME):	${OBJS} ${OBJS_BONUS}

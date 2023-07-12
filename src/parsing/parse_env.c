@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:45:00 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/01 17:19:36 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_to_stack(t_env_p **lst, int j, char *value_to_add, t_mini mini)
 	new_node = ft_new(key, value);
 	ft_add_back(lst, new_node);
 	if (!(*lst) || !(*lst)->key || !(*lst)->value)
-		error(&mini, "MALLOC ERROR\n", NULL);
+		error(&mini, "malloc ERROR\n", NULL);
 }
 
 void	ft_add_back(t_env_p **lst, t_env_p *new)

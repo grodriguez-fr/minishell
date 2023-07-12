@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   clean_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:16:40 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 13:19:26 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:39:42 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	clean_path_loop(char *path, char *new_path, char **tokens, int i)

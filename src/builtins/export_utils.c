@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:16:27 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 13:16:29 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:39:57 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 int	write_ret_export_error(char *var)

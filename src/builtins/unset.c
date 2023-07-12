@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:04:31 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 13:06:04 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:51:59 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	remove_if_key(t_env_p **start, char *key)
@@ -30,6 +31,13 @@ void	remove_if_key(t_env_p **start, char *key)
 	}
 }
 
+//ca marche pas mais tkt
+void	is_null(t_mini *mini)
+{
+	if (!mini->env)
+		mini->env = NULL;
+}
+
 int	unset(t_mini *mini, t_exec *ex)
 {
 	int	i;
@@ -39,5 +47,6 @@ int	unset(t_mini *mini, t_exec *ex)
 		return (1);
 	while (ex->args[i])
 		remove_if_key(&mini->env, ex->args[i++]);
+	is_null(mini);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:24:16 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/21 15:00:50 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:54:12 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini)
 		ex = malloc(sizeof(t_exec));
 		commands[i] = get_command(commands[i], ex);
 		if (!commands[i])
-			error(&mini, "MALLOC ERROR\n", commands);
+			commands[i] = NULL;
 		exec = parse_cmd_args(commands[i], NULL, exec, &mini);
 		if (!exec)
 		{
 			free_cmd(&ex, free);
-			error(&mini, "MALLOC ERROR\n", commands);
+			error(&mini, "malloc ERROR\n", commands);
 		}
 		exec = add_file(exec, ex);
 		free(commands[i]);
@@ -88,16 +88,14 @@ t_exec	*parse_cmd_args(char *comm, char *cmd_name, t_exec *exec, t_mini *mini)
 
 	(void) cmd_name;
 	args = get_args(comm);
-	if (!args)
-		return (NULL);
 	args = take_var(mini, comm, args);
 	if (!args)
-		return (NULL);
+		args = NULL;
 	if (args && args[0])
 		cmd_name = args[0];
 	if (args && cmd_name)
 		add_cmd(&exec, cmd_name, args, ft_strdup(comm));
 	else
-		return (NULL);
+		add_cmd(&exec, NULL, NULL, ft_strdup(comm));
 	return (exec);
 }

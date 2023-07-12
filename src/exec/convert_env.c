@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurodrig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 11:45:31 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/06/19 11:47:27 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:39:15 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*env_part(char *key, char *value)

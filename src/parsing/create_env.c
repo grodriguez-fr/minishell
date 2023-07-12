@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:31:11 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/15 22:32:01 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	create_env(t_env_p **env, t_mini mini)
 		i = 0;
 		pwd = ft_strdup("SHLVL=\"1\"");
 		if (!pwd)
-			error(&mini, "MALLOC ERROR", NULL);
+			error(&mini, "malloc ERROR", NULL);
 		while (pwd && pwd[i] && pwd[i] != '=')
 			i++;
 		add_to_stack(env, i, pwd, mini);
@@ -43,7 +43,7 @@ void	add_pwd(char *pwd, t_env_p **env, t_mini mini)
 	add_to_stack(env, ft_strlen("OLDPWD ") - 1, "OLDPWD ", mini);
 	pwd = ft_strf2join("PWD=", pwd);
 	if (!pwd)
-		error(&mini, "MALLOC ERROR", NULL);
+		error(&mini, "malloc ERROR", NULL);
 	i = 0;
 	while (pwd && pwd[i] && pwd[i] != '=')
 		i++;
