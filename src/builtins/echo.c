@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:56:47 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/19 13:08:10 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:37:55 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	echo(t_exec *ex)
 	size_t	j;
 	int		have_endline;
 
-	if (!ex || strcmp(ex->cmd_name, "echo") != 0)
+	if (!ex || !ex->cmd_name || strcmp(ex->cmd_name, "echo") != 0)
 		return (1);
 	if (write(1, "", 0) == -1)
 		return (perror("minishell: cd"), 1);

@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 17:03:49 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 18:46:28 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:49:13 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*get_next_line(int fd)
 	if (fd < 0)
 		return (NULL);
 	str = NULL;
+	ft_printf("heredoc >");
 	while (str == NULL || str[ft_strlenn(str) - 1] != '\n')
 	{
 		if (read_buffer == 0 || read_buffer >= BUFFER_SIZE)

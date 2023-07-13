@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:55:19 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 			dest[c] = ft_substr(src, j, i - j);
 			if (!dest[c])
 				return (free_strs(dest), NULL);
-			ft_printf("%s\n", dest[c]);
 			c++;
 			i++;
 			j = i;
 		}
 	}
-	if (i <= ft_strlen(src) && src[i] == 0 && count > 0)
+	if (i <= ft_strlen(src) && src[i] == 0 && count > 0 && c < count)
 	{
 		dest[c] = ft_strdup(&src[j]);
 		if (!dest[c])
@@ -88,7 +87,9 @@ int	take_count(char *str, char sep, int count, int i)
 		is_open_d += is_open(str, i, is_open_s, '"');
 		is_open_s += is_open(str, i, is_open_d, '\'');
 		if (str[i] && str[i] != ' ' && str[i] != sep)
+		{
 			is_command = 1;
+		}
 		else if (str[i] && str[i] == sep
 			&& is_open_s % 2 == 0 && is_open_d % 2 == 0)
 		{
@@ -104,6 +105,8 @@ int	take_count(char *str, char sep, int count, int i)
 	i = skip_space(i, str);
 	if ((count > 0 || i > 0) && is_command == 1)
 		count ++;
+	if (is_command == 0)
+		return (0);
 	return (count);
 }
 

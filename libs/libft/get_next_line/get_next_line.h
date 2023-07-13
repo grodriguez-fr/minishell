@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 17:04:55 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 18:46:33 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:49:09 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "../ft_printf/ft_printf.h"
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE

@@ -6,13 +6,19 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/12 21:14:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:50:05 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int  g_command_ret;
+
+static void	signal_handler_heredoc(int sign)
+{
+	if (sign == SIGQUIT)
+		return ;
+}
 
 char	*heredoc_file_name(unsigned int nb)
 {
@@ -35,6 +41,7 @@ int	open_heredoc(unsigned int i)
 
 	filename = heredoc_file_name(i);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	signal(SIGQUIT, signal_handler_heredoc);
 	return (free(filename), fd);
 }
 
@@ -47,7 +54,6 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 	fd = open_heredoc(i);
 	if (fd == -1)
 		return (perror("Heredoc open fail"), 0);
-	ft_printf(">");
 	current->here_docs[j] = ft_strfjoin(current->here_docs[j], "\n");
 	res = get_next_line(STDIN_FILENO);
 	while (!same_string(res, current->here_docs[j]))
@@ -57,13 +63,13 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 		if (write(fd, "\n", 1) == -1)
 			return (0);
 		free(res);
-		ft_printf(">");
 		res = get_next_line(STDIN_FILENO);
 		if (!res)
 			break ;
 	}
 	free(res);
 	close(fd);
+	ft_printf("\n");
 	return (1);
 }
 
