@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:07:48 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/19 13:21:55 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:02:55 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	get_to_display(t_mini *mini)
 	int		i;
 
 	pwd = get_env_value(mini, "PWD");
+	if (!pwd)
+	{
+		mini->to_display = ft_strdup("A PU PWD >");
+		return ;
+	}
 	i = 0;
 	while (pwd && pwd[i])
 		i++;
