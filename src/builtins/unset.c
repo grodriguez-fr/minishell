@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:04:31 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/12 15:51:59 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:44:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ void	remove_if_key(t_env_p **start, char *key)
 }
 
 //ca marche pas mais tkt
-void	is_null(t_mini *mini)
+t_env_p	*is_null(t_env_p **env)
 {
-	if (!mini->env)
-		mini->env = NULL;
+	if (!env || !*env)
+		*env = NULL;
+	return (*env);
 }
 
 int	unset(t_mini *mini, t_exec *ex)
@@ -47,6 +48,6 @@ int	unset(t_mini *mini, t_exec *ex)
 		return (1);
 	while (ex->args[i])
 		remove_if_key(&mini->env, ex->args[i++]);
-	is_null(mini);
+	mini->env = is_null(&mini->env);
 	return (0);
 }

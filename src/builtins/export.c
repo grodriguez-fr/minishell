@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:03:20 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:43:59 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ int	add_to_env(t_mini *mini, char *key, char *value)
 	t_env_p	*new_var;
 
 	current = mini->env;
-	while (current->next)
+	while (current && current->next)
 		current = current->next;
 	new_var = malloc(sizeof(t_env_p));
 	if (!new_var)
 		return (0);
-	current->next = new_var;
+	if (current)
+		current->next = new_var;
+	else
+		mini->env = new_var;
 	new_var->next = NULL;
 	new_var->key = ft_strdup(key);
 	if (!new_var->key)
