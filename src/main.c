@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:21:35 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/13 17:18:26 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:17:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_command_ret;
 
-127 code erreur comand not found
+// 127 code erreur comand not found
 
 int	main(int ac, char **av, char **envp)
 {

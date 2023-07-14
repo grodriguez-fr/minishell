@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 13:58:57 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/13 22:47:16 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:42:20 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exit_minishell(t_mini *mini, int code)
 	exit(code);
 }
 
-void    exit_minishell_nohd(t_mini *mini, int code)
+void	exit_minishell_nohd(t_mini *mini, int code)
 {
 	if (mini->env)
 		clear_env(&mini->env, free);

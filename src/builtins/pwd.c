@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:06:38 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/13 17:23:44 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:23:06 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	pwd(t_mini *mini)
 
 	(void) mini;
 	getcwd(res, 255);
-	if (!res)
+	if (getcwd(res, 255) == NULL)
 		return (1);
 	if (ft_printf("%s\n", res) == -1)
 		return (1);

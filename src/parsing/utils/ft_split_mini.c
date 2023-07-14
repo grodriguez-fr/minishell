@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:59:10 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/13 13:55:19 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:43:34 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ int	count_space(char *src, int i)
 {
 	while (src[i] && ft_isspace(src[i]))
 		i++;
+	return (i);
+}
+
+int	*skip_quote(char *str, int *i, size_t *is_open_d, size_t *is_open_s)
+{
+	while (str[*i] && str[*i] == ' ' && *is_open_d % 2 == 0
+		&& *is_open_s % 2 == 0)
+			(*i)++;
+		*is_open_d += is_open(str, *i, *is_open_s, '"');
+		*is_open_s += is_open(str, *i, *is_open_d, '\'');
 	return (i);
 }
 
@@ -58,16 +68,23 @@ static char	**cpy_cmd(char *src, char **dest, int count, int j)
 		if (!dest[c])
 			return (free_strs(dest), NULL);
 	}
-	if (dest)
-		dest[count] = NULL;
+	dest[count] = NULL;
 	return (dest);
 }
 
 int	skip_space(int i, char *str)
 {
-	while (str && ft_isspace(str[i]))
+	while (str && i < (int)ft_strlen(str) && ft_isspace(str[i]))
 		i++;
 	return (i);
+}
+
+int	ft_is_command(char *str, int i, char sep, int *is_command)
+{
+	if (*is_command == 0 || (str[i + 1] && str[i + 1] == sep))
+		return (0);
+	*is_command = 0;
+	return (1);
 }
 
 int	take_count(char *str, char sep, int count, int i)
@@ -79,33 +96,21 @@ int	take_count(char *str, char sep, int count, int i)
 	is_open_d = 0;
 	is_open_s = 0;
 	is_command = 0;
-	while (str && str[i])
+	while (str && i < (int)ft_strlen(str))
 	{
-		while (str[i] && str[i] == ' ' && is_open_d % 2 == 0
-			&& is_open_s % 2 == 0)
-			i++;
-		is_open_d += is_open(str, i, is_open_s, '"');
-		is_open_s += is_open(str, i, is_open_d, '\'');
+		skip_quote(str, &i, &is_open_d, &is_open_s);
 		if (str[i] && str[i] != ' ' && str[i] != sep)
-		{
 			is_command = 1;
-		}
 		else if (str[i] && str[i] == sep
 			&& is_open_s % 2 == 0 && is_open_d % 2 == 0)
-		{
-			if (is_command == 0 || (str[i + 1] && str[i + 1] == sep))
-				return (0);
-			if (is_command == 1)
+			if (ft_is_command(str, i, sep, &is_command))
 				count ++;
-			is_command = 0;
-		}
-		if (str[i])
-			i++;
+		i++;
 	}
 	i = skip_space(i, str);
 	if ((count > 0 || i > 0) && is_command == 1)
 		count ++;
-	if (is_command == 0)
+	if (is_command == 0 || is_open_d % 2 != 0 || is_open_s % 2 != 0)
 		return (0);
 	return (count);
 }
