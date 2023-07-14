@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:29:29 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/12 16:35:25 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:17:07 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static char	**condition_to_take(char **fd, char *str,
 		}
 		i++;
 	}
-	fd[ct_fd] = NULL;
 	return (fd);
 }
 
@@ -81,6 +80,8 @@ char	**allocate_fd_here_append(char **fd, char *str, size_t nb_fd, char *sep)
 	if (!fd)
 		return (NULL);
 	fd = condition_to_take(fd, str, sep, nb_fd);
+	if (fd)
+		fd[nb_fd] = NULL;
 	return (fd);
 }
 

@@ -6,44 +6,13 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/13 13:50:05 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:25:06 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int  g_command_ret;
-
-static void	signal_handler_heredoc(int sign)
-{
-	if (sign == SIGQUIT)
-		return ;
-}
-
-char	*heredoc_file_name(unsigned int nb)
-{
-	char	*res;
-	char	*res2;
-
-	res = ft_itoa(nb);
-	if (!res)
-		return (0);
-	res2 = ft_strjoin("/tmp/.heredoc_tmp_file", res);
-	if (!res2)
-		return (free(res), NULL);
-	return (free(res), res2);
-}
-
-int	open_heredoc(unsigned int i)
-{
-	char	*filename;
-	int		fd;
-
-	filename = heredoc_file_name(i);
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	signal(SIGQUIT, signal_handler_heredoc);
-	return (free(filename), fd);
-}
+extern int	g_command_ret;
 
 int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 {
@@ -95,16 +64,10 @@ int	heredoc_child(t_mini *mini)
 	return (1);
 }
 
-int	change_heredoc_filenames(t_mini *mini, int pid)
+void	take_current(t_exec *current, int i)
 {
-	int		i;
-	int		j;
-	int		status;
-	t_exec	*current;
+	int	j;
 
-	g_command_ret = -3;
-	i = 0;
-	current = mini->ex;
 	while (current)
 	{
 		j = 0;
@@ -115,10 +78,21 @@ int	change_heredoc_filenames(t_mini *mini, int pid)
 		}
 		current = current->next;
 	}
+}
+
+int	change_heredoc_filenames(t_mini *mini, int pid)
+{
+	int		i;
+	int		status;
+	t_exec	*current;
+
+	g_command_ret = -3;
+	i = 0;
+	current = mini->ex;
+	take_current(current, i);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
-		//printf("fin : %d\n", status);
 		if (status == 0)
 		{
 			g_command_ret = 130;

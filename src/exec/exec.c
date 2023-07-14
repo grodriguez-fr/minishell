@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astachni <astachni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:07 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/19 13:26:07 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:19:01 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	handle_cmd(t_mini *mini, t_exec *current)
@@ -111,5 +112,5 @@ void	exec_cmd(t_mini *mini, t_exec *current, int p[2], int previous_fd)
 	if (current->next)
 		close(p[1]);
 	handle_cmd(mini, current);
-    printf("apres handle cmd\n");
+	printf("apres handle cmd\n");
 }

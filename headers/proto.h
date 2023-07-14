@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/06/19 13:29:32 by gurodrig         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:21:54 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exit_minishell(t_mini *mini, int code);
 void	error(t_mini *mini, char *message, char **strs);
 void	signal_handler(int sign, siginfo_t *info, void	*context);
 void	init_signals(t_mini mini);
-void    exit_minishell_nohd(t_mini *mini, int code);
+void	exit_minishell_nohd(t_mini *mini, int code);
 
 char	**get_args(char *cmd);
 char	*allocate_new_string(int size);
@@ -47,6 +47,11 @@ int		get_argument_size(char *str, int start_index);
 t_mini	parse_and_exec(char *input, t_mini mini);
 t_exec	*parse_cmd(char *input, t_exec *exec, t_mini mini);
 char	**ft_split_pipe(char *str, char sep);
+int		skip_space(int i, char *str);
+int		ft_is_command(char *str, int i, char sep, int *is_command);
+int		count_space(char *src, int i);
+int		*skip_quote(char *str, int *i, size_t *is_open_d, size_t *is_open_s);
+char	**cpy_last(char **dest, char *src, int c, int j);
 void	add_cmd(t_exec **lst, char	*cmd_name, char **args, char *all_pipe);
 void	create_env(t_env_p **env, t_mini mini);
 char	**in_out(char **fd, char *str, char sep);
@@ -78,6 +83,9 @@ void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
 int		check_redirection(t_exec *current);
 int		heredoc(t_mini *mini);
+void	signal_handler_heredoc(int sign);
+char	*heredoc_file_name(unsigned int nb);
+int		open_heredoc(unsigned int i);
 int		is_builtin(char *cmd_name);
 int		execute_builtin(t_mini *mini, t_exec *ex, char *cmd_name);
 int		builtin_env_modifier(char *cmd_name);
