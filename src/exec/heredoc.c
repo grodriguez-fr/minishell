@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/14 16:25:06 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 12:16:17 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	heredoc_child(t_mini *mini)
 	i = 0;
 	g_command_ret = -2;
 	current = mini->ex;
+	signal(SIGQUIT, signal_handler_heredoc);
 	while (current)
 	{
 		j = 0;
