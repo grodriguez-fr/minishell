@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:00:05 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/14 12:44:59 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 12:36:54 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	write_prompt(char *to_display)
 		while (pwd[i] != '/' && i >= 0)
 			i--;
 		i++;
-		to_display = ft_strdup("\001\033[31m➜  \033[1m\033[35m");
+		to_display = ft_strdup("➜  ");
 		to_display = ft_strfjoin(to_display, &pwd[i]);
-		to_display = ft_strfjoin(to_display, "\033[33m ✗ \033[0m\002");
+		to_display = ft_strfjoin(to_display, " ✗ ");
 		rl_replace_line("", 0);
 		ft_printf("^C\n");
 		rl_set_prompt(to_display);

@@ -6,17 +6,34 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:19:49 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/15 12:15:54 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:28:36 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_handler_heredoc(int sign)
+void	signal_handler_heredoc(int sign, siginfo_t *info, void	*context)
 {
+	(void)info;
+	(void)context;
 	printf("test");
 	if (sign == SIGQUIT)
 		return ;
+}
+
+void	init_signal(void)
+{
+	struct sigaction	sa;
+	sigset_t			mask;
+
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGQUIT);
+	sa.sa_handler = 0;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_mask = mask;
+	sa.sa_sigaction = signal_handler_heredoc;
+	sigaction(SIGQUIT, &sa, NULL);
+	rl_catch_signals = 0;
 }
 
 char	*heredoc_file_name(unsigned int nb)
@@ -41,4 +58,15 @@ int	open_heredoc(unsigned int i)
 	filename = heredoc_file_name(i);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	return (free(filename), fd);
+}
+
+int	res_null(char *res, char *word)
+{
+	if (!res)
+	{
+		ft_printf("\nbash: warning: here-document at line 1 delimited by\
+end-of-file (wanted `%s')\n", word);
+		return (1);
+	}
+	return (0);
 }

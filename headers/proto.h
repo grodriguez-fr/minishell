@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:47:23 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/14 16:21:54 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:28:02 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	free_split(char **splited);
 char	*find_path(t_mini *mini, char *cmd_name);
 int		check_redirection(t_exec *current);
 int		heredoc(t_mini *mini);
-void	signal_handler_heredoc(int sign);
+int		res_null(char *res, char *word);
+void	init_signal(void);
+void	signal_handler_heredoc(int sign, siginfo_t *info, void	*context);
 char	*heredoc_file_name(unsigned int nb);
 int		open_heredoc(unsigned int i);
 int		is_builtin(char *cmd_name);
