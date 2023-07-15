@@ -23,6 +23,18 @@ int	write_ret_export_error(char *var)
 	return (0);
 }
 
+char	**simple(char *input)
+{
+	char	**result;
+
+	result = (char **)malloc(sizeof(char *) * 3);
+	if (!result)
+		return (0);
+	result[0] = ft_strdup(input);
+	result[1] = NULL;
+	return (result);
+}
+
 char	**export_split(char *input)
 {
 	char	**result;
@@ -31,7 +43,7 @@ char	**export_split(char *input)
 
 	equalptr = ft_strchr(input, '=');
 	if (!equalptr)
-		return (NULL);
+		return (simple(input));
 	eq_pos = equalptr - input;
 	result = (char **)malloc(sizeof(char *) * 3);
 	if (!result)
