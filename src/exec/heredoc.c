@@ -47,7 +47,6 @@ int	heredoc_child(t_mini *mini)
 	unsigned int	j;
 	t_exec			*current;
 
-	init_sig_child_hd();
 	i = 0;
 	g_command_ret = -2;
 	current = mini->ex;

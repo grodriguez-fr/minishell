@@ -14,6 +14,7 @@
 
 void	signal_handler_heredoc(int sign)
 {
+	printf("test");
 	if (sign == SIGQUIT)
 		return ;
 }
