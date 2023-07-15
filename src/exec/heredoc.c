@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:09:21 by gurodrig          #+#    #+#             */
-/*   Updated: 2023/07/15 14:15:42 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:25:25 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 	res = get_next_line(STDIN_FILENO);
 	if (res_null(res, current->here_docs[j]))
 		return (free(word), free(res), close(fd), 1);
-	while (!same_string(res, word) || !res)
+	while (!same_string(res, word))
 	{
-		if (res && write(fd, res, ft_strlen(res)) == -1)
+		if (write(fd, res, ft_strlen(res)) == -1)
 			return (0);
 		free(res);
 		res = get_next_line(STDIN_FILENO);
-		if (res_null(res, current->here_docs[j]))
+		if (res_null(res, current->here_docs[j]) == 1)
 			break ;
 	}
 	close(fd);

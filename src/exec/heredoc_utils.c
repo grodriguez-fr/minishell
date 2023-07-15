@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:19:49 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/15 14:14:49 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:24:58 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ void	signal_handler_heredoc(int sign, siginfo_t *info, void	*context)
 	(void)info;
 	(void)context;
 	if (sign == SIGQUIT)
-	{
-		printf("test");
-		g_command_ret = 131;
 		return ;
-	}
 }
 
 void	init_signal(void)
@@ -67,7 +63,7 @@ int	open_heredoc(unsigned int i)
 
 int	res_null(char *res, char *word)
 {
-	if (!res && g_command_ret != 131)
+	if (!res)
 	{
 		ft_printf("\nbash: warning: here-document at line 1 delimited by\
 end-of-file (wanted `%s')\n", word);

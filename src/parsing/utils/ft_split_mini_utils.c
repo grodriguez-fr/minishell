@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:07:38 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/14 16:10:22 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:31:02 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	*skip_quote(char *str, int *i, size_t *is_open_d, size_t *is_open_s)
 {
 	while (str[*i] && str[*i] == ' ' && *is_open_d % 2 == 0
 		&& *is_open_s % 2 == 0)
-			(*i)++;
-		*is_open_d += is_open(str, *i, *is_open_s, '"');
-		*is_open_s += is_open(str, *i, *is_open_d, '\'');
+		(*i)++;
+	*is_open_d += is_open(str, *i, *is_open_s, '"');
+	*is_open_s += is_open(str, *i, *is_open_d, '\'');
 	return (i);
 }
 
