@@ -38,7 +38,6 @@ int	heredoc_loop(t_mini *mini, t_exec *current, int i, int j)
 	}
 	free(res);
 	close(fd);
-	ft_printf("\n");
 	return (1);
 }
 
@@ -48,6 +47,7 @@ int	heredoc_child(t_mini *mini)
 	unsigned int	j;
 	t_exec			*current;
 
+	init_sig_child_hd();
 	i = 0;
 	g_command_ret = -2;
 	current = mini->ex;
@@ -92,16 +92,13 @@ int	change_heredoc_filenames(t_mini *mini, int pid)
 	take_current(current, i);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
+		g_command_ret = WEXITSTATUS(status);
+	else
 	{
-		if (status == 0)
-		{
-			g_command_ret = 130;
-			rl_on_new_line();
-			printf("^C\n");
-			return (0);
-		}
+		printf("\n");
+		g_command_ret = 130;
 	}
-	return (1);
+	return (g_command_ret != 130);
 }
 
 int	heredoc(t_mini *mini)
