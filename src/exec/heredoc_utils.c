@@ -6,7 +6,7 @@
 /*   By: astachni <astachni@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:19:49 by astachni          #+#    #+#             */
-/*   Updated: 2023/07/14 16:20:47 by astachni         ###   ########.fr       */
+/*   Updated: 2023/07/15 12:15:54 by astachni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,5 @@ int	open_heredoc(unsigned int i)
 
 	filename = heredoc_file_name(i);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	signal(SIGQUIT, signal_handler_heredoc);
 	return (free(filename), fd);
 }
